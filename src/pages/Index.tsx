@@ -325,16 +325,35 @@ export default function Index() {
             </div>
 
             {/* Expert */}
-            <div className="mt-16 glass-card rounded-3xl p-8 md:p-12 neon-border flex flex-col md:flex-row gap-8 items-center">
-              <div className="w-24 h-24 rounded-full bg-neon/20 border-2 border-neon flex items-center justify-center flex-shrink-0 text-4xl">
-                👨‍🍳
-              </div>
+            <div className="mt-16 glass-card rounded-3xl p-8 md:p-12 neon-border flex flex-col md:flex-row gap-8 items-start">
+              <img
+                src="https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/4b220787-c107-4a34-84d9-fc829de00e77.jpg"
+                alt="Руслан Фатуллаев"
+                className="w-32 h-32 rounded-2xl object-cover object-top flex-shrink-0 border-2 border-neon/40"
+              />
               <div>
-                <p className="text-neon text-sm uppercase tracking-widest font-semibold mb-2">Ваш эксперт</p>
-                <h3 className="font-oswald text-3xl font-bold uppercase mb-3 text-white">Антикризисный управляющий</h3>
-                <p className="text-white/65 leading-relaxed">
-                  10+ лет в ресторанном, барном и кофейном бизнесе. Вывел более 30 заведений из кризиса.
-                  Специализация: оптимизация расходов, построение команды, рост выручки без увеличения бюджета.
+                <p className="text-neon text-sm uppercase tracking-widest font-semibold mb-1">Эксперт и консультант</p>
+                <h3 className="font-oswald text-3xl font-bold uppercase mb-1 text-white">Руслан Фатуллаев</h3>
+                <p className="text-white/40 text-sm mb-4">Спикер школы Upskill • Бизнес-тренер • Антикризисный управляющий</p>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
+                  {[
+                    { num: "16+", label: "лет в индустрии" },
+                    { num: "50+", label: "заведений открыто" },
+                    { num: "100+", label: "аудитов проведено" },
+                    { num: "150+", label: "специалистов обучено" },
+                  ].map((stat) => (
+                    <div key={stat.label} className="bg-neon/8 rounded-xl p-3 text-center border border-neon/15">
+                      <div className="font-oswald text-2xl font-bold text-neon">{stat.num}</div>
+                      <div className="text-white/50 text-xs mt-0.5 leading-tight">{stat.label}</div>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-white/65 leading-relaxed text-sm">
+                  Более 600 часов профильной консультационной поддержки. Вывел на стабильную позицию более 25 убыточных объектов.
+                  Провёл 70+ вебинаров и выступал в Москве, Саратове, Оренбурге, Тюмени и других городах.
+                </p>
+                <p className="text-white/45 leading-relaxed text-sm italic mt-3">
+                  «Каждое заведение должно создавать уникальный опыт для гостей и при этом быть прибыльным. Я не даю шаблонных решений — каждый проект индивидуален.»
                 </p>
               </div>
             </div>
