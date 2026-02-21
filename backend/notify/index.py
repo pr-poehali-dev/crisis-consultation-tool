@@ -2,12 +2,13 @@ import os
 import json
 import urllib.request
 import urllib.error
+import psycopg2
 
-CHAT_ID = "7728954739"  # updated
+CHAT_ID = "7728954739"
 
 
 def handler(event: dict, context) -> dict:
-    """Отправляет уведомление о новой заявке в Telegram."""
+    """Отправляет уведомление о новой заявке в Telegram и сохраняет в БД."""
     if event.get("httpMethod") == "OPTIONS":
         return {
             "statusCode": 200,
@@ -27,9 +28,22 @@ def handler(event: dict, context) -> dict:
     project = body.get("project", "—")
     staff = body.get("staff", "—")
     problem = body.get("problem", "—")
-    score = body.get("score", "—")
+    score = body.get("score")
     result_label = body.get("result_label", "—")
 
+    conn = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = conn.cursor()
+    cur.execute(
+        "INSERT INTO t_p93544965_crisis_consultation_.leads "
+        "(name, contact, city, project, staff, problem, score, result_label) "
+        "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
+        (name, contact, city, project, staff, problem, score, result_label),
+    )
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    score_display = f"{score}%" if score is not None else "—"
     text = (
         f"🔔 <b>Новая заявка с сайта!</b>\n\n"
         f"👤 <b>Имя:</b> {name}\n"
@@ -38,7 +52,7 @@ def handler(event: dict, context) -> dict:
         f"🍽 <b>Заведение:</b> {project}\n"
         f"👥 <b>Персонал:</b> {staff}\n"
         f"❗️ <b>Проблема:</b> {problem}\n\n"
-        f"📊 <b>Результат диагностики:</b> {score}% — {result_label}"
+        f"📊 <b>Результат диагностики:</b> {score_display} — {result_label}"
     )
 
     token = os.environ["TELEGRAM_BOT_TOKEN"]

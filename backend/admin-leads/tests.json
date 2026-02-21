@@ -1,0 +1,11 @@
+{
+  "tests": [
+    {
+      "name": "Unauthorized without password",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 401,
+      "bodyMatcher": "partial"
+    }
+  ]
+}

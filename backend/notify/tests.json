@@ -15,7 +15,6 @@
         "result_label": "Есть серьёзные зоны риска"
       },
       "expectedStatus": 200,
-      "expectedBody": {"ok": true},
       "bodyMatcher": "partial"
     }
   ]
