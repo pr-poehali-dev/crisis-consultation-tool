@@ -227,6 +227,7 @@ export default function Index() {
 
   const handleAnketaSubmit = () => {
     if (!anketa.name || !anketa.city || !anketa.project || !anketa.contact) return;
+    setRequestData({ name: anketa.name, contact: anketa.contact });
     setStep("quiz");
     setCurrentQ(0);
     setAnimKey((k) => k + 1);
@@ -549,12 +550,12 @@ export default function Index() {
               <div className="mb-10">
                 <div className="flex justify-between text-sm text-white/50 mb-2">
                   <span>Углублённый вопрос {currentDeepQ + 1} из {DEEP_QUESTIONS.length}</span>
-                  <span className="text-neon font-semibold">{Math.round((currentDeepQ / DEEP_QUESTIONS.length) * 100)}%</span>
+                  <span className="text-neon font-semibold">{Math.round(((currentDeepQ + 1) / DEEP_QUESTIONS.length) * 100)}%</span>
                 </div>
                 <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
                   <div
                     className="h-full bg-gradient-to-r from-neon to-red-500 rounded-full progress-glow transition-all duration-500"
-                    style={{ width: `${(currentDeepQ / DEEP_QUESTIONS.length) * 100}%` }}
+                    style={{ width: `${((currentDeepQ + 1) / DEEP_QUESTIONS.length) * 100}%` }}
                   />
                 </div>
               </div>
@@ -564,7 +565,7 @@ export default function Index() {
                   Детальный анализ
                 </div>
 
-                <h2 className="font-oswald text-2xl md:text-3xl font-bold uppercase leading-tight mb-6 text-white">
+                <h2 className="font-oswald text-2xl md:text-3xl font-bold leading-tight mb-6 text-white">
                   {dq.label}
                 </h2>
 
@@ -669,26 +670,15 @@ export default function Index() {
                 и дадим первые шаги к росту прибыли.
               </p>
 
-              <div className="space-y-3 mb-6">
-                <input
-                  type="text"
-                  placeholder="Ваше имя"
-                  value={requestData.name}
-                  onChange={(e) => setRequestData((d) => ({ ...d, name: e.target.value }))}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-white/30 focus:outline-none focus:border-neon/60 transition-all"
-                />
-                <input
-                  type="text"
-                  placeholder="Telegram или телефон"
-                  value={requestData.contact}
-                  onChange={(e) => setRequestData((d) => ({ ...d, contact: e.target.value }))}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-white/30 focus:outline-none focus:border-neon/60 transition-all"
-                />
+              <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 mb-6 text-left">
+                <p className="text-white/40 text-xs mb-1">Ваши данные из анкеты</p>
+                <p className="text-white font-medium">{requestData.name}</p>
+                <p className="text-white/70 text-sm">{requestData.contact}</p>
               </div>
 
               <button
                 onClick={handleConsultRequest}
-                disabled={!requestData.name || !requestData.contact || submitting}
+                disabled={submitting}
                 className="neon-btn text-white font-bold text-lg w-full py-5 rounded-2xl uppercase tracking-wide flex items-center justify-center gap-3 disabled:opacity-40"
               >
                 {submitting ? (
