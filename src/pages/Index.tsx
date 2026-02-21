@@ -309,7 +309,7 @@ export default function Index() {
                 Бесплатная диагностика
               </div>
 
-              <h1 className="font-oswald text-5xl md:text-7xl font-bold leading-tight mb-6 uppercase text-white">
+              <h1 className="font-oswald text-4xl sm:text-5xl md:text-7xl font-bold leading-tight mb-6 uppercase text-white">
                 Ваш ресторан<br />
                 <span className="neon-text">теряет деньги?</span>
               </h1>
@@ -614,7 +614,7 @@ export default function Index() {
             </h2>
 
             <div className="my-10">
-              <div className={`font-oswald text-8xl md:text-9xl font-black ${result.color} animate-count`}>
+              <div className={`font-oswald text-6xl sm:text-8xl md:text-9xl font-black ${result.color} animate-count`}>
                 {displayPercent}%
               </div>
               <p className="text-white/50 mt-2">рентабельность вашего бизнеса</p>
@@ -644,7 +644,7 @@ export default function Index() {
                 const catPct = Math.round((catScore / catMax) * 100);
                 return (
                   <div key={cat} className="flex items-center gap-4 mb-3">
-                    <span className="text-white/60 text-sm w-28 flex-shrink-0">{cat}</span>
+                    <span className="text-white/60 text-sm w-20 sm:w-28 flex-shrink-0">{cat}</span>
                     <div className="flex-1 h-2 bg-white/10 rounded-full overflow-hidden">
                       <div
                         className={`h-full rounded-full ${catPct >= 70 ? "bg-gradient-to-r from-green-500 to-emerald-400" : catPct >= 40 ? "bg-gradient-to-r from-yellow-500 to-orange-400" : "bg-gradient-to-r from-red-600 to-red-500"}`}

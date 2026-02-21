@@ -117,13 +117,13 @@ export default function Admin() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
+      <div className="bg-white border-b border-gray-200 px-4 py-4 flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-xl font-bold text-gray-900">Заявки с сайта</h1>
           <p className="text-sm text-gray-500">{leads.length} заявок всего</p>
         </div>
         <div className="flex items-center gap-3">
-          <a href="/" className="text-sm text-gray-500 hover:text-gray-700">← На сайт</a>
+          <a href="/" className="text-sm text-gray-500 hover:text-gray-700 py-2 px-1">← На сайт</a>
           <button
             onClick={refresh}
             disabled={loading}
@@ -176,7 +176,7 @@ export default function Admin() {
                   <span className="text-xs text-gray-400">{formatDate(lead.created_at)}</span>
                 </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-sm">
                   <div>
                     <p className="text-gray-400 text-xs mb-0.5">Город</p>
                     <p className="text-gray-700">{lead.city || "—"}</p>
