@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Icon from "@/components/ui/icon";
 
 const ADMIN_LEADS_URL = "https://functions.poehali.dev/93ceb604-c90c-428f-8e00-ab5b08257ecf";
@@ -14,6 +14,16 @@ interface Lead {
   problem: string;
   score: number | null;
   result_label: string;
+  revenue_change?: string;
+  avg_check?: string;
+  peak_load?: string;
+  cost_control?: string;
+  staff_turnover?: string;
+  service_standards?: string;
+  menu_relevance?: string;
+  main_costs?: string;
+  crisis_cases?: string;
+  tracked_metrics?: string;
 }
 
 export default function Admin() {
@@ -189,6 +199,39 @@ export default function Admin() {
                   <div className="mt-3 pt-3 border-t border-gray-100">
                     <p className="text-gray-400 text-xs mb-0.5">Проблема</p>
                     <p className="text-gray-700 text-sm">{lead.problem}</p>
+                  </div>
+                )}
+
+                {[
+                  { key: "revenue_change", label: "Выручка (6 мес.)" },
+                  { key: "avg_check", label: "Средний чек" },
+                  { key: "peak_load", label: "Заполненность в пик" },
+                  { key: "cost_control", label: "Учёт себестоимости" },
+                  { key: "staff_turnover", label: "Текучесть персонала" },
+                  { key: "service_standards", label: "Стандарты сервиса" },
+                  { key: "menu_relevance", label: "Актуальность меню" },
+                  { key: "main_costs", label: "Главные затраты" },
+                  { key: "crisis_cases", label: "Кризисные ситуации" },
+                  { key: "tracked_metrics", label: "Метрики" },
+                ].filter(({ key }) => !!(lead as Record<string, unknown>)[key]).length > 0 && (
+                  <div className="mt-3 pt-3 border-t border-gray-100 grid grid-cols-1 md:grid-cols-2 gap-2">
+                    {[
+                      { key: "revenue_change", label: "Выручка (6 мес.)" },
+                      { key: "avg_check", label: "Средний чек" },
+                      { key: "peak_load", label: "Заполненность в пик" },
+                      { key: "cost_control", label: "Учёт себестоимости" },
+                      { key: "staff_turnover", label: "Текучесть персонала" },
+                      { key: "service_standards", label: "Стандарты сервиса" },
+                      { key: "menu_relevance", label: "Актуальность меню" },
+                      { key: "main_costs", label: "Главные затраты" },
+                      { key: "crisis_cases", label: "Кризисные ситуации" },
+                      { key: "tracked_metrics", label: "Метрики" },
+                    ].filter(({ key }) => !!(lead as Record<string, unknown>)[key]).map(({ key, label }) => (
+                      <div key={key}>
+                        <p className="text-gray-400 text-xs mb-0.5">{label}</p>
+                        <p className="text-gray-700 text-sm">{(lead as Record<string, string>)[key]}</p>
+                      </div>
+                    ))}
                   </div>
                 )}
               </div>

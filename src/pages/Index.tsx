@@ -4,7 +4,7 @@ import Icon from "@/components/ui/icon";
 const HERO_IMAGE = "https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/files/6ee65e60-1550-4aee-8391-a03e0253b4be.jpg";
 const NOTIFY_URL = "https://functions.poehali.dev/c328fb70-3615-4b46-8463-95a676ea3214";
 
-type Step = "landing" | "anketa" | "quiz" | "result" | "thanks";
+type Step = "landing" | "anketa" | "quiz" | "deepquiz" | "result" | "thanks";
 
 interface AnketaData {
   name: string;
@@ -145,6 +145,19 @@ const QUESTIONS: QuizQuestion[] = [
   },
 ];
 
+const DEEP_QUESTIONS = [
+  { id: "revenue_change", label: "Как изменилась ваша выручка за последние 6 месяцев по сравнению с аналогичным периодом прошлого года?", placeholder: "Например: выросла на 15%, снизилась на 10%..." },
+  { id: "avg_check", label: "Каков средний чек сейчас и как он менялся за последние 3 месяца?", placeholder: "Например: 1200 руб., за 3 месяца вырос на 100 руб." },
+  { id: "peak_load", label: "Насколько заполнены ваши залы в часы пик по шкале 1–5?", placeholder: "1 — почти пусто, 5 — полностью заполнено. Например: 3–4" },
+  { id: "cost_control", label: "Есть ли у вас системы учёта себестоимости и контроля запасов?", placeholder: "FIFO, карточки блюд, учёт в 1С / ПО — или нет, опишите как считаете" },
+  { id: "staff_turnover", label: "Какова текучесть персонала за последний год?", placeholder: "Например: 30% уволилось, среднее время работы — 8 месяцев" },
+  { id: "service_standards", label: "Есть ли стандарты обслуживания и регулярные тренинги?", placeholder: "Да / нет + частота. Например: да, раз в квартал" },
+  { id: "menu_relevance", label: "Насколько актуально ваше меню по шкале 1–5?", placeholder: "1 — всё ок, 5 — много проблем с рентабельностью позиций" },
+  { id: "main_costs", label: "Какие основные статьи затрат вызывают наибольшее беспокойство?", placeholder: "Аренда / закупки / ЗП / коммуналка / маркетинг / прочее — выберите" },
+  { id: "crisis_cases", label: "Были ли в последние 12 месяцев кризисные ситуации? Как решали?", placeholder: "Резкое падение выручки, срыв поставок, штрафы — опишите кратко" },
+  { id: "tracked_metrics", label: "Какие ключевые метрики вы сейчас отслеживаете регулярно?", placeholder: "Выручка, средний чек, % сырья, конверсия брони, отток клиентов и т.д." },
+];
+
 const MAX_SCORE = QUESTIONS.length * 10;
 
 const ALL_CATEGORIES = ["Финансы", "Доходы", "Персонал", "Меню", "Гости", "Маркетинг", "Управление", "Поставщики", "Аренда"];
@@ -190,6 +203,9 @@ export default function Index() {
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [animKey, setAnimKey] = useState(0);
   const [displayPercent, setDisplayPercent] = useState(0);
+  const [deepAnswers, setDeepAnswers] = useState<Record<string, string>>({});
+  const [currentDeepQ, setCurrentDeepQ] = useState(0);
+  const [deepAnimKey, setDeepAnimKey] = useState(0);
   const [requestData, setRequestData] = useState({ name: "", contact: "" });
   const [submitting, setSubmitting] = useState(false);
 
@@ -226,7 +242,9 @@ export default function Index() {
         setCurrentQ((q) => q + 1);
         setAnimKey((k) => k + 1);
       } else {
-        setStep("result");
+        setStep("deepquiz");
+        setCurrentDeepQ(0);
+        setDeepAnimKey((k) => k + 1);
       }
     }, 350);
   };
@@ -246,6 +264,7 @@ export default function Index() {
         problem: anketa.problem || "—",
         score: percent,
         result_label: result.label,
+        ...deepAnswers,
       }),
     });
     setSubmitting(false);
@@ -259,6 +278,8 @@ export default function Index() {
     setAnswers({});
     setCurrentQ(0);
     setAnketa({ name: "", city: "", project: "", staff: "", problem: "", contact: "" });
+    setDeepAnswers({});
+    setCurrentDeepQ(0);
     setRequestData({ name: "", contact: "" });
     setDisplayPercent(0);
   };
@@ -501,6 +522,81 @@ export default function Index() {
           </div>
         </div>
       )}
+
+      {/* ─── DEEP QUIZ ─── */}
+      {step === "deepquiz" && (() => {
+        const dq = DEEP_QUESTIONS[currentDeepQ];
+        const currentVal = deepAnswers[dq.id] || "";
+        const handleNext = () => {
+          if (currentDeepQ + 1 < DEEP_QUESTIONS.length) {
+            setCurrentDeepQ((q) => q + 1);
+            setDeepAnimKey((k) => k + 1);
+          } else {
+            setStep("result");
+          }
+        };
+        const handleSkip = () => {
+          if (currentDeepQ + 1 < DEEP_QUESTIONS.length) {
+            setCurrentDeepQ((q) => q + 1);
+            setDeepAnimKey((k) => k + 1);
+          } else {
+            setStep("result");
+          }
+        };
+        return (
+          <div className="min-h-screen flex items-center justify-center px-6 py-16">
+            <div className="w-full max-w-2xl">
+              <div className="mb-10">
+                <div className="flex justify-between text-sm text-white/50 mb-2">
+                  <span>Углублённый вопрос {currentDeepQ + 1} из {DEEP_QUESTIONS.length}</span>
+                  <span className="text-neon font-semibold">{Math.round((currentDeepQ / DEEP_QUESTIONS.length) * 100)}%</span>
+                </div>
+                <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-neon to-red-500 rounded-full progress-glow transition-all duration-500"
+                    style={{ width: `${(currentDeepQ / DEEP_QUESTIONS.length) * 100}%` }}
+                  />
+                </div>
+              </div>
+
+              <div key={deepAnimKey} className="animate-fade-in">
+                <div className="inline-flex items-center gap-2 bg-neon/10 border border-neon/30 text-neon text-xs font-semibold px-3 py-1.5 rounded-full mb-5 uppercase tracking-widest">
+                  Детальный анализ
+                </div>
+
+                <h2 className="font-oswald text-2xl md:text-3xl font-bold uppercase leading-tight mb-6 text-white">
+                  {dq.label}
+                </h2>
+
+                <textarea
+                  rows={4}
+                  value={currentVal}
+                  onChange={(e) => setDeepAnswers((prev) => ({ ...prev, [dq.id]: e.target.value }))}
+                  placeholder={dq.placeholder}
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-white/30 focus:outline-none focus:border-neon/60 transition-all resize-none mb-4"
+                />
+
+                <div className="flex gap-3">
+                  <button
+                    onClick={handleNext}
+                    disabled={!currentVal.trim()}
+                    className="neon-btn text-white font-bold text-base flex-1 py-4 rounded-2xl uppercase tracking-wide flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
+                  >
+                    {currentDeepQ + 1 < DEEP_QUESTIONS.length ? "Следующий вопрос" : "Получить результат"}
+                    <Icon name="ArrowRight" size={18} />
+                  </button>
+                  <button
+                    onClick={handleSkip}
+                    className="text-white/40 hover:text-white/70 text-sm px-5 py-4 rounded-2xl border border-white/10 hover:border-white/20 transition-all"
+                  >
+                    Пропустить
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
 
       {/* ─── RESULT ─── */}
       {step === "result" && (
