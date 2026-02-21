@@ -3,7 +3,7 @@ import json
 import urllib.request
 import urllib.error
 
-CHAT_ID = "7728954739"
+CHAT_ID = "7728954739"  # updated
 
 
 def handler(event: dict, context) -> dict:
