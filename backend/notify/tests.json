@@ -1,0 +1,22 @@
+{
+  "tests": [
+    {
+      "name": "Test notify endpoint",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "name": "Тест",
+        "contact": "@test",
+        "city": "Москва",
+        "project": "Кафе Тест",
+        "staff": "10",
+        "problem": "Нет прибыли",
+        "score": 45,
+        "result_label": "Есть серьёзные зоны риска"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {"ok": true},
+      "bodyMatcher": "partial"
+    }
+  ]
+}
