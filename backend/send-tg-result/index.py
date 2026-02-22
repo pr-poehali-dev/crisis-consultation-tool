@@ -58,7 +58,7 @@ def handler(event: dict, context) -> dict:
         f"📌 <b>Итог:</b> {result_label}\n\n"
         f"💡 {advice}\n\n"
         f"👇 Записаться на <b>бесплатную консультацию</b> с антикризисником:\n"
-        f"https://t.me/crisis_consultant_bot"
+        f"https://t.me/Tancredoblack91_bot"
     )
 
     token = os.environ["TELEGRAM_BOT_TOKEN"]
