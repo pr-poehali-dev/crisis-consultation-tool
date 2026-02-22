@@ -3,6 +3,7 @@ import Icon from "@/components/ui/icon";
 
 const HERO_IMAGE = "https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/files/6ee65e60-1550-4aee-8391-a03e0253b4be.jpg";
 const NOTIFY_URL = "https://functions.poehali.dev/c328fb70-3615-4b46-8463-95a676ea3214";
+const SEND_TG_URL = "https://functions.poehali.dev/33b7a012-6c85-409b-8404-04f8a026106a";
 
 type Step = "landing" | "anketa" | "quiz" | "deepquiz" | "result" | "thanks";
 
@@ -208,6 +209,8 @@ export default function Index() {
   const [deepAnimKey, setDeepAnimKey] = useState(0);
   const [requestData, setRequestData] = useState({ name: "", contact: "" });
   const [submitting, setSubmitting] = useState(false);
+  const [tgSending, setTgSending] = useState(false);
+  const [tgSent, setTgSent] = useState(false);
 
   const totalScore = Object.values(answers).reduce((a, b) => a + b, 0);
   const percent = Math.round((totalScore / MAX_SCORE) * 100);
@@ -270,6 +273,32 @@ export default function Index() {
     });
     setSubmitting(false);
     setStep("thanks");
+  };
+
+  const handleSendToTelegram = async () => {
+    const contact = requestData.contact || anketa.contact;
+    const isTg = contact.includes("@") || contact.toLowerCase().includes("t.me");
+    if (!isTg) {
+      const username = contact.replace(/^@/, "");
+      const botUrl = `https://t.me/crisis_consultant_bot?start=result_${percent}`;
+      window.open(botUrl, "_blank");
+      return;
+    }
+    setTgSending(true);
+    const username = contact.replace(/^@/, "").replace(/.*t\.me\//, "");
+    await fetch(SEND_TG_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        tg_username: username,
+        name: requestData.name || anketa.name,
+        score: percent,
+        result_label: result.label,
+        project: anketa.project,
+      }),
+    });
+    setTgSending(false);
+    setTgSent(true);
   };
 
   const result = getResultData(percent);
@@ -657,7 +686,36 @@ export default function Index() {
               })}
             </div>
 
-            <p className="text-white/65 leading-relaxed mb-10 text-lg">{result.description}</p>
+            <p className="text-white/65 leading-relaxed mb-8 text-lg">{result.description}</p>
+
+            {/* Кнопка — получить результат в Telegram */}
+            <div className="glass-card rounded-2xl p-5 mb-6 border border-white/10">
+              <p className="text-white/60 text-sm mb-3">Сохраните результат у себя в Telegram — он не потеряется</p>
+              {tgSent ? (
+                <div className="flex items-center justify-center gap-2 text-neon font-semibold py-3">
+                  <Icon name="CheckCircle" size={20} />
+                  Результат отправлен!
+                </div>
+              ) : (
+                <button
+                  onClick={handleSendToTelegram}
+                  disabled={tgSending}
+                  className="w-full bg-[#2AABEE] hover:bg-[#229ED9] text-white font-bold py-4 rounded-xl flex items-center justify-center gap-3 transition-colors disabled:opacity-50"
+                >
+                  {tgSending ? (
+                    <>
+                      <Icon name="Loader2" size={20} className="animate-spin" />
+                      Отправляем...
+                    </>
+                  ) : (
+                    <>
+                      <Icon name="Send" size={20} />
+                      Получить результат в Telegram
+                    </>
+                  )}
+                </button>
+              )}
+            </div>
 
             {/* CTA */}
             <div className="neon-border rounded-3xl p-8 glass-card">
