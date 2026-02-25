@@ -321,46 +321,90 @@ export default function Index() {
       {step === "landing" && (
         <div className="min-h-screen flex flex-col">
           {/* Hero */}
-          <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
-            <div
-              className="absolute inset-0 bg-cover bg-center scale-105"
-              style={{ backgroundImage: `url(${HERO_IMAGE})` }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/55 to-background" />
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-neon/20 to-transparent animate-pulse-slow" />
-              <div className="absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-neon/10 to-transparent animate-pulse-slow" style={{ animationDelay: "1.5s" }} />
+          <div className="relative overflow-hidden" style={{ background: "linear-gradient(135deg, #1a1a1a 0%, #2d1a00 40%, #ff6a00 100%)" }}>
+            <div className="absolute inset-0 pointer-events-none">
+              <div className="absolute top-0 left-0 w-full h-full opacity-10" style={{ backgroundImage: "radial-gradient(circle at 20% 50%, #ff8c00 0%, transparent 50%), radial-gradient(circle at 80% 30%, #ff4500 0%, transparent 40%)" }} />
             </div>
 
-            <div className="relative z-10 text-center px-6 max-w-4xl mx-auto animate-slide-up">
-              <div className="inline-flex items-center gap-2 bg-neon/10 border border-neon/30 text-neon text-sm font-semibold px-4 py-2 rounded-full mb-6 uppercase tracking-widest">
-                <span className="w-2 h-2 bg-neon rounded-full animate-pulse" />
-                Бесплатная диагностика
+            <div className="relative z-10 max-w-7xl mx-auto px-4 py-10 md:py-0">
+              <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-center gap-6 md:min-h-[680px]">
+
+                {/* LEFT — заголовок + буллеты + кнопка */}
+                <div className="flex flex-col justify-center py-10">
+                  <h1 className="font-oswald text-4xl sm:text-5xl font-black leading-tight uppercase mb-6" style={{ color: "#ff8c00", textShadow: "0 2px 20px rgba(255,140,0,0.4)" }}>
+                    АНТИКРИЗИСНЫЙ<br />
+                    <span className="text-white">КОНСУЛЬТАНТ</span><br />
+                    <span style={{ color: "#ff8c00" }}>ДЛЯ РЕСТОРАНОВ</span>
+                  </h1>
+
+                  <p className="text-white/80 text-lg font-semibold mb-5 uppercase tracking-wide">
+                    Диагностирую бизнес и нахожу точки потерь:
+                  </p>
+
+                  <ul className="space-y-3 mb-8">
+                    {[
+                      "выявляю где утекают деньги",
+                      "нахожу проблемы в команде и сервисе",
+                      "показываю потенциал роста прибыли",
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-center gap-3 text-white text-base">
+                        <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: "#ff8c00" }} />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <button
+                    onClick={() => setStep("anketa")}
+                    className="text-white font-black text-lg px-8 py-5 rounded-2xl uppercase tracking-wide inline-flex items-center gap-3 self-start transition-all hover:scale-105 active:scale-95 shadow-2xl"
+                    style={{ background: "#ff6a00", boxShadow: "0 8px 32px rgba(255,106,0,0.5)" }}
+                  >
+                    Пройти диагностику бесплатно
+                    <Icon name="ArrowRight" size={22} />
+                  </button>
+
+                  <p className="text-white/40 text-sm mt-4">5 минут • Бесплатно • Без регистрации</p>
+
+                  <div className="mt-8 p-4 rounded-2xl border border-white/10" style={{ background: "rgba(255,255,255,0.07)" }}>
+                    <p className="text-white font-bold text-base">
+                      <span style={{ color: "#ff8c00" }}>Руслан Фатуллаев,</span> антикризисный управляющий
+                    </p>
+                    <p className="text-white/60 text-sm mt-1">Опыт 16 лет • 50+ заведений • 100+ аудитов</p>
+                  </div>
+                </div>
+
+                {/* CENTER — фото */}
+                <div className="flex justify-center items-end relative md:self-end">
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-64 h-64 rounded-full opacity-30 blur-3xl" style={{ background: "#ff6a00" }} />
+                  <img
+                    src="https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/4b220787-c107-4a34-84d9-fc829de00e77.jpg"
+                    alt="Руслан Фатуллаев"
+                    className="relative z-10 w-64 md:w-80 object-cover object-top rounded-t-3xl"
+                    style={{ maxHeight: "500px", filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.6))" }}
+                  />
+                </div>
+
+                {/* RIGHT — отзывы */}
+                <div className="flex flex-col justify-center gap-4 py-10">
+                  <p className="font-oswald text-xl font-bold text-white uppercase text-right tracking-wide mb-2">
+                    РЕАЛЬНЫЕ РЕЗУЛЬТАТЫ<br />
+                    <span style={{ color: "#ff8c00" }}>МОИХ КЛИЕНТОВ</span>
+                  </p>
+
+                  {[
+                    { user: "@restoran_ufa", text: "После аудита нашли «дыры» на 180к в месяц. Закрыли за 3 недели. Руслан — чёткий специалист!", time: "14:32" },
+                    { user: "@cafe_owner_msk", text: "Думал закрываться, пришёл на консультацию. Выручка выросла на 40% за 2 месяца. Спасибо огромное!", time: "10:17" },
+                    { user: "@bar_saratov", text: "Провели диагностику — нашли проблемы с персоналом и себестоимостью. Всё по делу, без воды.", time: "18:05" },
+                  ].map((review, i) => (
+                    <div key={i} className="rounded-2xl p-4 shadow-xl" style={{ background: "rgba(255,255,255,0.95)" }}>
+                      <p className="text-xs font-bold mb-1" style={{ color: "#ff6a00" }}>{review.user}</p>
+                      <p className="text-gray-800 text-sm leading-snug">{review.text}</p>
+                      <p className="text-gray-400 text-xs mt-2 text-right">{review.time}</p>
+                    </div>
+                  ))}
+                </div>
+
               </div>
-
-              <h1 className="font-oswald text-4xl sm:text-5xl md:text-7xl font-bold leading-tight mb-6 uppercase text-white">
-                Ваш ресторан<br />
-                <span className="neon-text">теряет деньги?</span>
-              </h1>
-
-              <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-10 leading-relaxed">
-                Пройдите бесплатную диагностику за 5 минут и узнайте, насколько рентабелен
-                ваш ресторан, бар или кафе. Получите конкретные точки роста от эксперта-практика.
-              </p>
-
-              <button
-                onClick={() => setStep("anketa")}
-                className="neon-btn text-white font-bold text-lg px-10 py-5 rounded-2xl uppercase tracking-wide inline-flex items-center gap-3"
-              >
-                Пройти диагностику бесплатно
-                <Icon name="ArrowRight" size={22} />
-              </button>
-
-              <p className="text-white/40 text-sm mt-4">Занимает 5 минут • Без регистрации • 100% бесплатно</p>
-            </div>
-
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/40 animate-bounce">
-              <Icon name="ChevronDown" size={28} />
             </div>
           </div>
 
