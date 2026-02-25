@@ -385,21 +385,33 @@ export default function Index() {
                 </div>
 
                 {/* RIGHT — отзывы */}
-                <div className="flex flex-col justify-center gap-4 py-10">
+                <div className="flex flex-col justify-center gap-3 py-10">
                   <p className="font-oswald text-xl font-bold text-white uppercase text-right tracking-wide mb-2">
                     РЕАЛЬНЫЕ РЕЗУЛЬТАТЫ<br />
                     <span style={{ color: "#ff8c00" }}>МОИХ КЛИЕНТОВ</span>
                   </p>
 
                   {[
-                    { user: "@restoran_ufa", text: "После аудита нашли «дыры» на 180к в месяц. Закрыли за 3 недели. Руслан — чёткий специалист!", time: "14:32" },
-                    { user: "@cafe_owner_msk", text: "Думал закрываться, пришёл на консультацию. Выручка выросла на 40% за 2 месяца. Спасибо огромное!", time: "10:17" },
-                    { user: "@bar_saratov", text: "Провели диагностику — нашли проблемы с персоналом и себестоимостью. Всё по делу, без воды.", time: "18:05" },
+                    { user: "Ольга Г.", text: "Спасибо большое Руслан за консультацию — аудит кофейни дал ясное понимание слабых мест, а чек-листы уже начали потихоньку изучать. Особенно понравился раздел по меню-инжинирингу.", time: "21 февраля", left: false },
+                    { user: "Иван Т.", text: "Руслан, здравствуйте! Спасибо за возможность познакомиться и за консультацию — многое понял об открытии кафе. Вы дали ценные рекомендации и идеи, которые поднимут эффективность проекта.", time: "16:15", left: true },
+                    { user: "Марина С.", text: "Думали закрываться — выручка падала 4 месяца. После работы с Русланом нашли три зоны потерь. Уже через месяц вышли в плюс.", time: "09:44", left: false },
+                    { user: "Дмитрий К.", text: "Провели аудит ресторана. Нашли проблемы с себестоимостью и текучкой. Всё чётко, без воды, с конкретными шагами.", time: "11:22", left: true },
+                    { user: "Светлана П.", text: "Спасибо за поддержку — была очень рада познакомиться. Жду материалы по обучению персонала!", time: "14:07", left: false },
                   ].map((review, i) => (
-                    <div key={i} className="rounded-2xl p-4 shadow-xl" style={{ background: "rgba(255,255,255,0.95)" }}>
+                    <div
+                      key={i}
+                      className="rounded-xl p-3 shadow-lg"
+                      style={{
+                        background: "rgba(255,255,255,0.96)",
+                        marginLeft: review.left ? "0px" : "16px",
+                        marginRight: review.left ? "16px" : "0px",
+                        borderLeft: review.left ? "3px solid #ff6a00" : "none",
+                        borderRight: !review.left ? "3px solid #ff6a00" : "none",
+                      }}
+                    >
                       <p className="text-xs font-bold mb-1" style={{ color: "#ff6a00" }}>{review.user}</p>
-                      <p className="text-gray-800 text-sm leading-snug">{review.text}</p>
-                      <p className="text-gray-400 text-xs mt-2 text-right">{review.time}</p>
+                      <p className="text-gray-800 text-xs leading-snug">{review.text}</p>
+                      <p className="text-gray-400 text-[10px] mt-1.5 text-right">{review.time} ✓✓</p>
                     </div>
                   ))}
                 </div>
