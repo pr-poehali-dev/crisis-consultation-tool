@@ -449,9 +449,10 @@ export default function Index() {
             {/* Expert */}
             <div className="mt-16 glass-card rounded-3xl p-8 md:p-12 neon-border flex flex-col md:flex-row gap-8 items-start">
               <img
-                src="https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/4b220787-c107-4a34-84d9-fc829de00e77.jpg"
+                src="https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/3ace7e19-595a-4113-8944-5ba5d71dd2cc.jpg"
                 alt="Руслан Фатуллаев"
-                className="w-32 h-32 rounded-2xl object-cover object-top flex-shrink-0 border-2 border-neon/40"
+                className="w-32 h-32 rounded-2xl object-cover flex-shrink-0 border-2 border-neon/40"
+                style={{ objectPosition: "50% 5%" }}
               />
               <div>
                 <h3 className="font-oswald text-3xl font-bold uppercase mb-1 text-white">Руслан Фатуллаев</h3>
