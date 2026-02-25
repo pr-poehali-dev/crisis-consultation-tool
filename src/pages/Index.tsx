@@ -377,7 +377,7 @@ export default function Index() {
                 <div className="flex justify-center items-end relative md:self-end">
                   <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-64 h-64 rounded-full opacity-30 blur-3xl" style={{ background: "#ff6a00" }} />
                   <img
-                    src="https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/4b220787-c107-4a34-84d9-fc829de00e77.jpg"
+                    src="https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/d57a9577-834b-496f-a898-a37c73e09e7e.jpg"
                     alt="Руслан Фатуллаев"
                     className="relative z-10 w-64 md:w-80 object-cover object-top rounded-t-3xl"
                     style={{ maxHeight: "500px", filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.6))" }}
