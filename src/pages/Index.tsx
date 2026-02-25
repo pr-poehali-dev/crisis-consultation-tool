@@ -454,9 +454,8 @@ export default function Index() {
                 className="w-32 h-32 rounded-2xl object-cover object-top flex-shrink-0 border-2 border-neon/40"
               />
               <div>
-                <p className="text-neon text-sm uppercase tracking-widest font-semibold mb-1">Эксперт и консультант</p>
                 <h3 className="font-oswald text-3xl font-bold uppercase mb-1 text-white">Руслан Фатуллаев</h3>
-                <p className="text-white/40 text-sm mb-4">Спикер школы Upskill • Бизнес-тренер • Антикризисный управляющий</p>
+                <p className="text-white/40 text-sm mb-4">Спикер школы Upskill</p>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
                   {[
                     { num: "16+", label: "лет в индустрии" },
