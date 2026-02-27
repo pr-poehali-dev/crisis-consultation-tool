@@ -3,7 +3,6 @@ import Icon from "@/components/ui/icon";
 
 const HERO_IMAGE = "https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/files/b7745768-dddb-4b05-ab03-80b3e89956cf.jpg";
 const NOTIFY_URL = "https://functions.poehali.dev/c328fb70-3615-4b46-8463-95a676ea3214";
-const SEND_TG_URL = "https://functions.poehali.dev/33b7a012-6c85-409b-8404-04f8a026106a";
 
 type Step = "landing" | "anketa" | "quiz" | "deepquiz" | "result" | "thanks";
 
@@ -207,10 +206,7 @@ export default function Index() {
   const [deepAnswers, setDeepAnswers] = useState<Record<string, string>>({});
   const [currentDeepQ, setCurrentDeepQ] = useState(0);
   const [deepAnimKey, setDeepAnimKey] = useState(0);
-  const [requestData, setRequestData] = useState({ name: "", contact: "" });
   const [submitting, setSubmitting] = useState(false);
-  const [tgSending, setTgSending] = useState(false);
-  const [tgSent, setTgSent] = useState(false);
 
   const totalScore = Object.values(answers).reduce((a, b) => a + b, 0);
   const percent = Math.round((totalScore / MAX_SCORE) * 100);
@@ -230,7 +226,6 @@ export default function Index() {
 
   const handleAnketaSubmit = () => {
     if (!anketa.name || !anketa.city || !anketa.project || !anketa.contact) return;
-    setRequestData({ name: anketa.name, contact: anketa.contact });
     setStep("quiz");
     setCurrentQ(0);
     setAnimKey((k) => k + 1);
@@ -253,52 +248,30 @@ export default function Index() {
     }, 350);
   };
 
-  const handleConsultRequest = async () => {
-    if (!requestData.name || !requestData.contact) return;
-    setSubmitting(true);
+  const sendResultToRuslan = async (currentPercent: number, currentDeepAnswers: Record<string, string>) => {
+    const res = getResultData(currentPercent);
     await fetch(NOTIFY_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        name: requestData.name,
-        contact: requestData.contact,
+        name: anketa.name,
+        contact: anketa.contact,
         city: anketa.city || "—",
         project: anketa.project || "—",
         staff: anketa.staff || "—",
         problem: anketa.problem || "—",
-        score: percent,
-        result_label: result.label,
-        ...deepAnswers,
+        score: currentPercent,
+        result_label: res.label,
+        ...currentDeepAnswers,
       }),
     });
-    setSubmitting(false);
-    setStep("thanks");
   };
 
-  const handleSendToTelegram = async () => {
-    const contact = requestData.contact || anketa.contact;
-    const isTg = contact.includes("@") || contact.toLowerCase().includes("t.me");
-    if (!isTg) {
-      const username = contact.replace(/^@/, "");
-      const botUrl = `https://t.me/crisis_consultant_bot?start=result_${percent}`;
-      window.open(botUrl, "_blank");
-      return;
-    }
-    setTgSending(true);
-    const username = contact.replace(/^@/, "").replace(/.*t\.me\//, "");
-    await fetch(SEND_TG_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        tg_username: username,
-        name: requestData.name || anketa.name,
-        score: percent,
-        result_label: result.label,
-        project: anketa.project,
-      }),
-    });
-    setTgSending(false);
-    setTgSent(true);
+  const handleConsultRequest = () => {
+    setSubmitting(true);
+    window.open("https://t.me/Ruslan_Fatullayev", "_blank");
+    setSubmitting(false);
+    setStep("thanks");
   };
 
   const result = getResultData(percent);
@@ -310,7 +283,6 @@ export default function Index() {
     setAnketa({ name: "", city: "", project: "", staff: "", problem: "", contact: "" });
     setDeepAnswers({});
     setCurrentDeepQ(0);
-    setRequestData({ name: "", contact: "" });
     setDisplayPercent(0);
   };
 
@@ -614,12 +586,18 @@ export default function Index() {
       {step === "deepquiz" && (() => {
         const dq = DEEP_QUESTIONS[currentDeepQ];
         const currentVal = deepAnswers[dq.id] || "";
+        const finishDeepQuiz = (finalDeepAnswers: Record<string, string>) => {
+          const total = Object.values(answers).reduce((a, b) => a + b, 0);
+          const finalPercent = Math.round((total / MAX_SCORE) * 100);
+          sendResultToRuslan(finalPercent, finalDeepAnswers);
+          setStep("result");
+        };
         const handleNext = () => {
           if (currentDeepQ + 1 < DEEP_QUESTIONS.length) {
             setCurrentDeepQ((q) => q + 1);
             setDeepAnimKey((k) => k + 1);
           } else {
-            setStep("result");
+            finishDeepQuiz(deepAnswers);
           }
         };
         const handleSkip = () => {
@@ -627,7 +605,7 @@ export default function Index() {
             setCurrentDeepQ((q) => q + 1);
             setDeepAnimKey((k) => k + 1);
           } else {
-            setStep("result");
+            finishDeepQuiz(deepAnswers);
           }
         };
         return (
@@ -745,72 +723,31 @@ export default function Index() {
 
             <p className="text-white/65 leading-relaxed mb-8 text-lg">{result.description}</p>
 
-            {/* Кнопка — получить результат в Telegram */}
-            <div className="glass-card rounded-2xl p-5 mb-6 border border-white/10">
-              <p className="text-white/60 text-sm mb-3">Сохраните результат у себя в Telegram — он не потеряется</p>
-              {tgSent ? (
-                <div className="flex items-center justify-center gap-2 text-neon font-semibold py-3">
-                  <Icon name="CheckCircle" size={20} />
-                  Результат отправлен!
-                </div>
-              ) : (
-                <button
-                  onClick={handleSendToTelegram}
-                  disabled={tgSending}
-                  className="w-full bg-[#2AABEE] hover:bg-[#229ED9] text-white font-bold py-4 rounded-xl flex items-center justify-center gap-3 transition-colors disabled:opacity-50"
-                >
-                  {tgSending ? (
-                    <>
-                      <Icon name="Loader2" size={20} className="animate-spin" />
-                      Отправляем...
-                    </>
-                  ) : (
-                    <>
-                      <Icon name="Send" size={20} />
-                      Получить результат в Telegram
-                    </>
-                  )}
-                </button>
-              )}
-            </div>
-
             {/* CTA */}
             <div className="neon-border rounded-3xl p-8 glass-card">
               <div className="text-3xl mb-3">🎯</div>
               <h3 className="font-oswald text-3xl font-bold uppercase mb-3 text-white">
-                Получите бесплатную консультацию
+                Получите план исправления
               </h3>
-              <p className="text-white/60 mb-6">
-                20 минут с экспертом-антикризисником. Разберём вашу конкретную ситуацию
-                и дадим первые шаги к росту прибыли.
+              <p className="text-white/60 mb-2">
+                Ваши результаты уже у эксперта. Напишите в Telegram — разберём вашу
+                конкретную ситуацию и дадим первые шаги к росту прибыли.
               </p>
-
-              <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 mb-6 text-left">
-                <p className="text-white/40 text-xs mb-1">Ваши данные из анкеты</p>
-                <p className="text-white font-medium">{requestData.name}</p>
-                <p className="text-white/70 text-sm">{requestData.contact}</p>
+              <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 mb-6 text-left">
+                <p className="text-white/40 text-xs mb-0.5">Диагностика отправлена эксперту</p>
+                <p className="text-white font-medium text-sm">{anketa.name} · {anketa.project}</p>
               </div>
 
               <button
                 onClick={handleConsultRequest}
-                disabled={submitting}
-                className="neon-btn text-white font-bold text-lg w-full py-5 rounded-2xl uppercase tracking-wide flex items-center justify-center gap-3 disabled:opacity-40"
+                className="neon-btn text-white font-bold text-lg w-full py-5 rounded-2xl uppercase tracking-wide flex items-center justify-center gap-3"
               >
-                {submitting ? (
-                  <>
-                    <Icon name="Loader2" size={22} className="animate-spin" />
-                    Отправляем...
-                  </>
-                ) : (
-                  <>
-                    Записаться на консультацию
-                    <Icon name="ArrowRight" size={22} />
-                  </>
-                )}
+                Получить план исправления
+                <Icon name="ArrowRight" size={22} />
               </button>
 
               <p className="text-white/30 text-xs text-center mt-4">
-                Без спама. Только один звонок по делу.
+                Без спама. Один разбор — конкретные шаги.
               </p>
             </div>
           </div>
