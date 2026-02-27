@@ -274,9 +274,6 @@ export default function Index() {
   };
 
   const handleConsultRequest = () => {
-    setSubmitting(true);
-    window.open("https://t.me/Roko_Tiis", "_blank");
-    setSubmitting(false);
     setStep("thanks");
   };
 
@@ -738,31 +735,18 @@ export default function Index() {
             <p className="text-white/65 leading-relaxed mb-8 text-lg">{result.description}</p>
 
             {/* CTA */}
-            <div className="neon-border rounded-3xl p-8 glass-card">
-              <div className="text-3xl mb-3">🎯</div>
+            <div className="neon-border rounded-3xl p-8 glass-card text-center">
+              <div className="text-4xl mb-4">✅</div>
               <h3 className="font-oswald text-3xl font-bold uppercase mb-3 text-white">
-                Получите бесплатную консультацию
+                Диагностика завершена!
               </h3>
-              <p className="text-white/60 mb-2">
-                Ваши результаты уже у эксперта. Напишите в Telegram — за 15–20 минут
-                разберём вашу конкретную ситуацию и дадим первые шаги к росту прибыли.
+              <p className="text-white/65 mb-6 text-lg leading-relaxed">
+                Ваши результаты уже у эксперта. Мы свяжемся с вами в течение <span className="text-neon font-bold">2–4 часов</span> — будьте на связи.
               </p>
-              <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 mb-6 text-left">
+              <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-left">
                 <p className="text-white/40 text-xs mb-0.5">Диагностика отправлена эксперту</p>
                 <p className="text-white font-medium text-sm">{anketa.name} · {anketa.project}</p>
               </div>
-
-              <button
-                onClick={handleConsultRequest}
-                className="neon-btn text-white font-bold text-lg w-full py-5 rounded-2xl uppercase tracking-wide flex items-center justify-center gap-3"
-              >
-                Получить бесплатную консультацию
-                <Icon name="ArrowRight" size={22} />
-              </button>
-
-              <p className="text-white/30 text-xs text-center mt-4">
-                Без спама. Один разбор — конкретные шаги.
-              </p>
             </div>
           </div>
         </div>
