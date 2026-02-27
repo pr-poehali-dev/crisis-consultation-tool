@@ -269,7 +269,7 @@ export default function Index() {
 
   const handleConsultRequest = () => {
     setSubmitting(true);
-    window.open("https://t.me/Ruslan_Fatullayev", "_blank");
+    window.open("https://t.me/Roko_Tiis", "_blank");
     setSubmitting(false);
     setStep("thanks");
   };
