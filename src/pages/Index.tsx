@@ -727,11 +727,11 @@ export default function Index() {
             <div className="neon-border rounded-3xl p-8 glass-card">
               <div className="text-3xl mb-3">🎯</div>
               <h3 className="font-oswald text-3xl font-bold uppercase mb-3 text-white">
-                Получите план исправления
+                Получите бесплатную консультацию
               </h3>
               <p className="text-white/60 mb-2">
-                Ваши результаты уже у эксперта. Напишите в Telegram — разберём вашу
-                конкретную ситуацию и дадим первые шаги к росту прибыли.
+                Ваши результаты уже у эксперта. Напишите в Telegram — за 15–20 минут
+                разберём вашу конкретную ситуацию и дадим первые шаги к росту прибыли.
               </p>
               <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 mb-6 text-left">
                 <p className="text-white/40 text-xs mb-0.5">Диагностика отправлена эксперту</p>
@@ -742,7 +742,7 @@ export default function Index() {
                 onClick={handleConsultRequest}
                 className="neon-btn text-white font-bold text-lg w-full py-5 rounded-2xl uppercase tracking-wide flex items-center justify-center gap-3"
               >
-                Получить план исправления
+                Получить бесплатную консультацию
                 <Icon name="ArrowRight" size={22} />
               </button>
 
