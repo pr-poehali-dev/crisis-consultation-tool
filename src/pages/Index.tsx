@@ -3,6 +3,7 @@ import Icon from "@/components/ui/icon";
 
 const HERO_IMAGE = "https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/files/b7745768-dddb-4b05-ab03-80b3e89956cf.jpg";
 const NOTIFY_URL = "https://functions.poehali.dev/c328fb70-3615-4b46-8463-95a676ea3214";
+const COUNTER_URL = "https://functions.poehali.dev/466a7ae9-ffcb-4019-87a3-51ac4a629d27";
 
 type Step = "landing" | "anketa" | "quiz" | "deepquiz" | "result" | "thanks";
 
@@ -207,6 +208,11 @@ export default function Index() {
   const [currentDeepQ, setCurrentDeepQ] = useState(0);
   const [deepAnimKey, setDeepAnimKey] = useState(0);
   const [submitting, setSubmitting] = useState(false);
+  const [diagCount, setDiagCount] = useState(247);
+
+  useEffect(() => {
+    fetch(COUNTER_URL).then(r => r.json()).then(d => setDiagCount(d.count)).catch(() => {});
+  }, []);
 
   const totalScore = Object.values(answers).reduce((a, b) => a + b, 0);
   const percent = Math.round((totalScore / MAX_SCORE) * 100);
@@ -336,7 +342,14 @@ export default function Index() {
                     <Icon name="ArrowRight" size={22} />
                   </button>
 
-                  <p className="text-white/40 text-sm mt-4">5 минут • Бесплатно • Без регистрации</p>
+                  <div className="flex items-center gap-3 mt-4">
+                    <div className="flex -space-x-2">
+                      {["🧑‍🍳","👨‍💼","👩‍🍳"].map((e,i) => (
+                        <span key={i} className="w-7 h-7 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-xs">{e}</span>
+                      ))}
+                    </div>
+                    <p className="text-white/60 text-sm">Уже <span className="text-white font-bold">{diagCount}</span> заведений прошли диагностику</p>
+                  </div>
 
                   <div className="mt-8 p-4 rounded-2xl border border-white/10" style={{ background: "rgba(255,255,255,0.07)" }}>
                     <p className="text-white font-bold text-base">
@@ -590,6 +603,7 @@ export default function Index() {
           const total = Object.values(answers).reduce((a, b) => a + b, 0);
           const finalPercent = Math.round((total / MAX_SCORE) * 100);
           sendResultToRuslan(finalPercent, finalDeepAnswers);
+          fetch(COUNTER_URL, { method: "POST" }).then(r => r.json()).then(d => setDiagCount(d.count)).catch(() => {});
           setStep("result");
         };
         const handleNext = () => {
