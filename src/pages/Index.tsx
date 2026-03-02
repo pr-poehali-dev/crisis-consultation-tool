@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Icon from "@/components/ui/icon";
 import ReviewsSection from "@/components/ReviewsSection";
 import ServicesSection from "@/components/ServicesSection";
+import TipsSection from "@/components/TipsSection";
 
 const HERO_IMAGE = "https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/files/b7745768-dddb-4b05-ab03-80b3e89956cf.jpg";
 const NOTIFY_URL = "https://functions.poehali.dev/c328fb70-3615-4b46-8463-95a676ea3214";
@@ -369,8 +370,10 @@ export default function Index() {
                   />
                 </div>
 
-                {/* RIGHT — пусто, фото по центру */}
-                <div className="hidden md:block" />
+                {/* RIGHT — советы */}
+                <div className="hidden md:flex flex-col justify-center">
+                  <TipsSection />
+                </div>
 
               </div>
             </div>
