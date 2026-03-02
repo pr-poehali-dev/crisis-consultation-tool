@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
 
+const NOTIFY_URL = "https://functions.poehali.dev/c328fb70-3615-4b46-8463-95a676ea3214";
+
 interface Service {
   icon: string;
   title: string;
@@ -219,6 +221,41 @@ const SERVICES: Service[] = [
 
 export default function ServicesSection() {
   const [selected, setSelected] = useState<Service | null>(null);
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [sending, setSending] = useState(false);
+  const [sent, setSent] = useState(false);
+
+  const handleClose = () => {
+    setSelected(null);
+    setSent(false);
+    setName("");
+    setPhone("");
+  };
+
+  const handleSubmit = async () => {
+    if (!name.trim() || !phone.trim() || !selected) return;
+    setSending(true);
+    try {
+      await fetch(NOTIFY_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          contact: phone,
+          problem: `Заявка на услугу: ${selected.title}`,
+          city: "—",
+          project: "—",
+          staff: "—",
+          score: 0,
+          result_label: `Услуга: ${selected.title}`,
+        }),
+      });
+      setSent(true);
+    } finally {
+      setSending(false);
+    }
+  };
 
   return (
     <>
@@ -280,7 +317,7 @@ export default function ServicesSection() {
         <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
           style={{ background: "rgba(0,0,0,0.75)" }}
-          onClick={() => setSelected(null)}
+          onClick={handleClose}
         >
           <div
             className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl"
@@ -361,28 +398,65 @@ export default function ServicesSection() {
 
               <p className="text-gray-500 text-xs italic">*{selected.note}</p>
 
-              <div className="flex gap-3 flex-wrap pt-2">
-                <button
-                  className="px-6 py-3 rounded-xl text-sm font-bold text-white transition-all"
-                  style={{ background: "#ff6a00" }}
-                  onClick={() => setSelected(null)}
-                >
-                  Оставить заявку
-                </button>
-                <button
-                  className="px-6 py-3 rounded-xl text-sm font-semibold transition-all"
-                  style={{ border: "1px solid rgba(255,255,255,0.2)", color: "#aaa" }}
-                  onClick={() => setSelected(null)}
-                >
-                  Закрыть
-                </button>
+              <div className="rounded-xl p-5 flex flex-col gap-4" style={{ background: "rgba(255,106,0,0.08)", border: "1px solid rgba(255,106,0,0.25)" }}>
+                {sent ? (
+                  <div className="text-center py-4">
+                    <div className="text-3xl mb-2">✅</div>
+                    <p className="text-white font-bold text-base">Заявка отправлена!</p>
+                    <p className="text-gray-400 text-sm mt-1">Руслан свяжется с вами в ближайшее время.</p>
+                    <button
+                      className="mt-4 px-6 py-2 rounded-xl text-sm font-semibold text-white"
+                      style={{ background: "#ff6a00" }}
+                      onClick={handleClose}
+                    >
+                      Закрыть
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    <p className="text-white font-bold text-sm">Оставить заявку на эту услугу</p>
+                    <input
+                      type="text"
+                      placeholder="Ваше имя"
+                      value={name}
+                      onChange={e => setName(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl text-sm text-white outline-none"
+                      style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)" }}
+                    />
+                    <input
+                      type="tel"
+                      placeholder="Телефон или Telegram"
+                      value={phone}
+                      onChange={e => setPhone(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl text-sm text-white outline-none"
+                      style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)" }}
+                    />
+                    <div className="flex gap-3 flex-wrap">
+                      <button
+                        className="px-6 py-3 rounded-xl text-sm font-bold text-white transition-all disabled:opacity-50"
+                        style={{ background: "#ff6a00" }}
+                        onClick={handleSubmit}
+                        disabled={sending || !name.trim() || !phone.trim()}
+                      >
+                        {sending ? "Отправляем..." : "Отправить заявку"}
+                      </button>
+                      <button
+                        className="px-6 py-3 rounded-xl text-sm font-semibold transition-all"
+                        style={{ border: "1px solid rgba(255,255,255,0.2)", color: "#aaa" }}
+                        onClick={handleClose}
+                      >
+                        Закрыть
+                      </button>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
 
             <button
               className="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-colors"
               style={{ background: "rgba(255,255,255,0.1)" }}
-              onClick={() => setSelected(null)}
+              onClick={handleClose}
             >
               <Icon name="X" size={16} />
             </button>
