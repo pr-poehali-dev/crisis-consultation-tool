@@ -304,30 +304,34 @@ export default function Index() {
               <div className="absolute top-0 left-0 w-full h-full opacity-10" style={{ backgroundImage: "radial-gradient(circle at 20% 50%, #ff8c00 0%, transparent 50%), radial-gradient(circle at 80% 30%, #ff4500 0%, transparent 40%)" }} />
             </div>
 
-            <div className="relative z-10 max-w-7xl mx-auto px-4 py-10 md:py-0">
-              <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-center gap-6 md:min-h-[680px]">
+            <div className="relative z-10 max-w-7xl mx-auto px-4 pt-10 pb-0">
 
-                {/* LEFT — заголовок + буллеты + кнопка */}
-                <div className="flex flex-col justify-center py-10">
-                  <h1 className="font-oswald text-4xl sm:text-5xl font-black leading-tight uppercase mb-6" style={{ color: "#ff8c00", textShadow: "0 2px 20px rgba(255,140,0,0.4)" }}>
-                    ЭКСПЕРТ И<br />
-                    <span className="text-white">КОНСУЛЬТАНТ</span><br />
-                    <span style={{ color: "#ff8c00" }}>ДЛЯ РЕСТОРАНОВ,</span><br />
-                    <span className="text-white">БАРОВ И КОФЕЕН</span>
-                  </h1>
+              {/* Заголовок — на всю ширину, по центру */}
+              <div className="text-center mb-6">
+                <h1 className="font-oswald font-black leading-none uppercase" style={{ fontSize: "clamp(3rem, 9vw, 8rem)", color: "#ff8c00", textShadow: "0 4px 40px rgba(255,140,0,0.35)" }}>
+                  ЭКСПЕРТ И КОНСУЛЬТАНТ
+                </h1>
+                <h2 className="font-oswald font-black leading-none uppercase text-white" style={{ fontSize: "clamp(2rem, 6vw, 5.5rem)" }}>
+                  ДЛЯ РЕСТОРАНОВ, БАРОВ И КОФЕЕН
+                </h2>
+              </div>
 
-                  <p className="text-white/80 text-lg font-semibold mb-5 uppercase tracking-wide">
-                    Диагностирую бизнес и нахожу точки потерь:
+              <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-end gap-6 md:min-h-[520px]">
+
+                {/* LEFT — буллеты + кнопка */}
+                <div className="flex flex-col justify-end py-10">
+                  <p className="text-white font-black text-2xl mb-5 uppercase tracking-wide leading-tight">
+                    Диагностирую бизнес<br />и нахожу точки потерь:
                   </p>
 
-                  <ul className="space-y-3 mb-8">
+                  <ul className="space-y-4 mb-8">
                     {[
                       "выявляю где утекают деньги",
                       "нахожу проблемы в команде и сервисе",
                       "показываю потенциал роста прибыли",
                     ].map((item, i) => (
-                      <li key={i} className="flex items-center gap-3 text-white text-base">
-                        <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: "#ff8c00" }} />
+                      <li key={i} className="flex items-center gap-3 text-white text-lg">
+                        <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: "#ff8c00" }} />
                         {item}
                       </li>
                     ))}
@@ -335,23 +339,23 @@ export default function Index() {
 
                   <button
                     onClick={() => setStep("anketa")}
-                    className="text-white font-black text-lg px-8 py-5 rounded-2xl uppercase tracking-wide inline-flex items-center gap-3 self-start transition-all hover:scale-105 active:scale-95 shadow-2xl"
+                    className="text-white font-black text-xl px-8 py-5 rounded-2xl uppercase tracking-wide inline-flex items-center gap-3 self-start transition-all hover:scale-105 active:scale-95 shadow-2xl"
                     style={{ background: "#ff6a00", boxShadow: "0 8px 32px rgba(255,106,0,0.5)" }}
                   >
                     Пройти диагностику бесплатно
-                    <Icon name="ArrowRight" size={22} />
+                    <Icon name="ArrowRight" size={24} />
                   </button>
 
-                  <div className="flex items-center gap-3 mt-4">
+                  <div className="flex items-center gap-3 mt-5">
                     <div className="flex -space-x-2">
                       {["🧑‍🍳","👨‍💼","👩‍🍳"].map((e,i) => (
-                        <span key={i} className="w-7 h-7 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-xs">{e}</span>
+                        <span key={i} className="w-8 h-8 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-sm">{e}</span>
                       ))}
                     </div>
                     <p className="text-white/60 text-sm">Уже <span className="text-white font-bold">{diagCount}</span> заведений прошли диагностику</p>
                   </div>
 
-                  <div className="mt-8 p-4 rounded-2xl border border-white/10" style={{ background: "rgba(255,255,255,0.07)" }}>
+                  <div className="mt-6 p-4 rounded-2xl border border-white/10" style={{ background: "rgba(255,255,255,0.07)" }}>
                     <p className="text-white font-bold text-base">
                       <span style={{ color: "#ff8c00" }}>Руслан Фатуллаев,</span> антикризисный управляющий
                     </p>
@@ -360,18 +364,18 @@ export default function Index() {
                 </div>
 
                 {/* CENTER — фото */}
-                <div className="flex justify-center items-end relative md:self-end">
-                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-64 h-64 rounded-full opacity-30 blur-3xl" style={{ background: "#ff6a00" }} />
+                <div className="flex justify-center items-end relative self-end">
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-72 h-72 rounded-full opacity-30 blur-3xl" style={{ background: "#ff6a00" }} />
                   <img
                     src="https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/d57a9577-834b-496f-a898-a37c73e09e7e.jpg"
                     alt="Руслан Фатуллаев"
-                    className="relative z-10 w-64 md:w-80 object-cover object-top rounded-t-3xl"
-                    style={{ maxHeight: "500px", filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.6))" }}
+                    className="relative z-10 w-72 md:w-96 object-cover object-top rounded-t-3xl"
+                    style={{ maxHeight: "560px", filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.6))" }}
                   />
                 </div>
 
                 {/* RIGHT — советы */}
-                <div className="hidden md:flex flex-col justify-center">
+                <div className="hidden md:flex flex-col justify-end pb-10">
                   <TipsSection />
                 </div>
 

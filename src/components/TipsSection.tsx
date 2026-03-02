@@ -82,26 +82,26 @@ export default function TipsSection() {
 
   return (
     <>
-      <div className="py-8 px-2 w-full">
-        <p className="font-oswald text-base font-bold text-white uppercase tracking-wide mb-4 px-1">
+      <div className="py-6 px-2 w-full">
+        <p className="font-oswald text-2xl font-bold text-white uppercase tracking-wide mb-5 px-1">
           СОВЕТЫ ДЛЯ <span style={{ color: "#ff8c00" }}>БИЗНЕСА</span>
         </p>
         <div className="flex flex-col gap-3">
           {TIPS.map((tip, i) => (
             <div
               key={i}
-              className="rounded-xl overflow-hidden flex gap-3 cursor-pointer group transition-all duration-200 hover:scale-[1.02]"
-              style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,106,0,0.15)" }}
+              className="rounded-xl overflow-hidden flex gap-4 cursor-pointer group transition-all duration-200 hover:scale-[1.02]"
+              style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,106,0,0.25)" }}
               onClick={() => setSelected(tip)}
             >
               <img
                 src={tip.image}
                 alt={tip.title}
-                className="w-16 h-16 object-cover flex-shrink-0"
+                className="w-20 h-20 object-cover flex-shrink-0"
               />
-              <div className="flex flex-col justify-center py-2 pr-3 gap-0.5">
-                <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#ff6a00" }}>{tip.tag}</span>
-                <p className="text-white text-xs font-semibold leading-tight line-clamp-2">{tip.title}</p>
+              <div className="flex flex-col justify-center py-2 pr-4 gap-1">
+                <span className="text-xs font-bold uppercase tracking-wider" style={{ color: "#ff6a00" }}>{tip.tag}</span>
+                <p className="text-white text-sm font-semibold leading-tight line-clamp-2">{tip.title}</p>
               </div>
             </div>
           ))}
