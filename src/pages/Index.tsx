@@ -368,34 +368,33 @@ export default function Index() {
                   />
                 </div>
 
-                {/* RIGHT — отзывы */}
+                {/* RIGHT — услуги */}
                 <div className="flex flex-col justify-center gap-3 py-10">
                   <p className="font-oswald text-xl font-bold text-white uppercase text-right tracking-wide mb-2">
-                    РЕАЛЬНЫЕ РЕЗУЛЬТАТЫ<br />
-                    <span style={{ color: "#ff8c00" }}>МОИХ КЛИЕНТОВ</span>
+                    МОИ<br />
+                    <span style={{ color: "#ff8c00" }}>УСЛУГИ</span>
                   </p>
 
                   {[
-                    { user: "Алексей М.", text: "Руслан, огромное спасибо! Аудит открыл глаза — нашли утечку на 200к в месяц только на закупках. За 5 недель полностью перестроили работу с поставщиками. Результат виден уже сейчас.", time: "13:48 ✓✓", left: false },
-                    { user: "Наталья В.", text: "Обратились когда бар уходил в минус третий месяц подряд. Руслан провёл полный разбор — меню, персонал, себестоимость. Чёткий план, без лишних слов. Рекомендую!", time: "10:22 ✓✓", left: true },
-                    { user: "Сергей Р.", text: "Открывали кофейню с нуля — не знали с чего начать. Руслан буквально провёл за руку: концепция, меню-инжиниринг, стандарты. Запустились на месяц раньше срока!", time: "17:05 ✓✓", left: false },
-                    { user: "Елена Д.", text: "Спасибо за консультацию — разобрали все болевые точки ресторана. Особенно ценно по работе с персоналом и скриптам. Внедряем постепенно, уже чувствуется разница.", time: "09:31 ✓✓", left: true },
-                    { user: "Тимур Б.", text: "Думал, что знаю всё про свой бизнес. Оказалось — нет. После аудита с Русланом пересмотрел половину процессов. Средний чек вырос на 18% за первый месяц.", time: "15:53 ✓✓", left: false },
-                  ].map((review, i) => (
+                    { icon: "🔍", title: "Бизнес-аудит", desc: "Полный разбор вашего заведения: меню, закупки, персонал, себестоимость. Найдём утечки и точки роста." },
+                    { icon: "📋", title: "Консультация", desc: "Разовая или системная работа по вашему запросу — меню, концепция, управление, сервис." },
+                    { icon: "🚀", title: "Открытие с нуля", desc: "Концепция, меню-инжиниринг, стандарты, найм персонала. Запуск под ключ без лишних ошибок." },
+                    { icon: "👥", title: "Обучение персонала", desc: "Тренинги для официантов, баристов и управляющих. Скрипты, сервис, продажи." },
+                    { icon: "📈", title: "Операционный менеджмент", desc: "Выстраиваю процессы, повышаю оборачиваемость и снижаю потери без смены команды." },
+                  ].map((service, i) => (
                     <div
                       key={i}
-                      className="rounded-xl p-3 shadow-lg"
+                      className="rounded-xl p-3 shadow-lg flex gap-3 items-start"
                       style={{
                         background: "rgba(255,255,255,0.96)",
-                        marginLeft: review.left ? "0px" : "16px",
-                        marginRight: review.left ? "16px" : "0px",
-                        borderLeft: review.left ? "3px solid #ff6a00" : "none",
-                        borderRight: !review.left ? "3px solid #ff6a00" : "none",
+                        borderLeft: "3px solid #ff6a00",
                       }}
                     >
-                      <p className="text-xs font-bold mb-1" style={{ color: "#ff6a00" }}>{review.user}</p>
-                      <p className="text-gray-800 text-xs leading-snug">{review.text}</p>
-                      <p className="text-gray-400 text-[10px] mt-1.5 text-right">{review.time} ✓✓</p>
+                      <span className="text-xl leading-none mt-0.5">{service.icon}</span>
+                      <div>
+                        <p className="text-xs font-bold mb-0.5" style={{ color: "#ff6a00" }}>{service.title}</p>
+                        <p className="text-gray-800 text-xs leading-snug">{service.desc}</p>
+                      </div>
                     </div>
                   ))}
                 </div>
