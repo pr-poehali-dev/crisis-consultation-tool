@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Icon from "@/components/ui/icon";
+import ReviewsSection from "@/components/ReviewsSection";
 
 const HERO_IMAGE = "https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/files/b7745768-dddb-4b05-ab03-80b3e89956cf.jpg";
 const NOTIFY_URL = "https://functions.poehali.dev/c328fb70-3615-4b46-8463-95a676ea3214";
@@ -462,7 +463,12 @@ export default function Index() {
               </div>
             </div>
 
-            <div className="text-center mt-12">
+          </div>
+
+          <ReviewsSection />
+
+          <div className="px-6 max-w-6xl mx-auto w-full">
+            <div className="text-center mt-4 mb-16">
               <button
                 onClick={() => setStep("anketa")}
                 className="neon-btn text-white font-bold text-lg px-10 py-5 rounded-2xl uppercase tracking-wide inline-flex items-center gap-3"
