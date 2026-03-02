@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Icon from "@/components/ui/icon";
 import ReviewsSection from "@/components/ReviewsSection";
+import ServicesSection from "@/components/ServicesSection";
 
 const HERO_IMAGE = "https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/files/b7745768-dddb-4b05-ab03-80b3e89956cf.jpg";
 const NOTIFY_URL = "https://functions.poehali.dev/c328fb70-3615-4b46-8463-95a676ea3214";
@@ -368,40 +369,14 @@ export default function Index() {
                   />
                 </div>
 
-                {/* RIGHT — услуги */}
-                <div className="flex flex-col justify-center gap-3 py-10">
-                  <p className="font-oswald text-xl font-bold text-white uppercase text-right tracking-wide mb-2">
-                    МОИ<br />
-                    <span style={{ color: "#ff8c00" }}>УСЛУГИ</span>
-                  </p>
-
-                  {[
-                    { icon: "🔍", title: "Бизнес-аудит", desc: "Полный разбор вашего заведения: меню, закупки, персонал, себестоимость. Найдём утечки и точки роста." },
-                    { icon: "📋", title: "Консультация", desc: "Разовая или системная работа по вашему запросу — меню, концепция, управление, сервис." },
-                    { icon: "🚀", title: "Открытие с нуля", desc: "Концепция, меню-инжиниринг, стандарты, найм персонала. Запуск под ключ без лишних ошибок." },
-                    { icon: "👥", title: "Обучение персонала", desc: "Тренинги для официантов, баристов и управляющих. Скрипты, сервис, продажи." },
-                    { icon: "📈", title: "Операционный менеджмент", desc: "Выстраиваю процессы, повышаю оборачиваемость и снижаю потери без смены команды." },
-                  ].map((service, i) => (
-                    <div
-                      key={i}
-                      className="rounded-xl p-3 shadow-lg flex gap-3 items-start"
-                      style={{
-                        background: "rgba(255,255,255,0.96)",
-                        borderLeft: "3px solid #ff6a00",
-                      }}
-                    >
-                      <span className="text-xl leading-none mt-0.5">{service.icon}</span>
-                      <div>
-                        <p className="text-xs font-bold mb-0.5" style={{ color: "#ff6a00" }}>{service.title}</p>
-                        <p className="text-gray-800 text-xs leading-snug">{service.desc}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                {/* RIGHT — пусто, фото по центру */}
+                <div className="hidden md:block" />
 
               </div>
             </div>
           </div>
+
+          <ServicesSection />
 
           {/* Benefits section */}
           <div className="py-20 px-6 max-w-6xl mx-auto w-full">
