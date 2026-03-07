@@ -12,6 +12,7 @@ import urllib.error
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from email.header import Header
 
 OWNER_CHAT_ID = "7728954739"
 CARD_NUMBER = "4377 7278 0412 1940"
@@ -178,8 +179,8 @@ def send_email(to_email: str, order_id: str):
 </html>"""
 
     msg = MIMEMultipart("alternative")
-    msg["Subject"] = "Ваши 16 чек-листов для ресторатора — все ссылки внутри"
-    msg["From"] = f"Руслан Фатуллаев <{smtp_user}>"
+    msg["Subject"] = Header("Ваши 16 чек-листов для ресторатора — все ссылки внутри", "utf-8")
+    msg["From"] = f"{Header('Руслан Фатуллаев', 'utf-8').encode()} <{smtp_user}>"
     msg["To"] = to_email
     msg.attach(MIMEText(html, "html", "utf-8"))
 
