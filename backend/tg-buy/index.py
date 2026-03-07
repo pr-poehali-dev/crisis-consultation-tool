@@ -3,7 +3,7 @@
 - POST / — принимает email покупателя, сохраняет заявку, отправляет уведомление владельцу
 - POST /webhook — обрабатывает callback от бота (кнопка подтверждения оплаты, отправка email)
 - POST /setup — загружает все 16 чек-листов в S3 (вызвать один раз после деплоя)
-- v2: обновлён SMTP_PASSWORD
+- v3: обновлены SMTP_USER, SMTP_HOST, SMTP_PASSWORD
 """
 import os
 import json
