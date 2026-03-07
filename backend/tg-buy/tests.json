@@ -7,12 +7,12 @@
       "expectedStatus": 200
     },
     {
-      "name": "Bad email",
+      "name": "Setup - upload checklists to S3",
       "method": "POST",
       "path": "/",
-      "body": {"email": "notanemail"},
-      "expectedStatus": 400,
-      "expectedBody": "Некорректный email",
+      "body": {"action": "setup", "secret": "8318026150"},
+      "expectedStatus": 200,
+      "expectedBody": "uploaded",
       "bodyMatcher": "contains"
     }
   ]
