@@ -7,11 +7,13 @@
       "expectedStatus": 200
     },
     {
-      "name": "Missing email returns 400",
+      "name": "Bad email",
       "method": "POST",
       "path": "/",
-      "body": {"email": ""},
-      "expectedStatus": 400
+      "body": {"email": "notanemail"},
+      "expectedStatus": 400,
+      "expectedBody": "Некорректный email",
+      "bodyMatcher": "contains"
     }
   ]
 }
