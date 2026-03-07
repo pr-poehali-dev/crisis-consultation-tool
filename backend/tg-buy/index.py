@@ -12,7 +12,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 OWNER_CHAT_ID = "7728954739"
-CARD_NUMBER = "Укажи номер карты Тинькофф"
+CARD_NUMBER = "4377 7278 0412 1940"
 CARD_NAME = "Руслан Фатуллаев"
 AMOUNT = "1 999 ₽"
 
