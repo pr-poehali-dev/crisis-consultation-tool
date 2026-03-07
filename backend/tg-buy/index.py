@@ -101,7 +101,7 @@ def tg_answer_callback(token: str, callback_query_id: str, text: str):
 
 
 def send_email(to_email: str, order_id: str):
-    smtp_host = os.environ.get("SMTP_HOST", "smtp.yandex.ru")
+    smtp_host = os.environ.get("SMTP_HOST", "smtp.mail.ru")
     smtp_user = os.environ.get("SMTP_USER", "")
     smtp_password = os.environ.get("SMTP_PASSWORD", "")
     smtp_port = int(os.environ.get("SMTP_PORT", "465"))
