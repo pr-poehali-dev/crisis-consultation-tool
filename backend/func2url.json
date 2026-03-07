@@ -1,4 +1,5 @@
 {
+  "send-checklists": "https://functions.poehali.dev/072bcb29-ed59-443d-b754-d96205a552f5",
   "counter": "https://functions.poehali.dev/466a7ae9-ffcb-4019-87a3-51ac4a629d27",
   "send-tg-result": "https://functions.poehali.dev/33b7a012-6c85-409b-8404-04f8a026106a",
   "admin-leads": "https://functions.poehali.dev/93ceb604-c90c-428f-8e00-ab5b08257ecf",
