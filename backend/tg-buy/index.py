@@ -320,7 +320,7 @@ def handler(event: dict, context) -> dict:
     if path.endswith("/setup") or body.get("action") == "setup":
         return handle_setup(body)
 
-    if path.endswith("/webhook"):
+    if "callback_query" in body or "message" in body or "update_id" in body:
         return handle_webhook(body, token)
 
     return handle_buy(body, token)
