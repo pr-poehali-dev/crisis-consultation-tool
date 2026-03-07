@@ -182,9 +182,11 @@ def send_email(to_email: str, order_id: str):
     msg["To"] = to_email
     msg.attach(MIMEText(html, "html", "utf-8"))
 
+    print(f"[EMAIL] Connecting to {smtp_host}:{smtp_port} as {smtp_user}")
     with smtplib.SMTP_SSL(smtp_host, smtp_port) as server:
         server.login(smtp_user, smtp_password)
         server.sendmail(smtp_user, to_email, msg.as_string())
+    print(f"[EMAIL] Sent to {to_email}")
 
 
 def handle_setup(body: dict) -> dict:
@@ -287,10 +289,16 @@ def handle_webhook(body: dict, token: str) -> dict:
     cur.close()
     conn.close()
 
-    send_email(email, order_id)
-    tg_answer_callback(token, callback_id, "✅ Чек-листы отправлены!")
-    tg_send(token, str(callback_query["from"]["id"]),
-            f"✅ Готово! Письмо с 16 чек-листами отправлено на <b>{email}</b>")
+    try:
+        send_email(email, order_id)
+        tg_answer_callback(token, callback_id, "✅ Чек-листы отправлены!")
+        tg_send(token, str(callback_query["from"]["id"]),
+                f"✅ Готово! Письмо с 16 чек-листами отправлено на <b>{email}</b>")
+    except Exception as e:
+        print(f"[EMAIL ERROR] {e}")
+        tg_answer_callback(token, callback_id, "❌ Ошибка отправки письма!")
+        tg_send(token, str(callback_query["from"]["id"]),
+                f"❌ Ошибка отправки письма на <b>{email}</b>:\n<code>{e}</code>")
 
     return {
         "statusCode": 200,
