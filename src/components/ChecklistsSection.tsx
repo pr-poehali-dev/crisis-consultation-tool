@@ -159,7 +159,7 @@ export default function ChecklistsSection({ onBuyClick }: ChecklistsSectionProps
               <span className="bg-[#FF2D55] text-white text-sm font-bold px-2 py-1 rounded-lg">-80%</span>
             </div>
             <p className="text-gray-400 text-sm">Все 16 чек-листов сразу на вашу почту после оплаты</p>
-            {todayCount !== null && todayCount >= 10 && (
+            {todayCount !== null && todayCount > 0 && (
               <div className="flex items-center gap-2 mt-2">
                 <span className="inline-block w-2 h-2 rounded-full bg-green-400 animate-pulse" />
                 <span className="text-green-400 text-sm font-medium">Сегодня скачали: {todayCount}</span>
