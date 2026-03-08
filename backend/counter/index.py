@@ -1,4 +1,4 @@
-"""Счётчик пройденных диагностик. GET — получить значение, POST — увеличить на 1."""
+"""Счётчик скачиваний чек-листов. GET — сколько скачали сегодня, POST — +1 к сегодняшнему счётчику."""
 import json
 import os
 import psycopg2
@@ -20,16 +20,20 @@ def handler(event: dict, context) -> dict:
     method = event.get("httpMethod", "GET")
 
     if method == "POST":
-        cur.execute(
-            "UPDATE t_p93544965_crisis_consultation_.diagnostics_counter SET count = count + 1, updated_at = NOW() WHERE id = 1 RETURNING count"
-        )
+        cur.execute("""
+            INSERT INTO downloads_counter (download_date, count)
+            VALUES (CURRENT_DATE, 1)
+            ON CONFLICT (download_date) DO UPDATE
+            SET count = downloads_counter.count + 1
+            RETURNING count
+        """)
         row = cur.fetchone()
         conn.commit()
-        count = row[0] if row else 247
+        count = row[0] if row else 1
     else:
-        cur.execute("SELECT count FROM t_p93544965_crisis_consultation_.diagnostics_counter WHERE id = 1")
+        cur.execute("SELECT count FROM downloads_counter WHERE download_date = CURRENT_DATE")
         row = cur.fetchone()
-        count = row[0] if row else 247
+        count = row[0] if row else 0
 
     cur.close()
     conn.close()

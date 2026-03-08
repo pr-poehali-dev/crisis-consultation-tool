@@ -1,11 +1,16 @@
 {
   "tests": [
     {
-      "name": "GET counter",
+      "name": "OPTIONS preflight",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "GET downloads today",
       "method": "GET",
       "path": "/",
       "expectedStatus": 200,
-      "expectedBody": {"count": 247},
       "bodyMatcher": "partial"
     }
   ]

@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Icon from "@/components/ui/icon";
+
+const COUNTER_URL = "https://functions.poehali.dev/466a7ae9-ffcb-4019-87a3-51ac4a629d27";
 
 const CHECKLISTS = [
   {
@@ -122,6 +124,14 @@ interface ChecklistsSectionProps {
 
 export default function ChecklistsSection({ onBuyClick }: ChecklistsSectionProps) {
   const [expanded, setExpanded] = useState<number | null>(null);
+  const [todayCount, setTodayCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    fetch(COUNTER_URL)
+      .then(r => r.json())
+      .then(data => setTodayCount(data.count))
+      .catch(() => {});
+  }, []);
 
   return (
     <section className="py-16 px-4" id="checklists">
@@ -149,6 +159,12 @@ export default function ChecklistsSection({ onBuyClick }: ChecklistsSectionProps
               <span className="bg-[#FF2D55] text-white text-sm font-bold px-2 py-1 rounded-lg">-80%</span>
             </div>
             <p className="text-gray-400 text-sm">Все 16 чек-листов сразу на вашу почту после оплаты</p>
+            {todayCount !== null && todayCount >= 10 && (
+              <div className="flex items-center gap-2 mt-2">
+                <span className="inline-block w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                <span className="text-green-400 text-sm font-medium">Сегодня скачали: {todayCount}</span>
+              </div>
+            )}
           </div>
           <button
             onClick={onBuyClick}

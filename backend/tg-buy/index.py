@@ -293,6 +293,17 @@ def handle_webhook(body: dict, token: str) -> dict:
 
     try:
         send_email(email, order_id)
+        conn2 = psycopg2.connect(os.environ["DATABASE_URL"])
+        cur2 = conn2.cursor()
+        cur2.execute("""
+            INSERT INTO downloads_counter (download_date, count)
+            VALUES (CURRENT_DATE, 1)
+            ON CONFLICT (download_date) DO UPDATE
+            SET count = downloads_counter.count + 1
+        """)
+        conn2.commit()
+        cur2.close()
+        conn2.close()
         tg_answer_callback(token, callback_id, "✅ Чек-листы отправлены!")
         tg_send(token, str(callback_query["from"]["id"]),
                 f"✅ Готово! Письмо с 16 чек-листами отправлено на <b>{email}</b>")
