@@ -1,7 +1,7 @@
 {
   "tests": [
     {
-      "name": "Test notify endpoint",
+      "name": "Test notify - lead",
       "method": "POST",
       "path": "/",
       "body": {
@@ -13,6 +13,20 @@
         "problem": "Нет прибыли",
         "score": 45,
         "result_label": "Есть серьёзные зоны риска"
+      },
+      "expectedStatus": 200,
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Test notify - marathon",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "type": "marathon",
+        "name": "Тест Марафон",
+        "mode": "telegram",
+        "telegram": "testuser",
+        "email": ""
       },
       "expectedStatus": 200,
       "bodyMatcher": "partial"

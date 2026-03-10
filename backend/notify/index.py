@@ -7,8 +7,40 @@ import psycopg2
 CHAT_ID = "7728954739"
 
 
+def handle_marathon(body: dict) -> dict:
+    """Обрабатывает запись на марафон: уведомляет владельца в Telegram."""
+    name = body.get("name", "—")
+    mode = body.get("mode", "—")
+    telegram = body.get("telegram", "")
+    email = body.get("email", "")
+
+    contact_line = f"@{telegram}" if telegram else email
+
+    text = (
+        f"🏃 <b>Новая запись на марафон!</b>\n\n"
+        f"👤 <b>Имя:</b> {name}\n"
+        f"📬 <b>Способ:</b> {mode}\n"
+        f"📞 <b>Контакт:</b> {contact_line}"
+    )
+
+    token = os.environ["TELEGRAM_BOT_TOKEN"]
+    url = f"https://api.telegram.org/bot{token}/sendMessage"
+    payload = json.dumps({"chat_id": CHAT_ID, "text": text, "parse_mode": "HTML"}).encode()
+    req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"})
+    try:
+        urllib.request.urlopen(req)
+    except urllib.error.HTTPError:
+        pass
+
+    return {
+        "statusCode": 200,
+        "headers": {"Access-Control-Allow-Origin": "*"},
+        "body": json.dumps({"ok": True}),
+    }
+
+
 def handler(event: dict, context) -> dict:
-    """Отправляет уведомление о новой заявке в Telegram и сохраняет в БД."""
+    """Уведомления: новая заявка (диагностика) или запись на марафон."""
     if event.get("httpMethod") == "OPTIONS":
         return {
             "statusCode": 200,
@@ -22,6 +54,9 @@ def handler(event: dict, context) -> dict:
         }
 
     body = json.loads(event.get("body") or "{}")
+
+    if body.get("type") == "marathon":
+        return handle_marathon(body)
     name = body.get("name", "—")
     contact = body.get("contact", "—")
     city = body.get("city", "—")

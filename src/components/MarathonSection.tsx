@@ -171,10 +171,10 @@ function MarathonModal({ onClose }: MarathonModalProps) {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch("https://functions.poehali.dev/send-marathon", {
+      const res = await fetch("https://functions.poehali.dev/c328fb70-3615-4b46-8463-95a676ea3214", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, telegram: mode === "telegram" ? telegram : "", email: mode === "email" ? email : "", mode }),
+        body: JSON.stringify({ type: "marathon", name, telegram: mode === "telegram" ? telegram : "", email: mode === "email" ? email : "", mode }),
       });
       const data = await res.json();
       if (data.ok) { setMode("done"); } else { setError(data.error || "Ошибка, попробуйте ещё раз"); }
