@@ -111,30 +111,129 @@ def build_quiz_email(name: str, percent: int, result_label: str, answers: dict) 
 </html>"""
 
 
-def handle_marathon(body: dict) -> dict:
-    """Обрабатывает запись на марафон: уведомляет владельца в Telegram."""
-    name = body.get("name", "—")
-    mode = body.get("mode", "—")
-    telegram = body.get("telegram", "")
-    email = body.get("email", "")
+MARATHON_EMAIL_HTML = """<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body style="margin:0;padding:0;background:#111;font-family:Arial,sans-serif;color:#fff;">
+  <div style="max-width:620px;margin:0 auto;padding:32px 20px;">
 
-    contact_line = f"@{telegram}" if telegram else email
+    <div style="background:#1a1a1a;border-radius:16px;padding:32px;margin-bottom:24px;">
+      <h1 style="color:#ff8c00;font-size:26px;margin:0 0 8px;">🏃 15-дневный марафон для ресторатора</h1>
+      <p style="color:#ccc;margin:0;">Здравствуйте, {name}!<br>Ваш марафон готов. Начинайте прямо сегодня.</p>
+    </div>
 
-    text = (
-        f"🏃 <b>Новая запись на марафон!</b>\n\n"
-        f"👤 <b>Имя:</b> {name}\n"
-        f"📬 <b>Способ:</b> {mode}\n"
-        f"📞 <b>Контакт:</b> {contact_line}"
-    )
+    <div style="background:#1a1a1a;border-radius:16px;padding:28px;margin-bottom:16px;">
+      <h2 style="color:#fff;font-size:18px;margin:0 0 16px;">📦 Неделя 1 — Склад и учёт (дни 1–5)</h2>
+      <table style="width:100%;border-collapse:collapse;">
+        <tr style="background:#222;"><td style="padding:10px 12px;color:#ff8c00;font-weight:bold;border-radius:6px 0 0 6px;">День 1</td><td style="padding:10px 12px;color:#fff;">Выявляем «дырки» — пересчитайте 30 ключевых товаров, заполните аудит-файл</td></tr>
+        <tr><td style="padding:10px 12px;color:#ff8c00;font-weight:bold;">День 2</td><td style="padding:10px 12px;color:#ccc;">Убираем хаос — промаркируйте 10 товаров наклейками (дата / открытие / срок)</td></tr>
+        <tr style="background:#222;"><td style="padding:10px 12px;color:#ff8c00;font-weight:bold;">День 3</td><td style="padding:10px 12px;color:#fff;">Инвентаризация — проведите по 10 позициям, зафиксируйте результат</td></tr>
+        <tr><td style="padding:10px 12px;color:#ff8c00;font-weight:bold;">День 4</td><td style="padding:10px 12px;color:#ccc;">Контроль температур — ведите журнал 2 смены</td></tr>
+        <tr style="background:#222;"><td style="padding:10px 12px;color:#ff8c00;font-weight:bold;border-radius:0 0 0 6px;">День 5</td><td style="padding:10px 12px;color:#fff;">Списания — выгрузите за 30 дней, найдите ТОП-3 причины</td></tr>
+      </table>
+    </div>
 
-    token = os.environ["TELEGRAM_BOT_TOKEN"]
+    <div style="background:#1a1a1a;border-radius:16px;padding:28px;margin-bottom:16px;">
+      <h2 style="color:#fff;font-size:18px;margin:0 0 16px;">🚚 Неделя 2 — Закупки и поставки (дни 6–10)</h2>
+      <table style="width:100%;border-collapse:collapse;">
+        <tr style="background:#222;"><td style="padding:10px 12px;color:#3b82f6;font-weight:bold;">День 6</td><td style="padding:10px 12px;color:#fff;">Поставщики — составьте карточки 5 ключевых поставщиков</td></tr>
+        <tr><td style="padding:10px 12px;color:#3b82f6;font-weight:bold;">День 7</td><td style="padding:10px 12px;color:#ccc;">Попросите скидку — подготовьте запрос по 3 товарам, отправьте поставщику</td></tr>
+        <tr style="background:#222;"><td style="padding:10px 12px;color:#3b82f6;font-weight:bold;">День 8</td><td style="padding:10px 12px;color:#fff;">Считаем партии — рассчитайте выгодный объём закупки для 1 товара</td></tr>
+        <tr><td style="padding:10px 12px;color:#3b82f6;font-weight:bold;">День 9</td><td style="padding:10px 12px;color:#ccc;">Оцениваем поставщиков — заполните KPI по 3 поставщикам</td></tr>
+        <tr style="background:#222;"><td style="padding:10px 12px;color:#3b82f6;font-weight:bold;">День 10</td><td style="padding:10px 12px;color:#fff;">План экономии — 3 меры снижения затрат с расчётом эффекта</td></tr>
+      </table>
+    </div>
+
+    <div style="background:#1a1a1a;border-radius:16px;padding:28px;margin-bottom:24px;">
+      <h2 style="color:#fff;font-size:18px;margin:0 0 16px;">⚙️ Неделя 3 — Процессы и внедрение (дни 11–15)</h2>
+      <table style="width:100%;border-collapse:collapse;">
+        <tr style="background:#222;"><td style="padding:10px 12px;color:#22c55e;font-weight:bold;">День 11</td><td style="padding:10px 12px;color:#fff;">Регламент приёмки — стандартизируйте приёмку и примените на практике</td></tr>
+        <tr><td style="padding:10px 12px;color:#22c55e;font-weight:bold;">День 12</td><td style="padding:10px 12px;color:#ccc;">Мини-дашборд — 5 ключевых показателей за 14 дней</td></tr>
+        <tr style="background:#222;"><td style="padding:10px 12px;color:#22c55e;font-weight:bold;">День 13</td><td style="padding:10px 12px;color:#fff;">Мотивация команды — формула бонуса для одной смены</td></tr>
+        <tr><td style="padding:10px 12px;color:#22c55e;font-weight:bold;">День 14</td><td style="padding:10px 12px;color:#ccc;">Тайная проверка — одна внезапная проверка по чек-листу</td></tr>
+        <tr style="background:#222;"><td style="padding:10px 12px;color:#22c55e;font-weight:bold;">День 15</td><td style="padding:10px 12px;color:#fff;">Финал — упакуйте все результаты и отправьте в Telegram на разбор</td></tr>
+      </table>
+    </div>
+
+    <div style="background:linear-gradient(135deg,#1a0f00,#2d1a00);border:1px solid #ff6a00;border-radius:16px;padding:28px;text-align:center;">
+      <h3 style="color:#ff8c00;margin:0 0 10px;">🎁 После финала — разбор лично со мной</h3>
+      <p style="color:#ccc;margin:0 0 20px;">Отправьте финальный пакет — разберём результаты вместе на звонке.</p>
+      <a href="https://t.me/FatullayevRuslan" style="display:inline-block;background:#ff6a00;color:#fff;font-weight:bold;padding:14px 28px;border-radius:10px;text-decoration:none;font-size:16px;">
+        Написать Руслану в Telegram →
+      </a>
+    </div>
+
+    <p style="color:#555;font-size:12px;text-align:center;margin-top:28px;">
+      Руслан Фатуллаев · Эксперт по ресторанному бизнесу · 16 лет · 50+ заведений
+    </p>
+  </div>
+</body>
+</html>"""
+
+
+def send_tg_message(chat_id: str, text: str, token: str):
     url = f"https://api.telegram.org/bot{token}/sendMessage"
-    payload = json.dumps({"chat_id": CHAT_ID, "text": text, "parse_mode": "HTML"}).encode()
+    payload = json.dumps({"chat_id": chat_id, "text": text, "parse_mode": "HTML"}).encode()
     req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"})
     try:
         urllib.request.urlopen(req)
     except urllib.error.HTTPError:
         pass
+
+
+def handle_marathon(body: dict) -> dict:
+    """Обрабатывает запись на марафон: отправляет марафон участнику (email или Telegram) и уведомляет владельца."""
+    name = body.get("name", "—")
+    mode = body.get("mode", "—")
+    telegram = body.get("telegram", "").strip().lstrip("@")
+    email = body.get("email", "").strip()
+    token = os.environ["TELEGRAM_BOT_TOKEN"]
+
+    if mode == "email" and email:
+        try:
+            html = MARATHON_EMAIL_HTML.replace("{name}", name)
+            send_email(email, "Ваш 15-дневный марафон для ресторатора — Руслан Фатуллаев", html)
+        except Exception as e:
+            return {
+                "statusCode": 200,
+                "headers": {"Access-Control-Allow-Origin": "*"},
+                "body": json.dumps({"ok": False, "error": str(e)}),
+            }
+
+    owner_text = (
+        f"🏃 <b>Новая запись на марафон!</b>\n\n"
+        f"👤 <b>Имя:</b> {name}\n"
+        f"📬 <b>Способ:</b> {mode}\n"
+        f"📞 <b>Контакт:</b> {'@' + telegram if telegram else email}"
+    )
+    send_tg_message(CHAT_ID, owner_text, token)
+
+    if mode == "telegram" and telegram:
+        marathon_text = (
+            f"🏃 <b>Привет, {name}!</b>\n\n"
+            f"Вот твой 15-дневный марафон для ресторатора от Руслана Фатуллаева.\n\n"
+            f"<b>📦 Неделя 1 — Склад и учёт</b>\n"
+            f"День 1: Выявляем «дырки» — пересчитайте 30 ключевых товаров\n"
+            f"День 2: Убираем хаос — промаркируйте 10 товаров наклейками\n"
+            f"День 3: Инвентаризация — проведите по 10 позициям\n"
+            f"День 4: Контроль температур — ведите журнал 2 смены\n"
+            f"День 5: Списания — найдите ТОП-3 причины за 30 дней\n\n"
+            f"<b>🚚 Неделя 2 — Закупки и поставки</b>\n"
+            f"День 6: Карточки 5 ключевых поставщиков\n"
+            f"День 7: Попросите скидку по 3 товарам\n"
+            f"День 8: Рассчитайте выгодный объём закупки\n"
+            f"День 9: KPI по 3 поставщикам\n"
+            f"День 10: 3 меры экономии с расчётом\n\n"
+            f"<b>⚙️ Неделя 3 — Процессы и внедрение</b>\n"
+            f"День 11: Регламент приёмки — внедрите стандарт\n"
+            f"День 12: Мини-дашборд из 5 показателей\n"
+            f"День 13: Схема мотивации для одной смены\n"
+            f"День 14: Тайная проверка по чек-листу\n"
+            f"День 15: Финал — упакуйте всё и пришлите на разбор\n\n"
+            f"🎁 <b>После финала</b> — персональный разбор со мной лично.\n"
+            f"Пиши: @FatullayevRuslan"
+        )
+        send_tg_message("@" + telegram, marathon_text, token)
 
     return {
         "statusCode": 200,
