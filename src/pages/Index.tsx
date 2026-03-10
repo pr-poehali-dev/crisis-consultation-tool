@@ -4,6 +4,7 @@ import ReviewsSection from "@/components/ReviewsSection";
 import ServicesSection from "@/components/ServicesSection";
 import TipsSection from "@/components/TipsSection";
 import ChecklistsSection from "@/components/ChecklistsSection";
+import MarathonSection from "@/components/MarathonSection";
 import BuyModal from "@/components/BuyModal";
 
 const HERO_IMAGE = "https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/files/b7745768-dddb-4b05-ab03-80b3e89956cf.jpg";
@@ -452,6 +453,8 @@ export default function Index() {
           <ReviewsSection />
 
           <ChecklistsSection onBuyClick={() => setBuyModalOpen(true)} />
+
+          <MarathonSection />
 
           <div className="px-6 max-w-6xl mx-auto w-full">
             <div className="text-center mt-4 mb-16">
