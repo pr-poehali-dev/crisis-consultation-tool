@@ -8,6 +8,8 @@ import MarathonSection from "@/components/MarathonSection";
 import BuyModal from "@/components/BuyModal";
 import CasesSection from "@/components/CasesSection";
 import ActivityToast from "@/components/ActivityToast";
+import FaqSection from "@/components/FaqSection";
+import HowWeWorkSection from "@/components/HowWeWorkSection";
 
 const HERO_IMAGE = "https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/files/b7745768-dddb-4b05-ab03-80b3e89956cf.jpg";
 const NOTIFY_URL = "https://functions.poehali.dev/c328fb70-3615-4b46-8463-95a676ea3214";
@@ -453,6 +455,8 @@ export default function Index() {
 
           </div>
 
+          <HowWeWorkSection />
+
           <CasesSection />
 
           <ReviewsSection />
@@ -460,6 +464,8 @@ export default function Index() {
           <ChecklistsSection onBuyClick={() => setBuyModalOpen(true)} />
 
           <MarathonSection />
+
+          <FaqSection />
 
           <div className="px-6 max-w-6xl mx-auto w-full">
             <div className="text-center mt-4 mb-16">
