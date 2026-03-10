@@ -6,6 +6,8 @@ import TipsSection from "@/components/TipsSection";
 import ChecklistsSection from "@/components/ChecklistsSection";
 import MarathonSection from "@/components/MarathonSection";
 import BuyModal from "@/components/BuyModal";
+import CasesSection from "@/components/CasesSection";
+import ActivityToast from "@/components/ActivityToast";
 
 const HERO_IMAGE = "https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/files/b7745768-dddb-4b05-ab03-80b3e89956cf.jpg";
 const NOTIFY_URL = "https://functions.poehali.dev/c328fb70-3615-4b46-8463-95a676ea3214";
@@ -275,6 +277,7 @@ export default function Index() {
         problem: anketa.problem || "—",
         score: currentPercent,
         result_label: res.label,
+        quiz_answers: answers,
         ...currentDeepAnswers,
       }),
     });
@@ -449,6 +452,8 @@ export default function Index() {
             </div>
 
           </div>
+
+          <CasesSection />
 
           <ReviewsSection />
 
@@ -779,6 +784,7 @@ export default function Index() {
         </div>
       )}
       <BuyModal open={buyModalOpen} onClose={() => setBuyModalOpen(false)} />
+      <ActivityToast />
     </div>
   );
 }
