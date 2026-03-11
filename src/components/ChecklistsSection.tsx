@@ -221,7 +221,7 @@ export default function ChecklistsSection({ onBuyClick }: ChecklistsSectionProps
             className="neon-btn text-white font-bold text-xl px-14 py-5 rounded-xl inline-flex items-center gap-3"
           >
             <Icon name="Zap" size={24} />
-            Получить все 16 чек-листов за 1 999 ₽
+            Получить все 16 чек-листов за 1 499 ₽
           </button>
           <p className="text-gray-500 text-sm mt-3">Оплата картой → чек-листы сразу на вашу почту</p>
         </div>
