@@ -19,6 +19,7 @@ const NOTIFY_URL = "https://functions.poehali.dev/c328fb70-3615-4b46-8463-95a676
 const COUNTER_URL = "https://functions.poehali.dev/466a7ae9-ffcb-4019-87a3-51ac4a629d27";
 
 type Step = "landing" | "anketa" | "quiz" | "deepquiz" | "result" | "thanks";
+type Section = "about" | "services" | "cases" | "reviews" | "faq" | "howwework" | "calculator" | "checklists" | "marathon" | null;
 
 interface AnketaData {
   name: string;
@@ -223,6 +224,7 @@ export default function Index() {
   const [submitting, setSubmitting] = useState(false);
   const [diagCount, setDiagCount] = useState(247);
   const [buyModalOpen, setBuyModalOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<Section>(null);
 
   useEffect(() => {
     fetch(COUNTER_URL).then(r => r.json()).then(d => setDiagCount(d.count)).catch(() => {});
@@ -296,6 +298,7 @@ export default function Index() {
 
   const resetAll = () => {
     setStep("landing");
+    setActiveSection(null);
     setAnswers({});
     setCurrentQ(0);
     setAnketa({ name: "", city: "", project: "", staff: "", problem: "", contact: "" });
@@ -308,17 +311,14 @@ export default function Index() {
     <div className="min-h-screen bg-background text-foreground font-montserrat overflow-x-hidden">
 
       {/* ─── LANDING ─── */}
-      {step === "landing" && (
+      {step === "landing" && activeSection === null && (
         <div className="min-h-screen flex flex-col">
           {/* Hero */}
           <div className="relative overflow-hidden" style={{ background: "linear-gradient(135deg, #1a1a1a 0%, #2d1a00 40%, #ff6a00 100%)" }}>
             <div className="absolute inset-0 pointer-events-none">
               <div className="absolute top-0 left-0 w-full h-full opacity-10" style={{ backgroundImage: "radial-gradient(circle at 20% 50%, #ff8c00 0%, transparent 50%), radial-gradient(circle at 80% 30%, #ff4500 0%, transparent 40%)" }} />
             </div>
-
             <div className="relative z-10 max-w-7xl mx-auto px-4 pt-10 pb-0">
-
-              {/* Заголовок — на всю ширину, по центру */}
               <div className="text-center mb-6">
                 <h1 className="font-oswald font-black leading-none uppercase" style={{ fontSize: "clamp(3rem, 9vw, 8rem)", color: "#ff8c00", textShadow: "0 4px 40px rgba(255,140,0,0.35)" }}>
                   ЭКСПЕРТ И КОНСУЛЬТАНТ
@@ -327,165 +327,159 @@ export default function Index() {
                   В СФЕРЕ <span style={{ color: "#ff8c00" }}>HoReCa</span> ДЛЯ РЕСТОРАНОВ, БАРОВ И КОФЕЕН
                 </h2>
               </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-end gap-6 md:min-h-[520px]">
-
-                {/* LEFT — буллеты + кнопка */}
-                <div className="flex flex-col justify-end py-10">
-                  <p className="text-white font-black text-2xl mb-5 uppercase tracking-wide leading-tight">
-                    Диагностирую бизнес<br />и нахожу точки потерь:
-                  </p>
-
-                  <ul className="space-y-4 mb-8">
-                    {[
-                      "выявляю где утекают деньги",
-                      "нахожу проблемы в команде и сервисе",
-                      "показываю потенциал роста прибыли",
-                    ].map((item, i) => (
-                      <li key={i} className="flex items-center gap-3 text-white text-lg">
-                        <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: "#ff8c00" }} />
+              <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-end gap-6 md:min-h-[480px]">
+                <div className="flex flex-col justify-end py-8">
+                  <p className="text-white font-black text-xl mb-4 uppercase tracking-wide leading-tight">Диагностирую бизнес<br />и нахожу точки потерь:</p>
+                  <ul className="space-y-3 mb-6">
+                    {["выявляю где утекают деньги","нахожу проблемы в команде и сервисе","показываю потенциал роста прибыли"].map((item, i) => (
+                      <li key={i} className="flex items-center gap-3 text-white text-base">
+                        <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: "#ff8c00" }} />
                         {item}
                       </li>
                     ))}
                   </ul>
-
                   <button
                     onClick={() => setStep("anketa")}
-                    className="text-white font-black text-xl px-8 py-5 rounded-2xl uppercase tracking-wide inline-flex items-center gap-3 self-start transition-all hover:scale-105 active:scale-95 shadow-2xl"
+                    className="text-white font-black text-lg px-7 py-4 rounded-2xl uppercase tracking-wide inline-flex items-center gap-3 self-start transition-all hover:scale-105 active:scale-95 shadow-2xl"
                     style={{ background: "#ff6a00", boxShadow: "0 8px 32px rgba(255,106,0,0.5)" }}
                   >
                     Пройти диагностику бесплатно
-                    <Icon name="ArrowRight" size={24} />
+                    <Icon name="ArrowRight" size={22} />
                   </button>
-
-                  <div className="flex items-center gap-3 mt-5">
+                  <div className="flex items-center gap-3 mt-4">
                     <div className="flex -space-x-2">
                       {["🧑‍🍳","👨‍💼","👩‍🍳"].map((e,i) => (
-                        <span key={i} className="w-8 h-8 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-sm">{e}</span>
+                        <span key={i} className="w-7 h-7 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-xs">{e}</span>
                       ))}
                     </div>
                     <p className="text-white/60 text-sm">Уже <span className="text-white font-bold">{diagCount}</span> заведений прошли диагностику</p>
                   </div>
-
-                  <div className="mt-6 p-4 rounded-2xl border border-white/10" style={{ background: "rgba(255,255,255,0.07)" }}>
-                    <p className="text-white font-bold text-base">
-                      <span style={{ color: "#ff8c00" }}>Руслан Фатуллаев,</span> антикризисный управляющий
-                    </p>
-                    <p className="text-white/60 text-sm mt-1">Опыт 16 лет • 50+ заведений • 100+ аудитов</p>
+                  <div className="mt-4 p-3 rounded-xl border border-white/10" style={{ background: "rgba(255,255,255,0.07)" }}>
+                    <p className="text-white font-bold text-sm"><span style={{ color: "#ff8c00" }}>Руслан Фатуллаев,</span> антикризисный управляющий</p>
+                    <p className="text-white/60 text-xs mt-0.5">Опыт 16 лет • 50+ заведений • 100+ аудитов</p>
                   </div>
                 </div>
-
-                {/* CENTER — фото */}
                 <div className="flex justify-center items-end relative self-end">
                   <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-72 h-72 rounded-full opacity-30 blur-3xl" style={{ background: "#ff6a00" }} />
                   <img
                     src="https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/d57a9577-834b-496f-a898-a37c73e09e7e.jpg"
                     alt="Руслан Фатуллаев"
-                    className="relative z-10 w-72 md:w-96 object-cover object-top rounded-t-3xl"
-                    style={{ maxHeight: "560px", filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.6))" }}
+                    className="relative z-10 w-64 md:w-80 object-cover object-top rounded-t-3xl"
+                    style={{ maxHeight: "480px", filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.6))" }}
                   />
                 </div>
-
-                {/* RIGHT — советы */}
-                <div className="hidden md:flex flex-col justify-end pb-10">
+                <div className="hidden md:flex flex-col justify-end pb-8">
                   <TipsSection />
                 </div>
-
               </div>
             </div>
           </div>
 
-          <ServicesSection />
-
-          {/* Benefits section */}
-          <div className="py-20 px-6 max-w-6xl mx-auto w-full">
-            <div className="text-center mb-14">
-              <h2 className="font-oswald text-4xl font-bold uppercase mb-3 text-white">
-                Что вы узнаете после диагностики
-              </h2>
-              <div className="w-16 h-1 bg-neon mx-auto" />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* ─── ПЛИТКИ ─── */}
+          <div className="px-4 py-8 max-w-2xl mx-auto w-full">
+            <p className="text-white/40 text-xs uppercase tracking-widest text-center mb-5 font-semibold">Выберите раздел</p>
+            <div className="grid grid-cols-2 gap-3">
               {[
-                { icon: "TrendingDown", title: "Где утекают деньги", desc: "Выявим конкретные статьи расходов, которые снижают вашу прибыль каждый месяц" },
-                { icon: "Users", title: "Проблемы с командой", desc: "Определим слабые места в управлении персоналом и сервисе, которые отпугивают гостей" },
-                { icon: "BarChart3", title: "Потенциал роста", desc: "Покажем, сколько дополнительной прибыли вы можете получить при правильных изменениях" },
-              ].map((item, i) => (
-                <div key={i} className="glass-card rounded-2xl p-8 text-center">
-                  <div className="w-14 h-14 bg-neon/10 rounded-2xl flex items-center justify-center mx-auto mb-5">
-                    <Icon name={item.icon} fallback="CircleAlert" size={28} className="text-neon" />
+                { key: "about" as Section, icon: "User", label: "Обо мне", sub: "Опыт и достижения", color: "#ff8c00" },
+                { key: "services" as Section, icon: "Briefcase", label: "Услуги", sub: "Форматы работы", color: "#ff6a00" },
+                { key: "howwework" as Section, icon: "Workflow", label: "Как работаем", sub: "Процесс сотрудничества", color: "#e55a00" },
+                { key: "calculator" as Section, icon: "Calculator", label: "Калькулятор", sub: "Посчитай потери", color: "#cc4e00" },
+                { key: "cases" as Section, icon: "BarChart3", label: "Кейсы", sub: "Реальные результаты", color: "#ff8c00" },
+                { key: "reviews" as Section, icon: "MessageCircle", label: "Отзывы", sub: "Что говорят клиенты", color: "#ff6a00" },
+                { key: "checklists" as Section, icon: "ClipboardList", label: "Чек-листы", sub: "Полезные материалы", color: "#e55a00" },
+                { key: "faq" as Section, icon: "HelpCircle", label: "Вопросы", sub: "Частые вопросы", color: "#cc4e00" },
+              ].map((tile) => (
+                <button
+                  key={tile.key}
+                  onClick={() => setActiveSection(tile.key)}
+                  className="relative overflow-hidden rounded-2xl p-4 text-left transition-all hover:scale-[1.02] active:scale-[0.98] border border-white/10"
+                  style={{ background: "rgba(255,255,255,0.05)" }}
+                >
+                  <div className="absolute top-0 right-0 w-16 h-16 rounded-full -translate-y-4 translate-x-4 opacity-15" style={{ background: tile.color }} />
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-3" style={{ background: `${tile.color}22` }}>
+                    <Icon name={tile.icon} fallback="CircleAlert" size={20} style={{ color: tile.color }} />
                   </div>
-                  <h3 className="font-oswald text-2xl font-semibold mb-3 uppercase text-white">{item.title}</h3>
-                  <p className="text-white/60 leading-relaxed">{item.desc}</p>
-                </div>
+                  <p className="text-white font-bold text-base leading-tight">{tile.label}</p>
+                  <p className="text-white/45 text-xs mt-0.5">{tile.sub}</p>
+                  <Icon name="ChevronRight" size={16} className="absolute right-3 bottom-4 text-white/25" />
+                </button>
               ))}
             </div>
 
-            {/* Expert */}
-            <div className="mt-16 glass-card rounded-3xl p-8 md:p-12 neon-border flex flex-col md:flex-row gap-8 items-start">
-              <img
-                src="https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/3ace7e19-595a-4113-8944-5ba5d71dd2cc.jpg"
-                alt="Руслан Фатуллаев"
-                className="w-32 h-32 rounded-2xl object-cover flex-shrink-0 border-2 border-neon/40"
-                style={{ objectPosition: "50% 5%" }}
-              />
-              <div>
-                <h3 className="font-oswald text-3xl font-bold uppercase mb-1 text-white">Руслан Фатуллаев</h3>
-                <p className="text-white/40 text-sm mb-4">Спикер школы Upskill</p>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
-                  {[
-                    { num: "16+", label: "лет в индустрии" },
-                    { num: "50+", label: "заведений открыто" },
-                    { num: "100+", label: "аудитов проведено" },
-                    { num: "150+", label: "специалистов обучено" },
-                  ].map((stat) => (
-                    <div key={stat.label} className="bg-neon/8 rounded-xl p-3 text-center border border-neon/15">
-                      <div className="font-oswald text-2xl font-bold text-neon">{stat.num}</div>
-                      <div className="text-white/50 text-xs mt-0.5 leading-tight">{stat.label}</div>
-                    </div>
-                  ))}
-                </div>
-                <p className="text-white/65 leading-relaxed text-sm">
-                  Более 600 часов профильной консультационной поддержки. Вывел на стабильную позицию более 25 убыточных объектов.
-                  Провёл 70+ вебинаров и выступал в Москве, Саратове, Оренбурге, Тюмени и других городах.
-                </p>
-                <p className="text-white/45 leading-relaxed text-sm italic mt-3">
-                  «Каждое заведение должно создавать уникальный опыт для гостей и при этом быть прибыльным. Я не даю шаблонных решений — каждый проект индивидуален.»
-                </p>
-              </div>
-            </div>
-
+            {/* CTA */}
+            <button
+              onClick={() => setStep("anketa")}
+              className="w-full mt-4 text-white font-black text-base py-5 rounded-2xl uppercase tracking-wide flex items-center justify-center gap-3 transition-all hover:scale-[1.02] active:scale-[0.98]"
+              style={{ background: "linear-gradient(135deg, #ff6a00, #ff8c00)", boxShadow: "0 8px 24px rgba(255,106,0,0.4)" }}
+            >
+              <Icon name="Zap" size={20} />
+              Начать бесплатную диагностику
+            </button>
           </div>
+        </div>
+      )}
 
-          <AboutSection />
-
-          <PainsSection />
-
-          <CalculatorSection />
-
-          <HowWeWorkSection />
-
-          <CasesSection />
-
-          <ReviewsSection />
-
-          <ChecklistsSection onBuyClick={() => setBuyModalOpen(true)} />
-
-          <MarathonSection />
-
-          <FaqSection />
-
-          <div className="px-6 max-w-6xl mx-auto w-full">
-            <div className="text-center mt-4 mb-16">
-              <button
-                onClick={() => setStep("anketa")}
-                className="neon-btn text-white font-bold text-lg px-10 py-5 rounded-2xl uppercase tracking-wide inline-flex items-center gap-3"
-              >
-                Начать диагностику
-                <Icon name="ArrowRight" size={22} />
-              </button>
+      {/* ─── СЕКЦИИ (открываются из плиток) ─── */}
+      {step === "landing" && activeSection !== null && (
+        <div className="min-h-screen flex flex-col">
+          <div className="px-4 pt-6 pb-4 max-w-2xl mx-auto w-full">
+            <button
+              onClick={() => setActiveSection(null)}
+              className="flex items-center gap-2 text-white/50 hover:text-white transition-colors mb-2"
+            >
+              <Icon name="ArrowLeft" size={18} />
+              <span className="text-sm">Назад</span>
+            </button>
+          </div>
+          {activeSection === "about" && (
+            <div className="px-4 pb-12 max-w-2xl mx-auto w-full">
+              <AboutSection />
             </div>
+          )}
+          {activeSection === "services" && (
+            <div className="pb-12">
+              <ServicesSection />
+            </div>
+          )}
+          {activeSection === "howwework" && (
+            <div className="pb-12">
+              <HowWeWorkSection />
+            </div>
+          )}
+          {activeSection === "calculator" && (
+            <div className="pb-12">
+              <CalculatorSection />
+            </div>
+          )}
+          {activeSection === "cases" && (
+            <div className="pb-12">
+              <CasesSection />
+            </div>
+          )}
+          {activeSection === "reviews" && (
+            <div className="pb-12">
+              <ReviewsSection />
+            </div>
+          )}
+          {activeSection === "checklists" && (
+            <div className="pb-12">
+              <ChecklistsSection onBuyClick={() => setBuyModalOpen(true)} />
+            </div>
+          )}
+          {activeSection === "faq" && (
+            <div className="pb-12">
+              <FaqSection />
+            </div>
+          )}
+          <div className="px-4 pb-8 max-w-2xl mx-auto w-full mt-auto">
+            <button
+              onClick={() => setStep("anketa")}
+              className="w-full text-white font-black text-base py-5 rounded-2xl uppercase tracking-wide flex items-center justify-center gap-3 transition-all hover:scale-[1.02] active:scale-[0.98]"
+              style={{ background: "linear-gradient(135deg, #ff6a00, #ff8c00)", boxShadow: "0 8px 24px rgba(255,106,0,0.4)" }}
+            >
+              <Icon name="Zap" size={20} />
+              Начать бесплатную диагностику
+            </button>
           </div>
         </div>
       )}
