@@ -1,13 +1,5 @@
 import Icon from "@/components/ui/icon";
 
-const TIMELINE = [
-  { year: "2008", label: "Официант", desc: "Первый шаг в индустрию — с нуля, изнутри" },
-  { year: "2009", label: "Бармен", desc: "1,5 года практики, эксперименты с коктейлями и техниками" },
-  { year: "2011", label: "Старший бармен → Шеф-бармен", desc: "Разработка барных и ресторанных меню для разных проектов" },
-  { year: "2013", label: "Бар-менеджер → Управляющий", desc: "Полное операционное управление заведениями" },
-  { year: "2016+", label: "Консультант и аудитор", desc: "50+ заведений, 100+ аудитов, 150+ обученных специалистов" },
-];
-
 export default function AboutSection() {
   return (
     <section className="py-20 px-4" style={{ background: "linear-gradient(180deg, #0a0a0a 0%, #0d0800 100%)" }}>
@@ -66,38 +58,6 @@ export default function AboutSection() {
                 <span className="text-[#ff8c00] font-semibold text-sm">Руслан Фатуллаев</span>
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* Путь — таймлайн */}
-        <div className="rounded-3xl border border-white/8 p-8 md:p-10 mb-10"
-          style={{ background: "linear-gradient(135deg, #111111, #0d0800)" }}>
-          <h3 className="text-white text-xl font-bold mb-8 flex items-center gap-3">
-            <Icon name="TrendingUp" size={20} className="text-[#ff6a00]" />
-            Путь от официанта до эксперта
-          </h3>
-          <div className="space-y-0">
-            {TIMELINE.map((item, i) => (
-              <div key={i} className="flex gap-4 md:gap-6 group">
-                {/* Линия */}
-                <div className="flex flex-col items-center">
-                  <div className="w-10 h-10 rounded-full border-2 border-[#ff6a00] bg-[#ff6a00]/15 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-[#ff6a00]/30 transition-colors">
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#ff6a00]" />
-                  </div>
-                  {i < TIMELINE.length - 1 && (
-                    <div className="w-0.5 flex-1 bg-gradient-to-b from-[#ff6a00]/40 to-[#ff6a00]/10 my-1" style={{ minHeight: 32 }} />
-                  )}
-                </div>
-                {/* Контент */}
-                <div className="pb-7">
-                  <div className="flex items-center gap-3 mb-1">
-                    <span className="text-[#ff8c00] text-sm font-bold font-mono">{item.year}</span>
-                    <span className="text-white font-semibold">{item.label}</span>
-                  </div>
-                  <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
 
