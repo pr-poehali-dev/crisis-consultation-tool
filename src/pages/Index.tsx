@@ -378,32 +378,175 @@ export default function Index() {
           {/* ─── ПЛИТКИ ─── */}
           <div className="px-4 py-8 max-w-2xl mx-auto w-full">
             <p className="text-white/40 text-xs uppercase tracking-widest text-center mb-5 font-semibold">Выберите раздел</p>
+
+            {/* Сетка: 2 равные колонки */}
             <div className="grid grid-cols-2 gap-3">
-              {[
-                { key: "about" as Section, icon: "User", label: "Обо мне", sub: "Опыт и достижения", color: "#ff8c00" },
-                { key: "services" as Section, icon: "Briefcase", label: "Услуги", sub: "Форматы работы", color: "#ff6a00" },
-                { key: "howwework" as Section, icon: "Workflow", label: "Как работаем", sub: "Процесс сотрудничества", color: "#e55a00" },
-                { key: "calculator" as Section, icon: "Calculator", label: "Калькулятор", sub: "Посчитай потери", color: "#cc4e00" },
-                { key: "cases" as Section, icon: "BarChart3", label: "Кейсы", sub: "Реальные результаты", color: "#ff8c00" },
-                { key: "reviews" as Section, icon: "MessageCircle", label: "Отзывы", sub: "Что говорят клиенты", color: "#ff6a00" },
-                { key: "checklists" as Section, icon: "ClipboardList", label: "Чек-листы", sub: "Полезные материалы", color: "#e55a00" },
-                { key: "faq" as Section, icon: "HelpCircle", label: "Вопросы", sub: "Частые вопросы", color: "#cc4e00" },
-              ].map((tile) => (
-                <button
-                  key={tile.key}
-                  onClick={() => setActiveSection(tile.key)}
-                  className="relative overflow-hidden rounded-2xl p-4 text-left transition-all hover:scale-[1.02] active:scale-[0.98] border border-white/10"
-                  style={{ background: "rgba(255,255,255,0.05)" }}
-                >
-                  <div className="absolute top-0 right-0 w-16 h-16 rounded-full -translate-y-4 translate-x-4 opacity-15" style={{ background: tile.color }} />
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-3" style={{ background: `${tile.color}22` }}>
-                    <Icon name={tile.icon} fallback="CircleAlert" size={20} style={{ color: tile.color }} />
+
+              {/* 1. Обо мне — portrait фото */}
+              <button
+                onClick={() => setActiveSection("about")}
+                className="relative overflow-hidden rounded-2xl text-left transition-all hover:scale-[1.02] active:scale-[0.98] col-span-1 h-44"
+                style={{ background: "#1a1a1a" }}
+              >
+                <img src="https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/3ace7e19-595a-4113-8944-5ba5d71dd2cc.jpg" alt="" className="absolute inset-0 w-full h-full object-cover object-top" />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.2) 60%, transparent 100%)" }} />
+                <div className="absolute bottom-0 left-0 p-4">
+                  <div className="w-7 h-7 rounded-lg flex items-center justify-center mb-1.5" style={{ background: "rgba(255,140,0,0.3)" }}>
+                    <Icon name="User" size={14} style={{ color: "#ff8c00" }} />
                   </div>
-                  <p className="text-white font-bold text-base leading-tight">{tile.label}</p>
-                  <p className="text-white/45 text-xs mt-0.5">{tile.sub}</p>
-                  <Icon name="ChevronRight" size={16} className="absolute right-3 bottom-4 text-white/25" />
-                </button>
-              ))}
+                  <p className="text-white font-bold text-base leading-tight">Обо мне</p>
+                  <p className="text-white/55 text-xs mt-0.5">Опыт и достижения</p>
+                </div>
+                <Icon name="ChevronRight" size={16} className="absolute right-3 top-3 text-white/30" />
+              </button>
+
+              {/* 2. Услуги — ресторан */}
+              <button
+                onClick={() => setActiveSection("services")}
+                className="relative overflow-hidden rounded-2xl text-left transition-all hover:scale-[1.02] active:scale-[0.98] col-span-1 h-44"
+                style={{ background: "#1a1a1a" }}
+              >
+                <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="" className="absolute inset-0 w-full h-full object-cover" />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)" }} />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(255,106,0,0.18) 0%, transparent 60%)" }} />
+                <div className="absolute bottom-0 left-0 p-4">
+                  <div className="w-7 h-7 rounded-lg flex items-center justify-center mb-1.5" style={{ background: "rgba(255,106,0,0.3)" }}>
+                    <Icon name="Briefcase" size={14} style={{ color: "#ff6a00" }} />
+                  </div>
+                  <p className="text-white font-bold text-base leading-tight">Услуги</p>
+                  <p className="text-white/55 text-xs mt-0.5">Форматы работы</p>
+                </div>
+                <Icon name="ChevronRight" size={16} className="absolute right-3 top-3 text-white/30" />
+              </button>
+
+              {/* 3. Кейсы — широкая плитка */}
+              <button
+                onClick={() => setActiveSection("cases")}
+                className="relative overflow-hidden rounded-2xl text-left transition-all hover:scale-[1.02] active:scale-[0.98] col-span-2 h-40"
+                style={{ background: "#1a1a1a" }}
+              >
+                <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=900&q=80" alt="" className="absolute inset-0 w-full h-full object-cover" />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.1) 100%)" }} />
+                <div className="absolute inset-y-0 left-0 p-5 flex flex-col justify-center">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "rgba(255,140,0,0.3)" }}>
+                      <Icon name="BarChart3" size={14} style={{ color: "#ff8c00" }} />
+                    </div>
+                    <span className="text-xs font-bold uppercase tracking-wider" style={{ color: "#ff8c00" }}>Реальные результаты</span>
+                  </div>
+                  <p className="text-white font-black text-xl leading-tight uppercase font-oswald">Кейсы клиентов</p>
+                  <p className="text-white/55 text-sm mt-1">25+ убыточных заведений выведено в плюс</p>
+                </div>
+                <Icon name="ChevronRight" size={18} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30" />
+              </button>
+
+              {/* 4. Как работаем */}
+              <button
+                onClick={() => setActiveSection("howwework")}
+                className="relative overflow-hidden rounded-2xl text-left transition-all hover:scale-[1.02] active:scale-[0.98] col-span-1 h-44"
+                style={{ background: "#1a1a1a" }}
+              >
+                <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80" alt="" className="absolute inset-0 w-full h-full object-cover" />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.2) 55%, transparent 100%)" }} />
+                <div className="absolute bottom-0 left-0 p-4">
+                  <div className="w-7 h-7 rounded-lg flex items-center justify-center mb-1.5" style={{ background: "rgba(229,90,0,0.3)" }}>
+                    <Icon name="Workflow" size={14} style={{ color: "#e55a00" }} />
+                  </div>
+                  <p className="text-white font-bold text-base leading-tight">Как работаем</p>
+                  <p className="text-white/55 text-xs mt-0.5">Процесс сотрудничества</p>
+                </div>
+                <Icon name="ChevronRight" size={16} className="absolute right-3 top-3 text-white/30" />
+              </button>
+
+              {/* 5. Калькулятор */}
+              <button
+                onClick={() => setActiveSection("calculator")}
+                className="relative overflow-hidden rounded-2xl text-left transition-all hover:scale-[1.02] active:scale-[0.98] col-span-1 h-44"
+                style={{ background: "linear-gradient(135deg, #1a0a00 0%, #2d1200 100%)" }}
+              >
+                <div className="absolute inset-0 flex items-center justify-center opacity-10">
+                  <Icon name="Calculator" size={100} className="text-orange-400" />
+                </div>
+                {/* Декоративные цифры */}
+                <div className="absolute inset-0 overflow-hidden">
+                  {["₽","↑","%","×"].map((s,i) => (
+                    <span key={i} className="absolute font-black text-2xl opacity-10 text-orange-400" style={{ top: `${15+i*18}%`, left: `${55+i*8}%`, transform: `rotate(${i*15-10}deg)` }}>{s}</span>
+                  ))}
+                </div>
+                <div className="absolute inset-0 p-4 flex flex-col justify-end">
+                  <div className="w-7 h-7 rounded-lg flex items-center justify-center mb-1.5" style={{ background: "rgba(204,78,0,0.4)" }}>
+                    <Icon name="Calculator" size={14} style={{ color: "#ff8c00" }} />
+                  </div>
+                  <p className="text-white font-bold text-base leading-tight">Калькулятор</p>
+                  <p className="text-white/55 text-xs mt-0.5">Посчитай потери прибыли</p>
+                </div>
+                <Icon name="ChevronRight" size={16} className="absolute right-3 top-3 text-white/30" />
+              </button>
+
+              {/* 6. Отзывы */}
+              <button
+                onClick={() => setActiveSection("reviews")}
+                className="relative overflow-hidden rounded-2xl text-left transition-all hover:scale-[1.02] active:scale-[0.98] col-span-2 h-36"
+                style={{ background: "#0f1a10" }}
+              >
+                <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=900&q=80" alt="" className="absolute inset-0 w-full h-full object-cover opacity-40" />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 100%)" }} />
+                <div className="absolute inset-y-0 left-0 p-5 flex flex-col justify-center">
+                  <div className="flex gap-0.5 mb-2">
+                    {[0,1,2,3,4].map(s => <Icon key={s} name="Star" size={14} style={{ color: "#ff8c00", fill: "#ff8c00" }} />)}
+                  </div>
+                  <p className="text-white font-black text-xl leading-tight uppercase font-oswald">Отзывы клиентов</p>
+                  <p className="text-white/55 text-sm mt-1">«Вырос средний чек на 35% за 2 месяца»</p>
+                </div>
+                <Icon name="ChevronRight" size={18} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30" />
+              </button>
+
+              {/* 7. Чек-листы */}
+              <button
+                onClick={() => setActiveSection("checklists")}
+                className="relative overflow-hidden rounded-2xl text-left transition-all hover:scale-[1.02] active:scale-[0.98] col-span-1 h-44"
+                style={{ background: "#0d0d1a" }}
+              >
+                <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=600&q=80" alt="" className="absolute inset-0 w-full h-full object-cover opacity-35" />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.3) 60%, transparent 100%)" }} />
+                <div className="absolute top-3 right-3 px-2 py-0.5 rounded-full text-xs font-bold" style={{ background: "#ff6a00", color: "#fff" }}>PDF</div>
+                <div className="absolute bottom-0 left-0 p-4">
+                  <div className="w-7 h-7 rounded-lg flex items-center justify-center mb-1.5" style={{ background: "rgba(229,90,0,0.3)" }}>
+                    <Icon name="ClipboardList" size={14} style={{ color: "#e55a00" }} />
+                  </div>
+                  <p className="text-white font-bold text-base leading-tight">Чек-листы</p>
+                  <p className="text-white/55 text-xs mt-0.5">Готовые инструменты</p>
+                </div>
+                <Icon name="ChevronRight" size={16} className="absolute right-3 bottom-4 text-white/30" />
+              </button>
+
+              {/* 8. FAQ */}
+              <button
+                onClick={() => setActiveSection("faq")}
+                className="relative overflow-hidden rounded-2xl text-left transition-all hover:scale-[1.02] active:scale-[0.98] col-span-1 h-44"
+                style={{ background: "linear-gradient(135deg, #0d1a1a 0%, #001a1a 100%)" }}
+              >
+                <div className="absolute inset-0 overflow-hidden">
+                  <div className="absolute top-3 right-4 text-5xl font-black opacity-10 text-teal-400">?</div>
+                  <div className="absolute top-8 right-10 text-3xl font-black opacity-7 text-teal-400">?</div>
+                </div>
+                <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&q=80" alt="" className="absolute inset-0 w-full h-full object-cover opacity-20" />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.95) 0%, transparent 60%)" }} />
+                <div className="absolute bottom-0 left-0 p-4">
+                  <div className="w-7 h-7 rounded-lg flex items-center justify-center mb-1.5" style={{ background: "rgba(0,180,180,0.2)" }}>
+                    <Icon name="HelpCircle" size={14} style={{ color: "#4dd9d9" }} />
+                  </div>
+                  <p className="text-white font-bold text-base leading-tight">Вопросы</p>
+                  <p className="text-white/55 text-xs mt-0.5">Частые вопросы</p>
+                </div>
+                <Icon name="ChevronRight" size={16} className="absolute right-3 bottom-4 text-white/30" />
+              </button>
+
+            </div>
+
+            {/* Советы для бизнеса — отдельная полная карточка */}
+            <div className="mt-3 rounded-2xl overflow-hidden border border-orange-500/20" style={{ background: "rgba(255,106,0,0.06)" }}>
+              <TipsSection />
             </div>
 
             {/* CTA */}
