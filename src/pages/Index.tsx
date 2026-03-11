@@ -323,8 +323,8 @@ export default function Index() {
                 <h1 className="font-oswald font-black leading-none uppercase" style={{ fontSize: "clamp(3rem, 9vw, 8rem)", color: "#ff8c00", textShadow: "0 4px 40px rgba(255,140,0,0.35)" }}>
                   ЭКСПЕРТ И КОНСУЛЬТАНТ
                 </h1>
-                <h2 className="font-oswald font-black leading-none uppercase text-white" style={{ fontSize: "clamp(2rem, 6vw, 5.5rem)" }}>
-                  ДЛЯ РЕСТОРАНОВ, БАРОВ И КОФЕЕН
+                <h2 className="font-oswald font-black leading-none uppercase text-white" style={{ fontSize: "clamp(1.5rem, 4.5vw, 4rem)" }}>
+                  В СФЕРЕ <span style={{ color: "#ff8c00" }}>HoReCa</span> ДЛЯ РЕСТОРАНОВ, БАРОВ И КОФЕЕН
                 </h2>
               </div>
 
