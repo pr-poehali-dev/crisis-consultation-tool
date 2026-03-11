@@ -21,6 +21,8 @@ export default {
 			fontFamily: {
 				montserrat: ['Montserrat', 'sans-serif'],
 				oswald: ['Oswald', 'sans-serif'],
+				golos: ["'Golos Text'", 'sans-serif'],
+				cormorant: ["'Cormorant'", 'serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',

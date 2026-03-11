@@ -1,942 +1,533 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Icon from "@/components/ui/icon";
-import ReviewsSection from "@/components/ReviewsSection";
-import ServicesSection from "@/components/ServicesSection";
-import TipsSection from "@/components/TipsSection";
-import ChecklistsSection from "@/components/ChecklistsSection";
-import MarathonSection from "@/components/MarathonSection";
-import BuyModal from "@/components/BuyModal";
-import CasesSection from "@/components/CasesSection";
-import ActivityToast from "@/components/ActivityToast";
-import FaqSection from "@/components/FaqSection";
-import HowWeWorkSection from "@/components/HowWeWorkSection";
-import CalculatorSection from "@/components/CalculatorSection";
-import PainsSection from "@/components/PainsSection";
-import AboutSection from "@/components/AboutSection";
+type IconName = Parameters<typeof Icon>[0]["name"];
 
-const HERO_IMAGE = "https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/files/b7745768-dddb-4b05-ab03-80b3e89956cf.jpg";
-const NOTIFY_URL = "https://functions.poehali.dev/c328fb70-3615-4b46-8463-95a676ea3214";
-const COUNTER_URL = "https://functions.poehali.dev/466a7ae9-ffcb-4019-87a3-51ac4a629d27";
-
-type Step = "landing" | "anketa" | "quiz" | "deepquiz" | "result" | "thanks";
-type Section = "about" | "services" | "cases" | "reviews" | "faq" | "howwework" | "calculator" | "checklists" | "marathon" | null;
-
-interface AnketaData {
-  name: string;
-  city: string;
-  project: string;
-  staff: string;
-  problem: string;
-  contact: string;
-}
-
-interface QuizQuestion {
-  id: string;
-  category: string;
-  question: string;
-  options: { text: string; score: number }[];
-}
-
-const QUESTIONS: QuizQuestion[] = [
-  {
-    id: "q1",
-    category: "Финансы",
-    question: "Знаете ли вы точную себестоимость каждого блюда в вашем меню?",
-    options: [
-      { text: "Да, у нас есть точные расчёты для каждой позиции", score: 10 },
-      { text: "Примерно, считаем по ощущениям", score: 4 },
-      { text: "Нет, никогда не считали", score: 0 },
-    ],
-  },
-  {
-    id: "q2",
-    category: "Финансы",
-    question: "Какова ваша средняя наценка на блюда и напитки?",
-    options: [
-      { text: "Более 250% — знаю цифры точно", score: 10 },
-      { text: "100–250% — примерно понимаю", score: 5 },
-      { text: "Менее 100% или не знаю", score: 0 },
-    ],
-  },
-  {
-    id: "q3",
-    category: "Доходы",
-    question: "Как изменилась ваша выручка за последние 3 месяца?",
-    options: [
-      { text: "Растёт — есть положительная динамика", score: 10 },
-      { text: "Стабильна, без роста и падения", score: 5 },
-      { text: "Снижается или сильно скачет", score: 0 },
-    ],
-  },
-  {
-    id: "q4",
-    category: "Персонал",
-    question: "Как часто у вас меняется персонал (текучка)?",
-    options: [
-      { text: "Редко — команда работает больше года", score: 10 },
-      { text: "Средняя — раз в 3–6 месяцев", score: 5 },
-      { text: "Высокая — сотрудники постоянно меняются", score: 0 },
-    ],
-  },
-  {
-    id: "q5",
-    category: "Персонал",
-    question: "Есть ли у вас прописанные стандарты сервиса и обучение персонала?",
-    options: [
-      { text: "Да — есть скрипты, тренинги и стандарты", score: 10 },
-      { text: "Частично — что-то есть, но не системно", score: 4 },
-      { text: "Нет — всё на интуиции и опыте", score: 0 },
-    ],
-  },
-  {
-    id: "q6",
-    category: "Меню",
-    question: "Проводите ли вы анализ продаж (АБС-анализ / инженерия меню)?",
-    options: [
-      { text: "Да — регулярно анализируем и обновляем меню", score: 10 },
-      { text: "Иногда — смотрим что плохо продаётся", score: 4 },
-      { text: "Нет — меню не меняется годами", score: 0 },
-    ],
-  },
-  {
-    id: "q7",
-    category: "Гости",
-    question: "Работаете ли вы с отзывами и повторными визитами гостей?",
-    options: [
-      { text: "Да — программа лояльности, мониторинг отзывов", score: 10 },
-      { text: "Частично — отвечаем на отзывы когда видим", score: 4 },
-      { text: "Нет — не занимаемся этим", score: 0 },
-    ],
-  },
-  {
-    id: "q8",
-    category: "Маркетинг",
-    question: "Есть ли у вас работающая стратегия привлечения новых гостей?",
-    options: [
-      { text: "Да — SMM, реклама, коллаборации и акции", score: 10 },
-      { text: "Иногда делаем акции или посты", score: 4 },
-      { text: "Нет — работаем только на «сарафанном радио»", score: 0 },
-    ],
-  },
-  {
-    id: "q9",
-    category: "Управление",
-    question: "Используете ли вы систему учёта (iiko, r_keeper, Poster и др.)?",
-    options: [
-      { text: "Да — автоматизирован склад, кухня и касса", score: 10 },
-      { text: "Есть кассовая программа, но склад вручную", score: 5 },
-      { text: "Нет — всё вручную или на бумаге", score: 0 },
-    ],
-  },
-  {
-    id: "q10",
-    category: "Управление",
-    question: "Знаете ли вы свою точку безубыточности и плановую прибыль?",
-    options: [
-      { text: "Да — есть финансовая модель и план", score: 10 },
-      { text: "Примерно понимаю, но без расчётов", score: 4 },
-      { text: "Нет — не знаю эти цифры", score: 0 },
-    ],
-  },
-  {
-    id: "q11",
-    category: "Поставщики",
-    question: "Насколько стабильны ваши поставщики и условия закупок?",
-    options: [
-      { text: "Стабильно — договоры, фиксированные цены, несколько поставщиков", score: 10 },
-      { text: "В целом нормально, но бывают перебои", score: 5 },
-      { text: "Проблемы — задержки, рост цен, один поставщик", score: 0 },
-    ],
-  },
-  {
-    id: "q12",
-    category: "Аренда",
-    question: "Какую долю от выручки составляет аренда?",
-    options: [
-      { text: "До 10% — комфортно и обоснованно", score: 10 },
-      { text: "10–20% — терпимо, но давит", score: 5 },
-      { text: "Более 20% — аренда съедает прибыль", score: 0 },
-    ],
-  },
+const slides = [
+  { id: 0, type: "cover", section: "Введение" },
+  { id: 1, type: "anatomy", section: "Анатомия" },
+  { id: 2, type: "indications", section: "Показания к ЛГ" },
+  { id: 3, type: "exercises", section: "Комплекс упражнений" },
+  { id: 4, type: "technique", section: "Техника выполнения" },
+  { id: 5, type: "contraindications", section: "Противопоказания" },
+  { id: 6, type: "results", section: "Ожидаемые результаты" },
+  { id: 7, type: "conclusion", section: "Заключение" },
 ];
 
-const DEEP_QUESTIONS = [
-  { id: "revenue_change", label: "Как изменилась ваша выручка за последние 6 месяцев по сравнению с аналогичным периодом прошлого года?", placeholder: "Например: выросла на 15%, снизилась на 10%..." },
-  { id: "avg_check", label: "Каков средний чек сейчас и как он менялся за последние 3 месяца?", placeholder: "Например: 1200 руб., за 3 месяца вырос на 100 руб." },
-  { id: "peak_load", label: "Насколько заполнены ваши залы в часы пик по шкале 1–5?", placeholder: "1 — почти пусто, 5 — полностью заполнено. Например: 3–4" },
-  { id: "cost_control", label: "Есть ли у вас системы учёта себестоимости и контроля запасов?", placeholder: "FIFO, карточки блюд, учёт в 1С / ПО — или нет, опишите как считаете" },
-  { id: "staff_turnover", label: "Какова текучесть персонала за последний год?", placeholder: "Например: 30% уволилось, среднее время работы — 8 месяцев" },
-  { id: "service_standards", label: "Есть ли стандарты обслуживания и регулярные тренинги?", placeholder: "Да / нет + частота. Например: да, раз в квартал" },
-  { id: "menu_relevance", label: "Насколько актуально ваше меню по шкале 1–5?", placeholder: "1 — всё ок, 5 — много проблем с рентабельностью позиций" },
-  { id: "main_costs", label: "Какие основные статьи затрат вызывают наибольшее беспокойство?", placeholder: "Аренда / закупки / ЗП / коммуналка / маркетинг / прочее — выберите" },
-  { id: "crisis_cases", label: "Были ли в последние 12 месяцев кризисные ситуации? Как решали?", placeholder: "Резкое падение выручки, срыв поставок, штрафы — опишите кратко" },
-  { id: "tracked_metrics", label: "Какие ключевые метрики вы сейчас отслеживаете регулярно?", placeholder: "Выручка, средний чек, % сырья, конверсия брони, отток клиентов и т.д." },
-];
+const HipJointSVG = () => (
+  <svg viewBox="0 0 300 260" className="w-full h-full" fill="none">
+    <ellipse cx="150" cy="72" rx="108" ry="50" fill="#e8f4f8" stroke="#4a85b8" strokeWidth="2.5"/>
+    <ellipse cx="150" cy="72" rx="75" ry="32" fill="#d0e9f5" stroke="#4a85b8" strokeWidth="1.5"/>
+    <circle cx="90" cy="110" r="30" fill="#b8d9ee" stroke="#2c6fa0" strokeWidth="2.5"/>
+    <circle cx="90" cy="110" r="20" fill="#daeef8" stroke="#2c6fa0" strokeWidth="1.5"/>
+    <circle cx="210" cy="110" r="30" fill="#b8d9ee" stroke="#2c6fa0" strokeWidth="2.5"/>
+    <circle cx="210" cy="110" r="20" fill="#daeef8" stroke="#2c6fa0" strokeWidth="1.5"/>
+    <line x1="90" y1="130" x2="72" y2="195" stroke="#4a6fa5" strokeWidth="13" strokeLinecap="round"/>
+    <circle cx="90" cy="110" r="16" fill="#f0f8ff" stroke="#2c6fa0" strokeWidth="2"/>
+    <circle cx="90" cy="110" r="8" fill="#fff" stroke="#2c6fa0" strokeWidth="1" opacity="0.6"/>
+    <line x1="210" y1="130" x2="228" y2="195" stroke="#4a6fa5" strokeWidth="13" strokeLinecap="round"/>
+    <circle cx="210" cy="110" r="16" fill="#f0f8ff" stroke="#2c6fa0" strokeWidth="2"/>
+    <circle cx="210" cy="110" r="8" fill="#fff" stroke="#2c6fa0" strokeWidth="1" opacity="0.6"/>
+    <line x1="108" y1="98" x2="138" y2="78" stroke="#d0522a" strokeWidth="1" strokeDasharray="3,2"/>
+    <circle cx="108" cy="98" r="3" fill="#d0522a"/>
+    <text x="141" y="76" fontSize="10" fill="#d0522a" fontFamily="Golos Text, sans-serif">хрящ</text>
+    <line x1="152" y1="110" x2="152" y2="140" stroke="#4a8a1e" strokeWidth="1" strokeDasharray="3,2"/>
+    <text x="130" y="153" fontSize="10" fill="#4a8a1e" fontFamily="Golos Text, sans-serif">связка</text>
+    <text x="120" y="48" fontSize="11" fill="#1c4f7a" fontFamily="Golos Text, sans-serif" fontWeight="600">Тазовая кость</text>
+    <text x="48" y="128" fontSize="9" fill="#1c4f7a" fontFamily="Golos Text, sans-serif">вертлужная</text>
+    <text x="52" y="139" fontSize="9" fill="#1c4f7a" fontFamily="Golos Text, sans-serif">впадина</text>
+    <text x="56" y="210" fontSize="9" fill="#3a5f95" fontFamily="Golos Text, sans-serif">головка</text>
+    <text x="52" y="221" fontSize="9" fill="#3a5f95" fontFamily="Golos Text, sans-serif">бедренной</text>
+    <text x="58" y="232" fontSize="9" fill="#3a5f95" fontFamily="Golos Text, sans-serif">кости</text>
+    <defs>
+      <marker id="arr1" markerWidth="5" markerHeight="5" refX="2.5" refY="2.5" orient="auto">
+        <path d="M 0 0 L 5 2.5 L 0 5 z" fill="#d0522a"/>
+      </marker>
+    </defs>
+  </svg>
+);
 
-const MAX_SCORE = QUESTIONS.length * 10;
+const FigureSVG = ({ type }: { type: string }) => {
+  if (type === "flex") return (
+    <svg viewBox="0 0 200 150" className="w-full h-full">
+      <line x1="10" y1="125" x2="190" y2="125" stroke="#c5d5e8" strokeWidth="2"/>
+      <ellipse cx="88" cy="120" rx="72" ry="7" fill="#daeef8" stroke="#5b8db8" strokeWidth="1.5"/>
+      <circle cx="18" cy="113" r="11" fill="#f5c5a3" stroke="#d4956a" strokeWidth="1.5"/>
+      <rect x="26" y="108" width="58" height="14" rx="6" fill="#e8d5f0" stroke="#9b6dc0" strokeWidth="1.5"/>
+      <line x1="84" y1="114" x2="115" y2="80" stroke="#f5c5a3" strokeWidth="8" strokeLinecap="round"/>
+      <line x1="115" y1="80" x2="140" y2="95" stroke="#f5c5a3" strokeWidth="7" strokeLinecap="round"/>
+      <line x1="84" y1="118" x2="152" y2="118" stroke="#f5c5a3" strokeWidth="8" strokeLinecap="round"/>
+      <path d="M 96 115 Q 105 97 114 82" stroke="#d0522a" strokeWidth="1.5" fill="none" strokeDasharray="3,2"/>
+      <text x="112" y="74" fontSize="12" fill="#d0522a" fontFamily="Golos Text, sans-serif" fontWeight="600">90°</text>
+    </svg>
+  );
+  if (type === "abduct") return (
+    <svg viewBox="0 0 200 150" className="w-full h-full">
+      <line x1="10" y1="125" x2="190" y2="125" stroke="#c5d5e8" strokeWidth="2"/>
+      <ellipse cx="88" cy="120" rx="72" ry="7" fill="#daeef8" stroke="#5b8db8" strokeWidth="1.5"/>
+      <circle cx="18" cy="113" r="11" fill="#f5c5a3" stroke="#d4956a" strokeWidth="1.5"/>
+      <rect x="26" y="108" width="58" height="14" rx="6" fill="#e8d5f0" stroke="#9b6dc0" strokeWidth="1.5"/>
+      <line x1="84" y1="114" x2="160" y2="103" stroke="#f5c5a3" strokeWidth="8" strokeLinecap="round"/>
+      <line x1="84" y1="118" x2="152" y2="125" stroke="#f5c5a3" strokeWidth="8" strokeLinecap="round"/>
+      <path d="M 118 123 Q 132 114 148 106" stroke="#d0522a" strokeWidth="1.5" fill="none" strokeDasharray="3,2"/>
+      <text x="148" y="100" fontSize="12" fill="#d0522a" fontFamily="Golos Text, sans-serif" fontWeight="600">30°</text>
+    </svg>
+  );
+  if (type === "rotate") return (
+    <svg viewBox="0 0 200 150" className="w-full h-full">
+      <line x1="10" y1="125" x2="190" y2="125" stroke="#c5d5e8" strokeWidth="2"/>
+      <ellipse cx="88" cy="120" rx="72" ry="7" fill="#daeef8" stroke="#5b8db8" strokeWidth="1.5"/>
+      <circle cx="18" cy="113" r="11" fill="#f5c5a3" stroke="#d4956a" strokeWidth="1.5"/>
+      <rect x="26" y="108" width="58" height="14" rx="6" fill="#e8d5f0" stroke="#9b6dc0" strokeWidth="1.5"/>
+      <line x1="84" y1="116" x2="152" y2="114" stroke="#f5c5a3" strokeWidth="8" strokeLinecap="round"/>
+      <path d="M 147 104 Q 162 114 147 126" stroke="#d0522a" strokeWidth="2" fill="none"/>
+      <path d="M 132 104 Q 117 114 132 126" stroke="#4a8a1e" strokeWidth="2" fill="none"/>
+      <text x="150" y="140" fontSize="9" fill="#d0522a" fontFamily="Golos Text, sans-serif">нар.</text>
+      <text x="118" y="140" fontSize="9" fill="#4a8a1e" fontFamily="Golos Text, sans-serif">внутр.</text>
+    </svg>
+  );
+  return (
+    <svg viewBox="0 0 200 150" className="w-full h-full">
+      <line x1="10" y1="125" x2="190" y2="125" stroke="#c5d5e8" strokeWidth="2"/>
+      <ellipse cx="88" cy="120" rx="72" ry="7" fill="#daeef8" stroke="#5b8db8" strokeWidth="1.5"/>
+      <circle cx="18" cy="113" r="11" fill="#f5c5a3" stroke="#d4956a" strokeWidth="1.5"/>
+      <rect x="26" y="108" width="58" height="14" rx="6" fill="#e8d5f0" stroke="#9b6dc0" strokeWidth="1.5"/>
+      <line x1="84" y1="116" x2="152" y2="114" stroke="#f5c5a3" strokeWidth="8" strokeLinecap="round"/>
+      <line x1="152" y1="114" x2="172" y2="100" stroke="#f5c5a3" strokeWidth="7" strokeLinecap="round"/>
+      <path d="M 105 116 Q 130 116 150 114 Q 158 110 165 104" stroke="#d0522a" strokeWidth="1.5" fill="none" strokeDasharray="3,2"/>
+      <text x="160" y="96" fontSize="11" fill="#d0522a" fontFamily="Golos Text, sans-serif" fontWeight="600">15°</text>
+    </svg>
+  );
+};
 
-const ALL_CATEGORIES = ["Финансы", "Доходы", "Персонал", "Меню", "Гости", "Маркетинг", "Управление", "Поставщики", "Аренда"];
+const CoverSlide = () => (
+  <div className="flex flex-col items-center justify-center h-full text-center px-12 relative overflow-hidden bg-gradient-to-br from-[#f5f9fd] to-[#e0f0fa]">
+    <div className="absolute top-6 left-6 opacity-10">
+      <svg viewBox="0 0 100 100" className="w-24 h-24" fill="none">
+        <circle cx="50" cy="50" r="48" stroke="#2c6fa0" strokeWidth="2"/>
+        <path d="M50 10 V90 M10 50 H90" stroke="#2c6fa0" strokeWidth="2"/>
+        <circle cx="50" cy="50" r="18" fill="#d0e9f5" stroke="#2c6fa0" strokeWidth="1.5"/>
+      </svg>
+    </div>
+    <div className="absolute bottom-6 right-6 opacity-10">
+      <svg viewBox="0 0 80 80" className="w-20 h-20" fill="none">
+        <circle cx="40" cy="22" r="15" stroke="#2c6fa0" strokeWidth="2"/>
+        <path d="M28 37 Q40 62 52 37" stroke="#2c6fa0" strokeWidth="2" fill="none"/>
+        <line x1="33" y1="55" x2="28" y2="78" stroke="#2c6fa0" strokeWidth="2"/>
+        <line x1="47" y1="55" x2="52" y2="78" stroke="#2c6fa0" strokeWidth="2"/>
+      </svg>
+    </div>
 
-function getResultData(percent: number) {
-  if (percent >= 75) {
-    return {
-      label: "Ваш бизнес в хорошей форме",
-      emoji: "💚",
-      color: "text-green-400",
-      barColor: "from-green-500 to-emerald-400",
-      description:
-        "У вас выстроены ключевые процессы. Тем не менее всегда есть точки роста — поговорим о масштабировании и увеличении прибыли.",
-    };
-  } else if (percent >= 45) {
-    return {
-      label: "Есть серьёзные зоны риска",
-      emoji: "🟡",
-      color: "text-yellow-400",
-      barColor: "from-yellow-500 to-orange-400",
-      description:
-        "Ваш бизнес работает, но теряет деньги на нескольких критических участках. Без вмешательства ситуация будет ухудшаться.",
-    };
-  } else {
-    return {
-      label: "Критическое состояние бизнеса",
-      emoji: "🔴",
-      color: "text-red-400",
-      barColor: "from-red-600 to-red-500",
-      description:
-        "Ваш проект находится в зоне высокого риска убытков. Необходимо срочно выявить и устранить ключевые проблемы.",
-    };
-  }
-}
+    <div className="relative z-10 max-w-2xl">
+      <div className="flex items-center justify-center gap-3 mb-6">
+        <div className="h-px w-14 bg-[#2c6fa0]" />
+        <span className="text-[#2c6fa0] text-xs font-golos tracking-widest uppercase font-semibold">Методическое пособие</span>
+        <div className="h-px w-14 bg-[#2c6fa0]" />
+      </div>
+
+      <div className="flex justify-center mb-5">
+        <div className="w-20 h-20">
+          <svg viewBox="0 0 80 80" fill="none">
+            <circle cx="40" cy="40" r="36" fill="#e8f4f8" stroke="#2c6fa0" strokeWidth="2"/>
+            <circle cx="40" cy="40" r="22" fill="#d0e9f5" stroke="#2c6fa0" strokeWidth="1.5"/>
+            <circle cx="40" cy="40" r="12" fill="#fff" stroke="#2c6fa0" strokeWidth="1"/>
+            <circle cx="40" cy="40" r="4" fill="#2c6fa0"/>
+          </svg>
+        </div>
+      </div>
+
+      <h1 className="font-cormorant text-5xl md:text-6xl text-[#1a3a5c] font-semibold leading-tight mb-4">
+        Лечебная гимнастика<br/>
+        <em className="text-[#2c6fa0]">тазобедренного</em> сустава
+      </h1>
+      <p className="font-golos text-[#5a7a9a] text-base mt-3 max-w-lg mx-auto leading-relaxed">
+        Комплекс упражнений для восстановления функции и укрепления периартикулярных мышц
+      </p>
+
+      <div className="mt-10 flex gap-10 justify-center">
+        {[["8", "разделов"], ["12+", "упражнений"], ["6–8", "недель курса"]].map(([n, l]) => (
+          <div key={l} className="flex flex-col items-center">
+            <span className="font-cormorant text-4xl text-[#2c6fa0] font-semibold">{n}</span>
+            <span className="font-golos text-[10px] text-[#7a9ab8] uppercase tracking-wider mt-1">{l}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+);
+
+const AnatomySlide = () => (
+  <div className="grid grid-cols-2 h-full">
+    <div className="flex flex-col justify-center px-12 py-8">
+      <h2 className="font-cormorant text-4xl text-[#1a3a5c] font-semibold mb-1">Анатомия тазобедренного сустава</h2>
+      <p className="font-cormorant italic text-xl text-[#7a9ab8] mb-7">Articulatio coxae</p>
+      <div className="space-y-4">
+        {[
+          { c: "#2c6fa0", label: "Тип сустава", val: "Шаровидный (энартроз) — 3 оси движения" },
+          { c: "#7b52ab", label: "Суставные поверхности", val: "Головка бедра + вертлужная впадина" },
+          { c: "#3d8a2a", label: "Хрящевое покрытие", val: "Гиалиновый хрящ 1,5–3 мм толщиной" },
+          { c: "#c0522a", label: "Укрепляющий аппарат", val: "3 связки + капсула + периартикулярные мышцы" },
+        ].map(i => (
+          <div key={i.label} className="flex items-start gap-3">
+            <div className="w-2.5 h-2.5 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: i.c }} />
+            <div>
+              <span className="font-golos text-sm font-semibold text-[#1a3a5c]">{i.label}: </span>
+              <span className="font-golos text-sm text-[#5a7a9a]">{i.val}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="mt-6 p-4 bg-[#f0f7fd] rounded-xl border border-[#c8dff0]">
+        <p className="font-golos text-sm text-[#2c6fa0] font-semibold mb-2">Диапазон движений в норме</p>
+        <div className="grid grid-cols-2 gap-y-1 gap-x-4">
+          {[["Сгибание", "0–120°"], ["Разгибание", "0–15°"], ["Отведение", "0–45°"], ["Приведение", "0–30°"], ["Нар. ротация", "0–45°"], ["Внутр. ротация", "0–40°"]].map(([m, d]) => (
+            <div key={m} className="flex justify-between">
+              <span className="font-golos text-xs text-[#5a7a9a]">{m}</span>
+              <span className="font-golos text-xs font-bold text-[#1a3a5c]">{d}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+    <div className="flex items-center justify-center bg-gradient-to-br from-[#eef6fc] to-[#d8edf8] p-8">
+      <div className="w-full max-w-xs h-64">
+        <HipJointSVG />
+      </div>
+    </div>
+  </div>
+);
+
+const IndicationsSlide = () => (
+  <div className="flex flex-col h-full px-12 py-8">
+    <h2 className="font-cormorant text-4xl text-[#1a3a5c] font-semibold mb-1">Показания к лечебной гимнастике</h2>
+    <p className="font-cormorant italic text-lg text-[#7a9ab8] mb-6">Назначается лечащим врачом</p>
+    <div className="grid grid-cols-2 gap-4 flex-1">
+      {[
+        { icon: "Activity", title: "Дегенеративные заболевания", c: "#2c6fa0", bg: "#eef6fd", border: "#b8d9f0",
+          items: ["Коксартроз I–II стадии", "Асептический некроз головки (ранние стадии)", "Хондромаляция суставного хряща"] },
+        { icon: "Zap", title: "Последствия травм и операций", c: "#7b52ab", bg: "#f5f0fc", border: "#d4beee",
+          items: ["Реабилитация после перелома шейки бедра", "После эндопротезирования (поздний период)", "Вывихи и подвывихи в анамнезе"] },
+        { icon: "Heart", title: "Воспалительные состояния", c: "#3d8a2a", bg: "#f0f9ee", border: "#b8ddb2",
+          items: ["Коксит в стадии ремиссии", "Ревматоидный артрит (вне обострения)", "Анкилозирующий спондилит"] },
+        { icon: "Shield", title: "Профилактика и реабилитация", c: "#c0522a", bg: "#fdf4f0", border: "#f0c8b0",
+          items: ["Снижение мышечного тонуса", "Гиподинамия и избыточный вес", "Профилактика падений у пожилых"] },
+      ].map(card => (
+        <div key={card.title} className="rounded-xl p-5 border-l-4 flex flex-col gap-2" style={{ backgroundColor: card.bg, borderLeftColor: card.c, borderTopColor: card.border, borderRightColor: card.border, borderBottomColor: card.border, borderWidth: '1px', borderLeftWidth: '4px' }}>
+          <div className="flex items-center gap-2 mb-1">
+            <Icon name={card.icon as IconName} size={16} style={{ color: card.c }} />
+            <h3 className="font-golos font-semibold text-[#1a3a5c] text-sm">{card.title}</h3>
+          </div>
+          <ul className="space-y-1.5">
+            {card.items.map(item => (
+              <li key={item} className="font-golos text-xs text-[#4a6a8a] flex items-start gap-2">
+                <span className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: card.c }} />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const ExercisesSlide = () => (
+  <div className="flex flex-col h-full px-12 py-8">
+    <h2 className="font-cormorant text-4xl text-[#1a3a5c] font-semibold mb-5">Комплекс упражнений</h2>
+    <div className="grid grid-cols-2 gap-4 flex-1">
+      {[
+        { num: "01", title: "Сгибание в т/б суставе", phase: "Начальный период", svg: "flex", reps: "10–12 повт.", sets: "2–3 подхода", note: "До 90°" },
+        { num: "02", title: "Отведение ноги лёжа", phase: "Основной период", svg: "abduct", reps: "10–15 повт.", sets: "3 подхода", note: "30–45°" },
+        { num: "03", title: "Ротация бедра", phase: "Основной период", svg: "rotate", reps: "8–10 повт.", sets: "2 подхода", note: "Медленно" },
+        { num: "04", title: "Разгибание бедра", phase: "Усиленный период", svg: "extend", reps: "10–12 повт.", sets: "3 подхода", note: "Без рывков" },
+      ].map(ex => (
+        <div key={ex.num} className="rounded-xl border border-[#d0e8f5] bg-white shadow-sm flex gap-3 p-4">
+          <div className="flex-shrink-0">
+            <div className="w-8 h-8 rounded-full bg-[#2c6fa0] flex items-center justify-center">
+              <span className="font-golos text-xs font-bold text-white">{ex.num}</span>
+            </div>
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-start justify-between gap-2 mb-2">
+              <h3 className="font-golos font-semibold text-[#1a3a5c] text-sm">{ex.title}</h3>
+              <span className="flex-shrink-0 text-[10px] font-golos text-[#2c6fa0] bg-[#eef6fd] px-2 py-0.5 rounded-full whitespace-nowrap">{ex.phase}</span>
+            </div>
+            <div className="h-20 mb-2 bg-gradient-to-br from-[#eef6fd] to-[#d8edf8] rounded-lg overflow-hidden">
+              <FigureSVG type={ex.svg} />
+            </div>
+            <div className="flex gap-3 text-xs font-golos text-[#5a7a9a]">
+              <span>🔁 {ex.reps}</span>
+              <span>📋 {ex.sets}</span>
+              <span>📐 {ex.note}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const TechniqueSlide = () => (
+  <div className="grid grid-cols-2 h-full">
+    <div className="flex flex-col justify-center px-12 py-8">
+      <h2 className="font-cormorant text-4xl text-[#1a3a5c] font-semibold mb-6">Техника выполнения</h2>
+      <div className="space-y-4">
+        {[
+          { s: "1", title: "Разминка", desc: "5–7 мин ходьбы, самомассаж бедра и ягодиц", icon: "Timer" },
+          { s: "2", title: "Исходное положение", desc: "Лёжа на спине/боку, поясница прижата к полу", icon: "AlignCenter" },
+          { s: "3", title: "Дыхание", desc: "Выдох на усилие, вдох при возврате в ИП", icon: "Wind" },
+          { s: "4", title: "Амплитуда", desc: "Начинать с малой, увеличивать постепенно в безболевой зоне", icon: "TrendingUp" },
+          { s: "5", title: "Заминка", desc: "Растяжка сгибателей и отводящих мышц, 20–30 сек", icon: "Smile" },
+        ].map(item => (
+          <div key={item.s} className="flex gap-4 items-start">
+            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#2c6fa0] text-white flex items-center justify-center font-golos font-bold text-sm">
+              {item.s}
+            </div>
+            <div>
+              <div className="flex items-center gap-2 mb-0.5">
+                <Icon name={item.icon as IconName} size={14} className="text-[#4a9ed0]" />
+                <span className="font-golos font-semibold text-[#1a3a5c] text-sm">{item.title}</span>
+              </div>
+              <p className="font-golos text-sm text-[#5a7a9a]">{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div className="bg-gradient-to-br from-[#eef6fc] to-[#d5e8f5] flex flex-col justify-center px-10 py-8 gap-3">
+      <h3 className="font-golos font-semibold text-[#1a3a5c] text-sm mb-1">Ключевые принципы</h3>
+      {[
+        { c: "#2c6fa0", t: "Регулярность — не менее 5 раз в неделю" },
+        { c: "#3d8a2a", t: "«Не навреди» — боль = стоп-сигнал" },
+        { c: "#7b52ab", t: "Постепенность нагрузки (не более 10% в неделю)" },
+        { c: "#c0522a", t: "Симметричность — работать с обеими ногами" },
+        { c: "#2c6fa0", t: "Контроль дыхания на протяжении всей тренировки" },
+      ].map((item, i) => (
+        <div key={i} className="flex items-start gap-3 bg-white rounded-xl p-3 shadow-sm">
+          <div className="w-2 h-2 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: item.c }} />
+          <p className="font-golos text-sm text-[#1a3a5c]">{item.t}</p>
+        </div>
+      ))}
+      <div className="mt-2 p-4 bg-white rounded-xl border border-red-100 shadow-sm">
+        <div className="flex items-center gap-2 mb-2">
+          <Icon name="AlertTriangle" size={15} className="text-red-500" />
+          <span className="font-golos font-semibold text-red-600 text-sm">Прекратить при:</span>
+        </div>
+        {["Усилении болей в суставе", "Отёке или покраснении области", "Резком ограничении амплитуды"].map(w => (
+          <p key={w} className="font-golos text-xs text-[#5a7a9a] flex items-center gap-2 mb-1">
+            <span className="w-1 h-1 rounded-full bg-red-400 flex-shrink-0" />
+            {w}
+          </p>
+        ))}
+      </div>
+    </div>
+  </div>
+);
+
+const ContraindicationsSlide = () => (
+  <div className="flex flex-col h-full px-12 py-8">
+    <h2 className="font-cormorant text-4xl text-[#1a3a5c] font-semibold mb-1">Противопоказания</h2>
+    <p className="font-cormorant italic text-lg text-[#7a9ab8] mb-6">Обязательна консультация специалиста</p>
+    <div className="grid grid-cols-3 gap-4 flex-1">
+      {[
+        { type: "Абсолютные", c: "#b91c1c", bg: "#fef2f2", border: "#fecaca", icon: "XCircle",
+          items: ["Острый период воспаления", "Острая травма (перелом, вывих)", "Онкологические поражения костей", "Тромбозы и тромбоэмболии", "Декомпенсированная ХСН", "Лихорадка выше 37,5°C"] },
+        { type: "Относительные", c: "#b45309", bg: "#fffbeb", border: "#fde68a", icon: "AlertCircle",
+          items: ["Коксартроз III стадии", "Ранний послеоперационный период", "Выраженный болевой синдром", "Нарушения ритма сердца", "Тяжёлая АГ III степени", "Остеопороз с риском перелома"] },
+        { type: "Временные", c: "#1d4ed8", bg: "#eff6ff", border: "#bfdbfe", icon: "Clock",
+          items: ["Острые ОРВИ и инфекции", "Обострение хронических болезней", "Выраженная усталость", "Приём антикоагулянтов (корректировать)", "Менструальный период (ограничить)", "Беременность (спец. программа)"] },
+      ].map(card => (
+        <div key={card.type} className="rounded-xl p-5 flex flex-col" style={{ backgroundColor: card.bg, border: `1px solid ${card.border}` }}>
+          <div className="flex items-center gap-2 mb-4">
+            <Icon name={card.icon as IconName} size={18} style={{ color: card.c }} />
+            <h3 className="font-golos font-bold text-sm" style={{ color: card.c }}>{card.type}</h3>
+          </div>
+          <ul className="space-y-2 flex-1">
+            {card.items.map((item, i) => (
+              <li key={i} className="font-golos text-xs text-[#1a3a5c] flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full mt-1 flex-shrink-0" style={{ backgroundColor: card.c }} />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const ResultsSlide = () => (
+  <div className="grid grid-cols-2 h-full">
+    <div className="flex flex-col justify-center px-12 py-8">
+      <h2 className="font-cormorant text-4xl text-[#1a3a5c] font-semibold mb-1">Ожидаемые результаты</h2>
+      <p className="font-cormorant italic text-lg text-[#7a9ab8] mb-7">Курс регулярных занятий 6–8 недель</p>
+      <div className="space-y-3">
+        {[
+          { period: "2–3 неделя", result: "Снижение болевого синдрома", icon: "TrendingDown", c: "#2c6fa0" },
+          { period: "3–4 неделя", result: "Увеличение объёма движений", icon: "Move", c: "#3d8a2a" },
+          { period: "4–6 неделя", result: "Укрепление периартикулярных мышц", icon: "Zap", c: "#7b52ab" },
+          { period: "6–8 неделя", result: "Улучшение функционального статуса", icon: "Award", c: "#c0522a" },
+        ].map(item => (
+          <div key={item.period} className="flex items-center gap-4 p-3 rounded-xl bg-[#f0f7fd] border border-[#c8dff0]">
+            <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: item.c + "20" }}>
+              <Icon name={item.icon as IconName} size={18} style={{ color: item.c }} />
+            </div>
+            <div>
+              <span className="font-golos text-xs font-bold" style={{ color: item.c }}>{item.period}</span>
+              <p className="font-golos text-sm text-[#1a3a5c] font-medium">{item.result}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div className="bg-gradient-to-br from-[#eef6fc] to-[#d5e8f5] flex flex-col justify-center px-10 py-8">
+      <h3 className="font-golos font-semibold text-[#1a3a5c] text-sm mb-5">Количественные показатели</h3>
+      <div className="space-y-4">
+        {[
+          { label: "Снижение боли (ВАШ)", before: "7–8 баллов", after: "2–3 балла", pct: 70 },
+          { label: "Объём сгибания", before: "60–70°", after: "100–110°", pct: 80 },
+          { label: "Сила мышц бедра", before: "3 балла", after: "4–5 баллов", pct: 85 },
+        ].map(item => (
+          <div key={item.label} className="bg-white rounded-xl p-4 shadow-sm">
+            <p className="font-golos text-sm font-medium text-[#1a3a5c] mb-2">{item.label}</p>
+            <div className="flex gap-2 items-center text-xs font-golos text-[#5a7a9a] mb-2">
+              <span className="text-red-500 font-medium">До: {item.before}</span>
+              <span>→</span>
+              <span className="text-green-600 font-medium">После: {item.after}</span>
+            </div>
+            <div className="w-full h-2 bg-[#e8f0f8] rounded-full overflow-hidden">
+              <div className="h-full rounded-full bg-gradient-to-r from-[#5aaae0] to-[#2c6fa0]" style={{ width: `${item.pct}%` }} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+);
+
+const ConclusionSlide = () => (
+  <div className="flex flex-col h-full px-12 py-8">
+    <h2 className="font-cormorant text-4xl text-[#1a3a5c] font-semibold mb-5">Заключение и рекомендации</h2>
+    <div className="grid grid-cols-3 gap-4 flex-1">
+      <div className="col-span-2 flex flex-col gap-4">
+        <div className="p-5 rounded-xl bg-[#eef6fd] border border-[#c0d8ee] flex-1">
+          <h3 className="font-golos font-semibold text-[#1a3a5c] text-sm mb-3">Общие рекомендации</h3>
+          <ul className="space-y-2">
+            {["Проводить занятия в одно и то же время, лучше утром", "Вести дневник боли и объёма движений", "Ортопедическая обувь и стельки при необходимости", "Нормализация массы тела (снижение нагрузки на сустав)", "Рациональное питание, богатое кальцием и коллагеном", "Избегать переохлаждения области сустава"].map((r, i) => (
+              <li key={i} className="flex items-start gap-2 font-golos text-sm text-[#1a3a5c]">
+                <Icon name="CheckCircle" size={14} className="text-[#2c6fa0] mt-0.5 flex-shrink-0" />
+                {r}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="p-5 rounded-xl bg-[#f0f9ee] border border-[#b0d8a8]">
+          <h3 className="font-golos font-semibold text-[#1a3a5c] text-sm mb-3">Поддерживающий режим (после курса)</h3>
+          <div className="grid grid-cols-3 gap-3 text-center">
+            {[{ icon: "Calendar", l: "3–4 раза", s: "в неделю" }, { icon: "Clock", l: "30–45 мин", s: "длительность" }, { icon: "RefreshCw", l: "Раз в 3 мес", s: "к врачу" }].map(item => (
+              <div key={item.l} className="bg-white rounded-xl p-3 shadow-sm">
+                <Icon name={item.icon as IconName} size={18} className="text-[#3d8a2a] mx-auto mb-1" />
+                <p className="font-golos font-bold text-[#1a3a5c] text-sm">{item.l}</p>
+                <p className="font-golos text-xs text-[#5a7a9a]">{item.s}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div className="flex flex-col gap-4">
+        <div className="p-5 rounded-xl bg-[#1a3a5c] text-white flex-1">
+          <Icon name="BookOpen" size={20} className="text-[#8ab8d8] mb-3" />
+          <h3 className="font-golos font-semibold text-sm mb-2">Эффективность ЛГ</h3>
+          <p className="font-golos text-xs text-[#9ac0d8] leading-relaxed">Является основой консервативного лечения и доказала свою эффективность в многочисленных клинических исследованиях</p>
+        </div>
+        <div className="p-5 rounded-xl bg-gradient-to-br from-[#2c6fa0] to-[#1a4a78] text-white flex-1">
+          <Icon name="Heart" size={20} className="text-[#8ab8d8] mb-3" />
+          <h3 className="font-golos font-semibold text-sm mb-2">Помните</h3>
+          <p className="font-golos text-xs text-[#a0c8e0] leading-relaxed">Успех реабилитации зависит от совместной работы пациента и специалиста. Только регулярность даёт устойчивый результат</p>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+const components: Record<string, React.FC> = {
+  cover: CoverSlide,
+  anatomy: AnatomySlide,
+  indications: IndicationsSlide,
+  exercises: ExercisesSlide,
+  technique: TechniqueSlide,
+  contraindications: ContraindicationsSlide,
+  results: ResultsSlide,
+  conclusion: ConclusionSlide,
+};
 
 export default function Index() {
-  const [step, setStep] = useState<Step>("landing");
-  const [anketa, setAnketa] = useState<AnketaData>({
-    name: "", city: "", project: "", staff: "", problem: "", contact: "",
-  });
-  const [currentQ, setCurrentQ] = useState(0);
-  const [answers, setAnswers] = useState<Record<string, number>>({});
-  const [selectedOption, setSelectedOption] = useState<number | null>(null);
-  const [animKey, setAnimKey] = useState(0);
-  const [displayPercent, setDisplayPercent] = useState(0);
-  const [deepAnswers, setDeepAnswers] = useState<Record<string, string>>({});
-  const [currentDeepQ, setCurrentDeepQ] = useState(0);
-  const [deepAnimKey, setDeepAnimKey] = useState(0);
-  const [submitting, setSubmitting] = useState(false);
-  const [diagCount, setDiagCount] = useState(247);
-  const [buyModalOpen, setBuyModalOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState<Section>(null);
-
-  useEffect(() => {
-    fetch(COUNTER_URL).then(r => r.json()).then(d => setDiagCount(d.count)).catch(() => {});
-  }, []);
-
-  const totalScore = Object.values(answers).reduce((a, b) => a + b, 0);
-  const percent = Math.round((totalScore / MAX_SCORE) * 100);
-
-  useEffect(() => {
-    if (step === "result") {
-      setDisplayPercent(0);
-      let current = 0;
-      const interval = setInterval(() => {
-        current += 1;
-        setDisplayPercent(current);
-        if (current >= percent) clearInterval(interval);
-      }, 18);
-      return () => clearInterval(interval);
-    }
-  }, [step, percent]);
-
-  const handleAnketaSubmit = () => {
-    if (!anketa.name || !anketa.city || !anketa.project || !anketa.contact) return;
-    setStep("quiz");
-    setCurrentQ(0);
-    setAnimKey((k) => k + 1);
-  };
-
-  const handleOptionSelect = (score: number, idx: number) => {
-    setSelectedOption(idx);
-    setTimeout(() => {
-      const qId = QUESTIONS[currentQ].id;
-      setAnswers((prev) => ({ ...prev, [qId]: score }));
-      setSelectedOption(null);
-      if (currentQ + 1 < QUESTIONS.length) {
-        setCurrentQ((q) => q + 1);
-        setAnimKey((k) => k + 1);
-      } else {
-        setStep("deepquiz");
-        setCurrentDeepQ(0);
-        setDeepAnimKey((k) => k + 1);
-      }
-    }, 350);
-  };
-
-  const sendResultToRuslan = async (currentPercent: number, currentDeepAnswers: Record<string, string>) => {
-    const res = getResultData(currentPercent);
-    await fetch(NOTIFY_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: anketa.name,
-        contact: anketa.contact,
-        city: anketa.city || "—",
-        project: anketa.project || "—",
-        staff: anketa.staff || "—",
-        problem: anketa.problem || "—",
-        score: currentPercent,
-        result_label: res.label,
-        quiz_answers: answers,
-        ...currentDeepAnswers,
-      }),
-    });
-  };
-
-  const handleConsultRequest = () => {
-    setStep("thanks");
-  };
-
-  const result = getResultData(percent);
-
-  const resetAll = () => {
-    setStep("landing");
-    setActiveSection(null);
-    setAnswers({});
-    setCurrentQ(0);
-    setAnketa({ name: "", city: "", project: "", staff: "", problem: "", contact: "" });
-    setDeepAnswers({});
-    setCurrentDeepQ(0);
-    setDisplayPercent(0);
-  };
+  const [cur, setCur] = useState(0);
+  const slide = slides[cur];
+  const Slide = components[slide.type];
 
   return (
-    <div className="min-h-screen bg-background text-foreground font-montserrat overflow-x-hidden">
-
-      {/* ─── LANDING ─── */}
-      {step === "landing" && activeSection === null && (
-        <div className="min-h-screen flex flex-col">
-          {/* Hero */}
-          <div className="relative overflow-hidden" style={{ background: "linear-gradient(135deg, #1a1a1a 0%, #2d1a00 40%, #ff6a00 100%)" }}>
-            <div className="absolute inset-0 pointer-events-none">
-              <div className="absolute top-0 left-0 w-full h-full opacity-10" style={{ backgroundImage: "radial-gradient(circle at 20% 50%, #ff8c00 0%, transparent 50%), radial-gradient(circle at 80% 30%, #ff4500 0%, transparent 40%)" }} />
-            </div>
-            <div className="relative z-10 max-w-7xl mx-auto px-4 pt-10 pb-0">
-              <div className="text-center mb-6">
-                <h1 className="font-oswald font-black leading-none uppercase" style={{ fontSize: "clamp(3rem, 9vw, 8rem)", color: "#ff8c00", textShadow: "0 4px 40px rgba(255,140,0,0.35)" }}>
-                  ЭКСПЕРТ И КОНСУЛЬТАНТ
-                </h1>
-                <h2 className="font-oswald font-black leading-none uppercase text-white" style={{ fontSize: "clamp(1.5rem, 4.5vw, 4rem)" }}>
-                  В СФЕРЕ <span style={{ color: "#ff8c00" }}>HoReCa</span> ДЛЯ РЕСТОРАНОВ, БАРОВ И КОФЕЕН
-                </h2>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-end gap-6 md:min-h-[480px]">
-                <div className="flex flex-col justify-end py-8">
-                  <p className="text-white font-black text-xl mb-4 uppercase tracking-wide leading-tight">Диагностирую бизнес<br />и нахожу точки потерь:</p>
-                  <ul className="space-y-3 mb-6">
-                    {["выявляю где утекают деньги","нахожу проблемы в команде и сервисе","показываю потенциал роста прибыли"].map((item, i) => (
-                      <li key={i} className="flex items-center gap-3 text-white text-base">
-                        <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: "#ff8c00" }} />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                  <button
-                    onClick={() => setStep("anketa")}
-                    className="text-white font-black text-lg px-7 py-4 rounded-2xl uppercase tracking-wide inline-flex items-center gap-3 self-start transition-all hover:scale-105 active:scale-95 shadow-2xl"
-                    style={{ background: "#ff6a00", boxShadow: "0 8px 32px rgba(255,106,0,0.5)" }}
-                  >
-                    Пройти диагностику бесплатно
-                    <Icon name="ArrowRight" size={22} />
-                  </button>
-                  <div className="flex items-center gap-3 mt-4">
-                    <div className="flex -space-x-2">
-                      {["🧑‍🍳","👨‍💼","👩‍🍳"].map((e,i) => (
-                        <span key={i} className="w-7 h-7 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-xs">{e}</span>
-                      ))}
-                    </div>
-                    <p className="text-white/60 text-sm">Уже <span className="text-white font-bold">{diagCount}</span> заведений прошли диагностику</p>
-                  </div>
-                  <div className="mt-4 p-3 rounded-xl border border-white/10" style={{ background: "rgba(255,255,255,0.07)" }}>
-                    <p className="text-white font-bold text-sm"><span style={{ color: "#ff8c00" }}>Руслан Фатуллаев,</span> антикризисный управляющий</p>
-                    <p className="text-white/60 text-xs mt-0.5">Опыт 16 лет • 50+ заведений • 100+ аудитов</p>
-                  </div>
-                </div>
-                <div className="flex justify-center items-end relative self-end">
-                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-72 h-72 rounded-full opacity-30 blur-3xl" style={{ background: "#ff6a00" }} />
-                  <img
-                    src="https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/d57a9577-834b-496f-a898-a37c73e09e7e.jpg"
-                    alt="Руслан Фатуллаев"
-                    className="relative z-10 w-64 md:w-80 object-cover object-top rounded-t-3xl"
-                    style={{ maxHeight: "480px", filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.6))" }}
-                  />
-                </div>
-                <div className="hidden md:flex flex-col justify-end pb-8">
-                  <TipsSection />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* ─── ПЛИТКИ ─── */}
-          <div className="px-4 py-8 max-w-2xl mx-auto w-full">
-            <p className="text-white/40 text-xs uppercase tracking-widest text-center mb-5 font-semibold">Выберите раздел</p>
-
-            {/* Сетка: 2 равные колонки */}
-            <div className="grid grid-cols-2 gap-3">
-
-              {/* 1. Обо мне — portrait фото */}
-              <button
-                onClick={() => setActiveSection("about")}
-                className="relative overflow-hidden rounded-2xl text-left transition-all hover:scale-[1.02] active:scale-[0.98] col-span-1 h-44"
-                style={{ background: "#1a1a1a" }}
-              >
-                <img src="https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/3ace7e19-595a-4113-8944-5ba5d71dd2cc.jpg" alt="" className="absolute inset-0 w-full h-full object-cover object-top" />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.2) 60%, transparent 100%)" }} />
-                <div className="absolute bottom-0 left-0 p-4">
-                  <div className="w-7 h-7 rounded-lg flex items-center justify-center mb-1.5" style={{ background: "rgba(255,140,0,0.3)" }}>
-                    <Icon name="User" size={14} style={{ color: "#ff8c00" }} />
-                  </div>
-                  <p className="text-white font-bold text-base leading-tight">Обо мне</p>
-                  <p className="text-white/55 text-xs mt-0.5">Опыт и достижения</p>
-                </div>
-                <Icon name="ChevronRight" size={16} className="absolute right-3 top-3 text-white/30" />
-              </button>
-
-              {/* 2. Услуги — ресторан */}
-              <button
-                onClick={() => setActiveSection("services")}
-                className="relative overflow-hidden rounded-2xl text-left transition-all hover:scale-[1.02] active:scale-[0.98] col-span-1 h-44"
-                style={{ background: "#1a1a1a" }}
-              >
-                <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="" className="absolute inset-0 w-full h-full object-cover" />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)" }} />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(255,106,0,0.18) 0%, transparent 60%)" }} />
-                <div className="absolute bottom-0 left-0 p-4">
-                  <div className="w-7 h-7 rounded-lg flex items-center justify-center mb-1.5" style={{ background: "rgba(255,106,0,0.3)" }}>
-                    <Icon name="Briefcase" size={14} style={{ color: "#ff6a00" }} />
-                  </div>
-                  <p className="text-white font-bold text-base leading-tight">Услуги</p>
-                  <p className="text-white/55 text-xs mt-0.5">Форматы работы</p>
-                </div>
-                <Icon name="ChevronRight" size={16} className="absolute right-3 top-3 text-white/30" />
-              </button>
-
-              {/* 3. Кейсы — широкая плитка */}
-              <button
-                onClick={() => setActiveSection("cases")}
-                className="relative overflow-hidden rounded-2xl text-left transition-all hover:scale-[1.02] active:scale-[0.98] col-span-2 h-40"
-                style={{ background: "#1a1a1a" }}
-              >
-                <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=900&q=80" alt="" className="absolute inset-0 w-full h-full object-cover" />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.1) 100%)" }} />
-                <div className="absolute inset-y-0 left-0 p-5 flex flex-col justify-center">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "rgba(255,140,0,0.3)" }}>
-                      <Icon name="BarChart3" size={14} style={{ color: "#ff8c00" }} />
-                    </div>
-                    <span className="text-xs font-bold uppercase tracking-wider" style={{ color: "#ff8c00" }}>Реальные результаты</span>
-                  </div>
-                  <p className="text-white font-black text-xl leading-tight uppercase font-oswald">Кейсы клиентов</p>
-                  <p className="text-white/55 text-sm mt-1">25+ убыточных заведений выведено в плюс</p>
-                </div>
-                <Icon name="ChevronRight" size={18} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30" />
-              </button>
-
-              {/* 4. Как работаем */}
-              <button
-                onClick={() => setActiveSection("howwework")}
-                className="relative overflow-hidden rounded-2xl text-left transition-all hover:scale-[1.02] active:scale-[0.98] col-span-1 h-44"
-                style={{ background: "#1a1a1a" }}
-              >
-                <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80" alt="" className="absolute inset-0 w-full h-full object-cover" />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.2) 55%, transparent 100%)" }} />
-                <div className="absolute bottom-0 left-0 p-4">
-                  <div className="w-7 h-7 rounded-lg flex items-center justify-center mb-1.5" style={{ background: "rgba(229,90,0,0.3)" }}>
-                    <Icon name="Workflow" size={14} style={{ color: "#e55a00" }} />
-                  </div>
-                  <p className="text-white font-bold text-base leading-tight">Как работаем</p>
-                  <p className="text-white/55 text-xs mt-0.5">Процесс сотрудничества</p>
-                </div>
-                <Icon name="ChevronRight" size={16} className="absolute right-3 top-3 text-white/30" />
-              </button>
-
-              {/* 5. Калькулятор */}
-              <button
-                onClick={() => setActiveSection("calculator")}
-                className="relative overflow-hidden rounded-2xl text-left transition-all hover:scale-[1.02] active:scale-[0.98] col-span-1 h-44"
-                style={{ background: "linear-gradient(135deg, #1a0a00 0%, #2d1200 100%)" }}
-              >
-                <div className="absolute inset-0 flex items-center justify-center opacity-10">
-                  <Icon name="Calculator" size={100} className="text-orange-400" />
-                </div>
-                {/* Декоративные цифры */}
-                <div className="absolute inset-0 overflow-hidden">
-                  {["₽","↑","%","×"].map((s,i) => (
-                    <span key={i} className="absolute font-black text-2xl opacity-10 text-orange-400" style={{ top: `${15+i*18}%`, left: `${55+i*8}%`, transform: `rotate(${i*15-10}deg)` }}>{s}</span>
-                  ))}
-                </div>
-                <div className="absolute inset-0 p-4 flex flex-col justify-end">
-                  <div className="w-7 h-7 rounded-lg flex items-center justify-center mb-1.5" style={{ background: "rgba(204,78,0,0.4)" }}>
-                    <Icon name="Calculator" size={14} style={{ color: "#ff8c00" }} />
-                  </div>
-                  <p className="text-white font-bold text-base leading-tight">Калькулятор</p>
-                  <p className="text-white/55 text-xs mt-0.5">Посчитай потери прибыли</p>
-                </div>
-                <Icon name="ChevronRight" size={16} className="absolute right-3 top-3 text-white/30" />
-              </button>
-
-              {/* 6. Отзывы */}
-              <button
-                onClick={() => setActiveSection("reviews")}
-                className="relative overflow-hidden rounded-2xl text-left transition-all hover:scale-[1.02] active:scale-[0.98] col-span-2 h-36"
-                style={{ background: "#0f1a10" }}
-              >
-                <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=900&q=80" alt="" className="absolute inset-0 w-full h-full object-cover opacity-40" />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 100%)" }} />
-                <div className="absolute inset-y-0 left-0 p-5 flex flex-col justify-center">
-                  <div className="flex gap-0.5 mb-2">
-                    {[0,1,2,3,4].map(s => <Icon key={s} name="Star" size={14} style={{ color: "#ff8c00", fill: "#ff8c00" }} />)}
-                  </div>
-                  <p className="text-white font-black text-xl leading-tight uppercase font-oswald">Отзывы клиентов</p>
-                  <p className="text-white/55 text-sm mt-1">«Вырос средний чек на 35% за 2 месяца»</p>
-                </div>
-                <Icon name="ChevronRight" size={18} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30" />
-              </button>
-
-              {/* 7. Чек-листы */}
-              <button
-                onClick={() => setActiveSection("checklists")}
-                className="relative overflow-hidden rounded-2xl text-left transition-all hover:scale-[1.02] active:scale-[0.98] col-span-1 h-44"
-                style={{ background: "#0d0d1a" }}
-              >
-                <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=600&q=80" alt="" className="absolute inset-0 w-full h-full object-cover opacity-35" />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.3) 60%, transparent 100%)" }} />
-                <div className="absolute top-3 right-3 px-2 py-0.5 rounded-full text-xs font-bold" style={{ background: "#ff6a00", color: "#fff" }}>PDF</div>
-                <div className="absolute bottom-0 left-0 p-4">
-                  <div className="w-7 h-7 rounded-lg flex items-center justify-center mb-1.5" style={{ background: "rgba(229,90,0,0.3)" }}>
-                    <Icon name="ClipboardList" size={14} style={{ color: "#e55a00" }} />
-                  </div>
-                  <p className="text-white font-bold text-base leading-tight">Чек-листы</p>
-                  <p className="text-white/55 text-xs mt-0.5">Готовые инструменты</p>
-                </div>
-                <Icon name="ChevronRight" size={16} className="absolute right-3 bottom-4 text-white/30" />
-              </button>
-
-              {/* 8. FAQ */}
-              <button
-                onClick={() => setActiveSection("faq")}
-                className="relative overflow-hidden rounded-2xl text-left transition-all hover:scale-[1.02] active:scale-[0.98] col-span-1 h-44"
-                style={{ background: "linear-gradient(135deg, #0d1a1a 0%, #001a1a 100%)" }}
-              >
-                <div className="absolute inset-0 overflow-hidden">
-                  <div className="absolute top-3 right-4 text-5xl font-black opacity-10 text-teal-400">?</div>
-                  <div className="absolute top-8 right-10 text-3xl font-black opacity-7 text-teal-400">?</div>
-                </div>
-                <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&q=80" alt="" className="absolute inset-0 w-full h-full object-cover opacity-20" />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.95) 0%, transparent 60%)" }} />
-                <div className="absolute bottom-0 left-0 p-4">
-                  <div className="w-7 h-7 rounded-lg flex items-center justify-center mb-1.5" style={{ background: "rgba(0,180,180,0.2)" }}>
-                    <Icon name="HelpCircle" size={14} style={{ color: "#4dd9d9" }} />
-                  </div>
-                  <p className="text-white font-bold text-base leading-tight">Вопросы</p>
-                  <p className="text-white/55 text-xs mt-0.5">Частые вопросы</p>
-                </div>
-                <Icon name="ChevronRight" size={16} className="absolute right-3 bottom-4 text-white/30" />
-              </button>
-
-            </div>
-
-            {/* Советы для бизнеса — отдельная полная карточка */}
-            <div className="mt-3 rounded-2xl overflow-hidden border border-orange-500/20" style={{ background: "rgba(255,106,0,0.06)" }}>
-              <TipsSection />
-            </div>
-
-            {/* CTA */}
-            <button
-              onClick={() => setStep("anketa")}
-              className="w-full mt-4 text-white font-black text-base py-5 rounded-2xl uppercase tracking-wide flex items-center justify-center gap-3 transition-all hover:scale-[1.02] active:scale-[0.98]"
-              style={{ background: "linear-gradient(135deg, #ff6a00, #ff8c00)", boxShadow: "0 8px 24px rgba(255,106,0,0.4)" }}
-            >
-              <Icon name="Zap" size={20} />
-              Начать бесплатную диагностику
-            </button>
-          </div>
+    <div className="min-h-screen bg-[#ebf3fa] flex flex-col items-center justify-center p-4" style={{ fontFamily: "'Golos Text', sans-serif" }}>
+      {/* Top bar */}
+      <div className="w-full max-w-5xl flex items-center justify-between mb-3 px-1">
+        <div className="flex items-center gap-2">
+          <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="#2c6fa0" strokeWidth="1.5"/>
+            <path d="M12 5V19M5 12H19" stroke="#2c6fa0" strokeWidth="1.5"/>
+            <circle cx="12" cy="12" r="4" fill="#d0e9f5" stroke="#2c6fa0" strokeWidth="1"/>
+          </svg>
+          <span className="text-[10px] text-[#7a9ab8] uppercase tracking-widest font-semibold">ЛГ · Тазобедренный сустав</span>
         </div>
-      )}
+        <span className="text-xs text-[#7a9ab8]">{cur + 1} / {slides.length}</span>
+      </div>
 
-      {/* ─── СЕКЦИИ (открываются из плиток) ─── */}
-      {step === "landing" && activeSection !== null && (
-        <div className="min-h-screen flex flex-col">
-          <div className="px-4 pt-6 pb-4 max-w-2xl mx-auto w-full">
-            <button
-              onClick={() => setActiveSection(null)}
-              className="flex items-center gap-2 text-white/50 hover:text-white transition-colors mb-2"
-            >
-              <Icon name="ArrowLeft" size={18} />
-              <span className="text-sm">Назад</span>
-            </button>
-          </div>
-          {activeSection === "about" && (
-            <div className="px-4 pb-12 max-w-2xl mx-auto w-full">
-              <AboutSection />
-            </div>
-          )}
-          {activeSection === "services" && (
-            <div className="pb-12">
-              <ServicesSection />
-            </div>
-          )}
-          {activeSection === "howwework" && (
-            <div className="pb-12">
-              <HowWeWorkSection />
-            </div>
-          )}
-          {activeSection === "calculator" && (
-            <div className="pb-12">
-              <CalculatorSection />
-            </div>
-          )}
-          {activeSection === "cases" && (
-            <div className="pb-12">
-              <CasesSection />
-            </div>
-          )}
-          {activeSection === "reviews" && (
-            <div className="pb-12">
-              <ReviewsSection />
-            </div>
-          )}
-          {activeSection === "checklists" && (
-            <div className="pb-12">
-              <ChecklistsSection onBuyClick={() => setBuyModalOpen(true)} />
-            </div>
-          )}
-          {activeSection === "faq" && (
-            <div className="pb-12">
-              <FaqSection />
-            </div>
-          )}
-          <div className="px-4 pb-8 max-w-2xl mx-auto w-full mt-auto">
-            <button
-              onClick={() => setStep("anketa")}
-              className="w-full text-white font-black text-base py-5 rounded-2xl uppercase tracking-wide flex items-center justify-center gap-3 transition-all hover:scale-[1.02] active:scale-[0.98]"
-              style={{ background: "linear-gradient(135deg, #ff6a00, #ff8c00)", boxShadow: "0 8px 24px rgba(255,106,0,0.4)" }}
-            >
-              <Icon name="Zap" size={20} />
-              Начать бесплатную диагностику
-            </button>
-          </div>
+      {/* Slide */}
+      <div className="w-full max-w-5xl bg-white rounded-2xl shadow-lg overflow-hidden" style={{ minHeight: 520 }}>
+        <Slide />
+      </div>
+
+      {/* Dots navigation */}
+      <div className="w-full max-w-5xl mt-4 flex items-center gap-3">
+        <button
+          onClick={() => setCur(c => Math.max(0, c - 1))}
+          disabled={cur === 0}
+          className="flex items-center gap-2 px-4 py-2 rounded-xl border border-[#c8dff0] bg-white text-[#1a3a5c] text-sm hover:bg-[#eef6fd] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+        >
+          <Icon name="ChevronLeft" size={16} /> Назад
+        </button>
+
+        <div className="flex-1 flex items-center justify-center gap-2">
+          {slides.map((_, i) => (
+            <button key={i} onClick={() => setCur(i)}
+              className="rounded-full transition-all duration-300"
+              style={{ height: 8, width: i === cur ? 28 : 8, backgroundColor: i === cur ? "#2c6fa0" : "#c8dff0" }}
+            />
+          ))}
         </div>
-      )}
 
-      {/* ─── ANKETA ─── */}
-      {step === "anketa" && (
-        <div className="min-h-screen flex items-center justify-center px-6 py-16">
-          <div className="w-full max-w-2xl animate-fade-in">
-            <button onClick={() => setStep("landing")} className="text-white/50 hover:text-white flex items-center gap-2 mb-8 transition-colors">
-              <Icon name="ArrowLeft" size={18} />
-              Назад
-            </button>
+        <button
+          onClick={() => setCur(c => Math.min(slides.length - 1, c + 1))}
+          disabled={cur === slides.length - 1}
+          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#2c6fa0] text-white text-sm hover:bg-[#1a4a78] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+        >
+          Далее <Icon name="ChevronRight" size={16} />
+        </button>
+      </div>
 
-            <div className="inline-flex items-center gap-2 bg-neon/10 border border-neon/30 text-neon text-xs font-semibold px-3 py-1.5 rounded-full mb-4 uppercase tracking-widest">
-              Шаг 1 из 2
-            </div>
-
-            <h2 className="font-oswald text-4xl md:text-5xl font-bold uppercase mb-2 text-white">
-              Расскажите о себе
-            </h2>
-            <p className="text-white/55 mb-8">Заполните анкету — это займёт 1 минуту</p>
-
-            <div className="space-y-4">
-              {[
-                { key: "name", label: "Ваше ФИО *", placeholder: "Иванов Иван Иванович" },
-                { key: "city", label: "Город *", placeholder: "Москва, Санкт-Петербург..." },
-                { key: "project", label: "Название заведения *", placeholder: "Ресторан «Восток», Бар «Якорь»..." },
-                { key: "staff", label: "Количество персонала", placeholder: "Например: 12 человек" },
-              ].map((field) => (
-                <div key={field.key}>
-                  <label className="block text-sm text-white/70 mb-2 font-medium">{field.label}</label>
-                  <input
-                    type="text"
-                    placeholder={field.placeholder}
-                    value={anketa[field.key as keyof AnketaData]}
-                    onChange={(e) => setAnketa((a) => ({ ...a, [field.key]: e.target.value }))}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-white/30 focus:outline-none focus:border-neon/60 focus:bg-white/8 transition-all"
-                  />
-                </div>
-              ))}
-
-              <div>
-                <label className="block text-sm text-white/70 mb-2 font-medium">Что больше всего беспокоит?</label>
-                <textarea
-                  placeholder="Падает выручка, не могу удержать персонал, высокие расходы..."
-                  value={anketa.problem}
-                  onChange={(e) => setAnketa((a) => ({ ...a, problem: e.target.value }))}
-                  rows={3}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-white/30 focus:outline-none focus:border-neon/60 transition-all resize-none"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm text-white/70 mb-2 font-medium">Telegram или телефон *</label>
-                <input
-                  type="text"
-                  placeholder="@username или +7 999 999-99-99"
-                  value={anketa.contact}
-                  onChange={(e) => setAnketa((a) => ({ ...a, contact: e.target.value }))}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-white/30 focus:outline-none focus:border-neon/60 transition-all"
-                />
-              </div>
-            </div>
-
-            <button
-              onClick={handleAnketaSubmit}
-              disabled={!anketa.name || !anketa.city || !anketa.project || !anketa.contact}
-              className="neon-btn text-white font-bold text-lg w-full py-5 rounded-2xl uppercase tracking-wide flex items-center justify-center gap-3 mt-8 disabled:opacity-40 disabled:cursor-not-allowed"
-            >
-              Перейти к диагностике
-              <Icon name="ArrowRight" size={22} />
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* ─── QUIZ ─── */}
-      {step === "quiz" && (
-        <div className="min-h-screen flex items-center justify-center px-6 py-16">
-          <div className="w-full max-w-2xl">
-            <div className="mb-10">
-              <div className="flex justify-between text-sm text-white/50 mb-2">
-                <span>Вопрос {currentQ + 1} из {QUESTIONS.length}</span>
-                <span className="text-neon font-semibold">{Math.round((currentQ / QUESTIONS.length) * 100)}%</span>
-              </div>
-              <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-gradient-to-r from-neon to-red-500 rounded-full progress-glow transition-all duration-500"
-                  style={{ width: `${(currentQ / QUESTIONS.length) * 100}%` }}
-                />
-              </div>
-            </div>
-
-            <div key={animKey} className="animate-fade-in">
-              <div className="inline-flex items-center gap-2 bg-neon/10 border border-neon/30 text-neon text-xs font-semibold px-3 py-1.5 rounded-full mb-5 uppercase tracking-widest">
-                {QUESTIONS[currentQ].category}
-              </div>
-
-              <h2 className="font-oswald text-3xl md:text-4xl font-bold uppercase leading-tight mb-8 text-white">
-                {QUESTIONS[currentQ].question}
-              </h2>
-
-              <div className="space-y-3">
-                {QUESTIONS[currentQ].options.map((opt, idx) => (
-                  <div
-                    key={idx}
-                    onClick={() => handleOptionSelect(opt.score, idx)}
-                    className={`option-card rounded-xl p-5 flex items-center gap-4 ${selectedOption === idx ? "selected" : ""}`}
-                  >
-                    <div className={`w-8 h-8 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all ${selectedOption === idx ? "border-neon bg-neon/20" : "border-white/20"}`}>
-                      {selectedOption === idx && <Icon name="Check" size={16} className="text-neon" />}
-                    </div>
-                    <span className="text-white/90 leading-snug">{opt.text}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ─── DEEP QUIZ ─── */}
-      {step === "deepquiz" && (() => {
-        const dq = DEEP_QUESTIONS[currentDeepQ];
-        const currentVal = deepAnswers[dq.id] || "";
-        const finishDeepQuiz = (finalDeepAnswers: Record<string, string>) => {
-          const total = Object.values(answers).reduce((a, b) => a + b, 0);
-          const finalPercent = Math.round((total / MAX_SCORE) * 100);
-          sendResultToRuslan(finalPercent, finalDeepAnswers);
-          fetch(COUNTER_URL, { method: "POST" }).then(r => r.json()).then(d => setDiagCount(d.count)).catch(() => {});
-          setStep("result");
-        };
-        const handleNext = () => {
-          if (currentDeepQ + 1 < DEEP_QUESTIONS.length) {
-            setCurrentDeepQ((q) => q + 1);
-            setDeepAnimKey((k) => k + 1);
-          } else {
-            finishDeepQuiz(deepAnswers);
-          }
-        };
-        const handleSkip = () => {
-          if (currentDeepQ + 1 < DEEP_QUESTIONS.length) {
-            setCurrentDeepQ((q) => q + 1);
-            setDeepAnimKey((k) => k + 1);
-          } else {
-            finishDeepQuiz(deepAnswers);
-          }
-        };
-        return (
-          <div className="min-h-screen flex items-center justify-center px-6 py-16">
-            <div className="w-full max-w-2xl">
-              <div className="mb-10">
-                <div className="flex justify-between text-sm text-white/50 mb-2">
-                  <span>Углублённый вопрос {currentDeepQ + 1} из {DEEP_QUESTIONS.length}</span>
-                  <span className="text-neon font-semibold">{Math.round(((currentDeepQ + 1) / DEEP_QUESTIONS.length) * 100)}%</span>
-                </div>
-                <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-gradient-to-r from-neon to-red-500 rounded-full progress-glow transition-all duration-500"
-                    style={{ width: `${((currentDeepQ + 1) / DEEP_QUESTIONS.length) * 100}%` }}
-                  />
-                </div>
-              </div>
-
-              <div key={deepAnimKey} className="animate-fade-in">
-                <div className="inline-flex items-center gap-2 bg-neon/10 border border-neon/30 text-neon text-xs font-semibold px-3 py-1.5 rounded-full mb-5 uppercase tracking-widest">
-                  Детальный анализ
-                </div>
-
-                <h2 className="font-oswald text-2xl md:text-3xl font-bold leading-tight mb-6 text-white">
-                  {dq.label}
-                </h2>
-
-                <textarea
-                  rows={4}
-                  value={currentVal}
-                  onChange={(e) => setDeepAnswers((prev) => ({ ...prev, [dq.id]: e.target.value }))}
-                  placeholder={dq.placeholder}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-white/30 focus:outline-none focus:border-neon/60 transition-all resize-none mb-4"
-                />
-
-                <div className="flex gap-3">
-                  <button
-                    onClick={handleNext}
-                    disabled={!currentVal.trim()}
-                    className="neon-btn text-white font-bold text-base flex-1 py-4 rounded-2xl uppercase tracking-wide flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
-                  >
-                    {currentDeepQ + 1 < DEEP_QUESTIONS.length ? "Следующий вопрос" : "Получить результат"}
-                    <Icon name="ArrowRight" size={18} />
-                  </button>
-                  <button
-                    onClick={handleSkip}
-                    className="text-white/40 hover:text-white/70 text-sm px-5 py-4 rounded-2xl border border-white/10 hover:border-white/20 transition-all"
-                  >
-                    Пропустить
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-      })()}
-
-      {/* ─── RESULT ─── */}
-      {step === "result" && (
-        <div className="min-h-screen flex flex-col items-center justify-center px-6 py-16">
-          <div className="w-full max-w-2xl animate-fade-in text-center">
-            <div className="mb-4 text-5xl animate-count">{result.emoji}</div>
-
-            <div className="inline-flex items-center gap-2 bg-neon/10 border border-neon/30 text-neon text-xs font-semibold px-3 py-1.5 rounded-full mb-5 uppercase tracking-widest">
-              Результат диагностики
-            </div>
-
-            <h2 className="font-oswald text-4xl md:text-5xl font-bold uppercase mb-3 text-white">
-              {result.label}
-            </h2>
-
-            <div className="my-10">
-              <div className={`font-oswald text-6xl sm:text-8xl md:text-9xl font-black ${result.color} animate-count`}>
-                {displayPercent}%
-              </div>
-              <p className="text-white/50 mt-2">рентабельность вашего бизнеса</p>
-            </div>
-
-            <div className="h-4 bg-white/10 rounded-full overflow-hidden mb-4 mx-auto max-w-md">
-              <div
-                className={`h-full bg-gradient-to-r ${result.barColor} rounded-full progress-glow transition-all duration-1000`}
-                style={{ width: `${percent}%` }}
-              />
-            </div>
-            <div className="flex justify-between text-xs text-white/30 max-w-md mx-auto mb-10 px-1">
-              <span>Критично</span>
-              <span>Риск</span>
-              <span>Норма</span>
-              <span>Отлично</span>
-            </div>
-
-            {/* Categories */}
-            <div className="glass-card rounded-2xl p-6 mb-8 text-left">
-              <h3 className="font-oswald text-xl uppercase mb-5 text-white/80">Разбивка по категориям</h3>
-              {ALL_CATEGORIES.map((cat) => {
-                const catQuestions = QUESTIONS.filter((q) => q.category === cat);
-                if (!catQuestions.length) return null;
-                const catMax = catQuestions.length * 10;
-                const catScore = catQuestions.reduce((acc, q) => acc + (answers[q.id] ?? 0), 0);
-                const catPct = Math.round((catScore / catMax) * 100);
-                return (
-                  <div key={cat} className="flex items-center gap-4 mb-3">
-                    <span className="text-white/60 text-sm w-20 sm:w-28 flex-shrink-0">{cat}</span>
-                    <div className="flex-1 h-2 bg-white/10 rounded-full overflow-hidden">
-                      <div
-                        className={`h-full rounded-full ${catPct >= 70 ? "bg-gradient-to-r from-green-500 to-emerald-400" : catPct >= 40 ? "bg-gradient-to-r from-yellow-500 to-orange-400" : "bg-gradient-to-r from-red-600 to-red-500"}`}
-                        style={{ width: `${catPct}%` }}
-                      />
-                    </div>
-                    <span className="text-sm font-semibold w-10 text-right text-white/80">{catPct}%</span>
-                  </div>
-                );
-              })}
-            </div>
-
-            <p className="text-white/65 leading-relaxed mb-8 text-lg">{result.description}</p>
-
-            {/* CTA */}
-            <div className="neon-border rounded-3xl p-8 glass-card text-center">
-              <div className="text-4xl mb-4">✅</div>
-              <h3 className="font-oswald text-3xl font-bold uppercase mb-3 text-white">
-                Диагностика завершена!
-              </h3>
-              <p className="text-white/65 mb-6 text-lg leading-relaxed">
-                Ваши результаты уже у эксперта. Мы свяжемся с вами в течение <span className="text-neon font-bold">2–4 часов</span> — будьте на связи.
-              </p>
-              <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-left">
-                <p className="text-white/40 text-xs mb-0.5">Диагностика отправлена эксперту</p>
-                <p className="text-white font-medium text-sm">{anketa.name} · {anketa.project}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ─── THANKS ─── */}
-      {step === "thanks" && (
-        <div className="min-h-screen flex items-center justify-center px-6">
-          <div className="text-center max-w-lg animate-fade-in">
-            <div className="text-7xl mb-6">🚀</div>
-            <h2 className="font-oswald text-5xl font-bold uppercase mb-4 neon-text">
-              Заявка принята!
-            </h2>
-            <p className="text-white/65 text-lg leading-relaxed mb-8">
-              Мы свяжемся с вами в течение нескольких часов. Подготовьтесь к честному
-              разговору о вашем бизнесе — это первый шаг к реальным переменам.
-            </p>
-            <div className="glass-card neon-border rounded-2xl p-6 mb-8">
-              <div className="flex items-center gap-3 text-left">
-                <Icon name="CheckCircle" size={24} className="text-neon flex-shrink-0" />
-                <p className="text-white/80">Ваша заявка отправлена эксперту</p>
-              </div>
-              <div className="flex items-center gap-3 text-left mt-3">
-                <Icon name="Clock" size={24} className="text-neon flex-shrink-0" />
-                <p className="text-white/80">Ожидайте ответа в течение 2–4 часов</p>
-              </div>
-            </div>
-            <button
-              onClick={resetAll}
-              className="text-white/50 hover:text-white underline underline-offset-4 transition-colors text-sm"
-            >
-              Вернуться на главную
-            </button>
-          </div>
-        </div>
-      )}
-      <BuyModal open={buyModalOpen} onClose={() => setBuyModalOpen(false)} />
-      <ActivityToast />
+      {/* Section tabs */}
+      <div className="w-full max-w-5xl mt-3 flex gap-1.5 flex-wrap justify-center">
+        {slides.map((s, i) => (
+          <button key={s.id} onClick={() => setCur(i)}
+            className="px-3 py-1 rounded-lg text-xs transition-all"
+            style={{
+              backgroundColor: i === cur ? "#2c6fa0" : "white",
+              color: i === cur ? "white" : "#5a7a9a",
+              border: `1px solid ${i === cur ? "#2c6fa0" : "#c8dff0"}`
+            }}
+          >
+            {s.section}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
