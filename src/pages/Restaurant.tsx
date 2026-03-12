@@ -157,7 +157,7 @@ export default function Restaurant() {
               <div className="relative w-72 md:w-96">
                 <div className="absolute -inset-3 rounded-3xl bg-[rgba(255,107,0,0.15)] blur-2xl" />
                 <img
-                  src="https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/6b01a2cf-6b28-421c-878b-c4ef3f45cfe0.png"
+                  src="https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/ee99e909-4bd8-48c5-bcae-461615ec5bb0.jpg"
                   alt="Руслан Фатуллаев"
                   className="relative w-full rounded-3xl object-cover object-top shadow-2xl"
                   style={{ aspectRatio: "3/4" }}
