@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Icon from "@/components/ui/icon";
 import CountdownTimer from "@/components/CountdownTimer";
 import FloatingCTA from "@/components/FloatingCTA";
@@ -20,6 +20,54 @@ import ActivityToast from "@/components/ActivityToast";
 import BuyModal from "@/components/BuyModal";
 
 const NOTIFY_URL = "https://functions.poehali.dev/c328fb70-3615-4b46-8463-95a676ea3214";
+
+const positionStyles: Record<string, string> = {
+  "top-left": "-top-4 -left-6",
+  "top-right": "top-10 -right-6",
+  "bottom-left": "top-1/2 -left-6",
+};
+
+const CYCLE = 9;
+
+function FloatingPain({ text, delay, position }: { text: string; delay: number; position: string }) {
+  const [visible, setVisible] = useState(false);
+  const [hidden, setHidden] = useState(false);
+
+  useEffect(() => {
+    const cycle = CYCLE * 1000;
+    const offset = delay * 1000;
+
+    const tick = () => {
+      setHidden(false);
+      setVisible(false);
+      const t1 = setTimeout(() => setVisible(true), offset % cycle);
+      const t2 = setTimeout(() => setVisible(false), (offset % cycle) + 3500);
+      const t3 = setTimeout(() => setHidden(true), (offset % cycle) + 4200);
+      return [t1, t2, t3];
+    };
+
+    let timers = tick();
+    const interval = setInterval(() => {
+      timers.forEach(clearTimeout);
+      timers = tick();
+    }, cycle);
+
+    return () => { timers.forEach(clearTimeout); clearInterval(interval); };
+  }, [delay]);
+
+  return (
+    <div
+      className={`absolute z-20 max-w-[185px] ${positionStyles[position]} transition-all duration-600 ${
+        visible && !hidden ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-3 scale-95 pointer-events-none"
+      }`}
+    >
+      <div className="bg-black/90 backdrop-blur-sm border border-[#FF6B00]/70 rounded-xl px-3 py-2.5 shadow-2xl">
+        <p className="text-white text-xs font-bold leading-snug">{text}</p>
+        <div className="absolute -bottom-1.5 left-4 w-2.5 h-2.5 bg-[#FF6B00] rounded-full animate-ping opacity-80" />
+      </div>
+    </div>
+  );
+}
 
 export default function Restaurant() {
   const [buyModalOpen, setBuyModalOpen] = useState(false);
@@ -109,7 +157,7 @@ export default function Restaurant() {
               <div className="relative w-72 md:w-96">
                 <div className="absolute -inset-3 rounded-3xl bg-[rgba(255,107,0,0.15)] blur-2xl" />
                 <img
-                  src="https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/37d67924-91f0-465c-abe7-a7fbee3f6efc.jpg"
+                  src="https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/6b01a2cf-6b28-421c-878b-c4ef3f45cfe0.png"
                   alt="Руслан Фатуллаев"
                   className="relative w-full rounded-3xl object-cover object-top shadow-2xl"
                   style={{ aspectRatio: "3/4" }}
@@ -118,6 +166,11 @@ export default function Restaurant() {
                   <div className="text-white font-oswald font-bold text-lg">Руслан Фатуллаев</div>
                   <div className="text-[#FF6B00] text-sm">Антикризисный управляющий · 16 лет опыта</div>
                 </div>
+
+                {/* Всплывающие фразы-боли */}
+                <FloatingPain text="Твой зал снова пустой в пятницу?" delay={1.2} position="top-left" />
+                <FloatingPain text="Ресторан работает, но денег нет?" delay={3.5} position="top-right" />
+                <FloatingPain text="3 ошибки, которые убивают выручку кафе" delay={6.0} position="bottom-left" />
               </div>
             </div>
 
