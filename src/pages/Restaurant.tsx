@@ -55,47 +55,71 @@ export default function Restaurant() {
       <CountdownTimer />
 
       {/* Hero */}
-      <section className="relative py-20 md:py-28 px-4 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#1a0800] via-[#0a0a0a] to-[#0a0a0a] pointer-events-none" />
-        <div className="absolute top-20 right-0 w-96 h-96 bg-[rgba(255,107,0,0.08)] rounded-full blur-3xl pointer-events-none" />
+      <section className="relative min-h-screen flex items-center overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#2a1000] via-[#1a0800] to-[#0a0a0a]" />
+        <div className="absolute top-0 right-0 w-1/2 h-full opacity-20 pointer-events-none"
+          style={{ background: "radial-gradient(ellipse at 80% 20%, #FF6B00 0%, transparent 70%)" }} />
 
-        <div className="max-w-4xl mx-auto relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 bg-[rgba(255,107,0,0.1)] border border-[rgba(255,107,0,0.3)] rounded-full px-4 py-2 mb-6">
-            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse inline-block" />
-            <span className="text-[#FF6B00] text-sm font-medium">Консультант для рестораторов · 16 лет опыта</span>
-          </div>
+        <div className="max-w-6xl mx-auto px-4 py-20 relative z-10 w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
 
-          <h1 className="text-4xl md:text-6xl font-oswald font-bold text-white mb-4 uppercase leading-tight">
-            Увеличу прибыль вашего<br />
-            <span className="neon-text">ресторана за 60 дней</span>
-          </h1>
-          <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10">
-            Найду скрытые потери, выстрою процессы и дам конкретный план — без воды и шаблонных советов
-          </p>
+            {/* Левая колонка — текст */}
+            <div>
+              <h1 className="text-5xl md:text-7xl font-oswald font-black text-white uppercase leading-none mb-2">
+                ЭКСПЕРТ И<br />
+                <span className="text-[#FF6B00]">КОНСУЛЬТАНТ</span>
+              </h1>
+              <h2 className="text-xl md:text-2xl font-oswald font-bold text-white uppercase mb-8">
+                ДЛЯ РЕСТОРАНОВ, БАРОВ И КОФЕЕН
+              </h2>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-            <button onClick={scrollToDiag} className="neon-btn text-white font-bold text-lg px-10 py-4 rounded-xl flex items-center gap-3">
-              <Icon name="ClipboardList" size={22} />
-              Пройти бесплатную диагностику
-            </button>
-            <a href="#cases" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm font-medium">
-              <Icon name="ChevronRight" size={16} />
-              Смотреть кейсы с цифрами
-            </a>
-          </div>
+              <p className="text-gray-300 text-lg mb-8 leading-relaxed">
+                Найду скрытые потери, выстрою процессы и дам конкретный план — без воды и шаблонных советов
+              </p>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
-            {[
-              { value: "16+", label: "лет в ресторанном бизнесе" },
-              { value: "50+", label: "заведений прошли аудит" },
-              { value: "100+", label: "аудитов проведено" },
-              { value: "+30%", label: "средний рост прибыли" },
-            ].map((stat) => (
-              <div key={stat.label} className="glass-card rounded-xl p-4 text-center">
-                <div className="text-2xl font-oswald font-bold neon-text mb-1">{stat.value}</div>
-                <div className="text-gray-500 text-xs leading-snug">{stat.label}</div>
+              <div className="flex flex-col sm:flex-row gap-4 mb-10">
+                <button onClick={scrollToDiag} className="neon-btn text-white font-bold text-lg px-8 py-4 rounded-xl flex items-center gap-3">
+                  <Icon name="ClipboardList" size={22} />
+                  Бесплатная диагностика
+                </button>
+                <a href="#cases" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm font-medium px-2">
+                  <Icon name="ChevronRight" size={16} />
+                  Смотреть кейсы с цифрами
+                </a>
               </div>
-            ))}
+
+              <div className="grid grid-cols-2 gap-3">
+                {[
+                  { value: "16+", label: "лет в индустрии" },
+                  { value: "50+", label: "заведений прошли аудит" },
+                  { value: "100+", label: "аудитов проведено" },
+                  { value: "+30%", label: "средний рост прибыли" },
+                ].map((stat) => (
+                  <div key={stat.label} className="glass-card rounded-xl p-4">
+                    <div className="text-2xl font-oswald font-bold text-[#FF6B00] mb-0.5">{stat.value}</div>
+                    <div className="text-gray-500 text-xs leading-snug">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Правая колонка — фото */}
+            <div className="flex justify-center md:justify-end">
+              <div className="relative w-72 md:w-96">
+                <div className="absolute -inset-3 rounded-3xl bg-[rgba(255,107,0,0.15)] blur-2xl" />
+                <img
+                  src="https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/6162d9bf-e57b-4fca-b056-b7d25680bfcb.jpg"
+                  alt="Руслан Фатуллаев"
+                  className="relative w-full rounded-3xl object-cover object-top shadow-2xl"
+                  style={{ aspectRatio: "3/4" }}
+                />
+                <div className="absolute bottom-4 left-4 right-4 bg-black/70 backdrop-blur-sm rounded-2xl p-3 text-center">
+                  <div className="text-white font-oswald font-bold text-lg">Руслан Фатуллаев</div>
+                  <div className="text-[#FF6B00] text-sm">Ресторанный консультант · 16 лет опыта</div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
