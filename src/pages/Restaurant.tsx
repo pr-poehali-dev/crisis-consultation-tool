@@ -18,8 +18,7 @@ import FaqSection from "@/components/FaqSection";
 import CookieConsent from "@/components/CookieConsent";
 import ActivityToast from "@/components/ActivityToast";
 import BuyModal from "@/components/BuyModal";
-
-const NOTIFY_URL = "https://functions.poehali.dev/c328fb70-3615-4b46-8463-95a676ea3214";
+import DiagnosticQuiz from "@/components/DiagnosticQuiz";
 
 const positionStyles: Record<string, string> = {
   "top-left": "-top-4 -left-6",
@@ -71,31 +70,10 @@ function FloatingPain({ text, delay, position }: { text: string; delay: number; 
 
 export default function Restaurant() {
   const [buyModalOpen, setBuyModalOpen] = useState(false);
-  const [diagName, setDiagName] = useState("");
-  const [diagContact, setDiagContact] = useState("");
-  const [diagLoading, setDiagLoading] = useState(false);
-  const [diagSent, setDiagSent] = useState(false);
   const diagRef = useRef<HTMLElement>(null);
 
   const scrollToDiag = () => {
     diagRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const submitDiag = async () => {
-    if (!diagName.trim() || !diagContact.trim()) return;
-    setDiagLoading(true);
-    try {
-      await fetch(NOTIFY_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: diagName, contact: diagContact, source: "hero_form" }),
-      });
-      setDiagSent(true);
-    } catch (_e) {
-      setDiagLoading(false);
-    } finally {
-      setDiagLoading(false);
-    }
   };
 
   return (
@@ -181,60 +159,7 @@ export default function Restaurant() {
       <PainsSection />
       <CalculatorSection />
 
-      {/* Diagnostic form */}
-      <section ref={diagRef} id="diagnostics" className="py-16 px-4 bg-[#0d0d0d]">
-        <div className="max-w-xl mx-auto">
-          <div className="glass-card rounded-2xl p-8 text-center">
-            <div className="w-14 h-14 rounded-2xl bg-[rgba(255,107,0,0.15)] flex items-center justify-center mx-auto mb-4">
-              <Icon name="ClipboardList" size={28} className="text-[#FF6B00]" />
-            </div>
-            <h2 className="text-2xl font-oswald font-bold text-white mb-2 uppercase">Бесплатная диагностика</h2>
-            <p className="text-gray-400 text-sm mb-6">
-              Оставьте контакт — Руслан лично разберёт главную проблему вашего заведения за 15 минут
-            </p>
-
-            {diagSent ? (
-              <div className="py-4">
-                <div className="w-12 h-12 rounded-full bg-[rgba(255,107,0,0.15)] flex items-center justify-center mx-auto mb-3">
-                  <Icon name="CheckCircle" size={28} className="text-[#FF6B00]" />
-                </div>
-                <p className="text-white font-semibold">Заявка принята!</p>
-                <p className="text-gray-400 text-sm mt-1">Руслан свяжется с вами в ближайшее время</p>
-              </div>
-            ) : (
-              <div className="space-y-3">
-                <input
-                  type="text"
-                  placeholder="Ваше имя"
-                  value={diagName}
-                  onChange={(e) => setDiagName(e.target.value)}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-[rgba(255,107,0,0.5)] transition-colors"
-                />
-                <input
-                  type="text"
-                  placeholder="Телефон или Telegram"
-                  value={diagContact}
-                  onChange={(e) => setDiagContact(e.target.value)}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-[rgba(255,107,0,0.5)] transition-colors"
-                />
-                <button
-                  onClick={submitDiag}
-                  disabled={diagLoading || !diagName.trim() || !diagContact.trim()}
-                  className="neon-btn w-full text-white font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {diagLoading ? (
-                    <Icon name="Loader2" size={18} className="animate-spin" />
-                  ) : (
-                    <Icon name="Zap" size={18} />
-                  )}
-                  Записаться на диагностику
-                </button>
-                <p className="text-gray-600 text-xs">Бесплатно · Без обязательств · Ответ в течение часа</p>
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
+      <DiagnosticQuiz diagRef={diagRef} />
 
       <HowWeWorkSection />
       <GuaranteeSection onDiagnosticClick={scrollToDiag} />
