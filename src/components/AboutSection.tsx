@@ -5,30 +5,27 @@ export default function AboutSection() {
     <section className="py-20 px-4" style={{ background: "linear-gradient(180deg, #0a0a0a 0%, #0d0800 100%)" }}>
       <div className="max-w-6xl mx-auto">
 
-        {/* Заголовок */}
         <div className="text-center mb-14">
           <div className="inline-flex items-center gap-2 bg-[#ff6a00]/10 border border-[#ff6a00]/30 text-[#ff8c00] text-xs font-semibold px-3 py-1.5 rounded-full mb-4 uppercase tracking-widest">
-            История эксперта
+            Об эксперте
           </div>
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
-            Знаю изнутри каждую<br />
-            <span className="text-[#ff8c00]">точку вашего бизнеса</span>
+            Руслан Фатуллаев
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Я не теоретик. Я прошёл путь от официанта до управляющего — и только потом стал консультировать
-          </p>
+          <p className="text-[#ff8c00] text-lg font-semibold">Антикризисный управляющий · Эксперт в сфере HoReCa</p>
         </div>
 
-        {/* Два фото + цитата */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-14">
-          <div className="relative rounded-3xl overflow-hidden aspect-[3/4] group">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start mb-14">
+
+          {/* Фото */}
+          <div className="relative rounded-3xl overflow-hidden group" style={{ aspectRatio: "3/4" }}>
             <img
-              src="https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/6162d9bf-e57b-4fca-b056-b7d25680bfcb.jpg"
-              alt="Руслан Фатуллаев — портрет"
+              src="https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/37d67924-91f0-465c-abe7-a7fbee3f6efc.jpg"
+              alt="Руслан Фатуллаев"
               className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-            <div className="absolute bottom-5 left-5 right-5">
+            <div className="absolute bottom-5 left-5">
               <div className="inline-flex items-center gap-2 bg-[#ff6a00]/90 text-white text-xs font-bold px-3 py-1.5 rounded-lg uppercase tracking-wide">
                 <Icon name="Award" size={14} />
                 16+ лет в индустрии
@@ -36,43 +33,33 @@ export default function AboutSection() {
             </div>
           </div>
 
+          {/* Текст */}
           <div className="flex flex-col gap-6">
-            <div className="relative rounded-3xl overflow-hidden flex-1 group" style={{ minHeight: 240 }}>
-              <img
-                src="https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/5b187ba6-5198-42f6-a810-6890b2dac4a6.jpg"
-                alt="Руслан Фатуллаев за барной стойкой"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+
+            {/* Основной текст */}
+            <div className="rounded-2xl border border-white/8 p-6 space-y-3 text-gray-300 leading-relaxed"
+              style={{ background: "linear-gradient(135deg, #111111, #0d0800)" }}>
+              <p>Более 16-ти лет работаю в индустрии ресторанного гостеприимства и барной индустрии. Открыл и вывел на лидирующие позиции <span className="text-white font-semibold">50+ заведений</span>.</p>
+              <p>Эксперт по развитию бизнеса: свыше <span className="text-white font-semibold">600 часов</span> профильной консультационной поддержки. Бизнес-тренер: подготовил и сертифицировал команду из <span className="text-white font-semibold">150+ специалистов</span> и управленцев.</p>
+              <p>Провёл <span className="text-white font-semibold">100+ аудитов</span> в сегментах общепита: рестораны, кофейни, бары. Провёл <span className="text-white font-semibold">70+ вебинаров</span> и 100 офлайн-мероприятий с выступлениями в Саратове, Оренбурге, Мытищах, Москве, Астрахани, Владимире, Тюменской области и др.</p>
+              <p>Помогал выводить на стабильную позицию более <span className="text-white font-semibold">25 стабильно убыточных объектов</span>. Спикер школы Upskill.</p>
             </div>
 
-            {/* Цитата */}
+            {/* Философия */}
             <div className="rounded-2xl border border-[#ff6a00]/25 p-6"
               style={{ background: "linear-gradient(135deg, #1a0f00, #120a00)" }}>
               <Icon name="Quote" size={28} className="text-[#ff6a00] mb-3 opacity-80" />
-              <p className="text-white/80 leading-relaxed italic text-sm md:text-base">
-                «Каждое заведение — это целый мир. Чтобы оно было прибыльным, нужно знать его изнутри. Именно поэтому я начинал с самых низов — и теперь вижу то, что другие консультанты просто не замечают.»
+              <p className="text-white/90 leading-relaxed italic text-base">
+                «Каждое заведение должно создавать уникальный опыт для гостей и при этом быть прибыльным. Я не даю шаблонных решений — каждый проект индивидуален.»
               </p>
               <div className="mt-4 flex items-center gap-3">
                 <div className="w-8 h-0.5 bg-[#ff6a00]" />
-                <span className="text-[#ff8c00] font-semibold text-sm">Руслан Фатуллаев</span>
+                <span className="text-[#ff8c00] font-semibold text-sm">Моя философия</span>
               </div>
             </div>
-          </div>
-        </div>
 
-        {/* Биография */}
-        <div className="rounded-3xl border border-white/8 p-8 md:p-10 mb-10"
-          style={{ background: "linear-gradient(135deg, #111111, #0d0800)" }}>
-          <div className="space-y-4 text-gray-300 leading-relaxed text-base md:text-lg">
-            <p>
-              Мой путь в ресторанном бизнесе начался с должности официанта. Уже через полгода я понял, что моё призвание — за барной стойкой, и стал барменом. За полтора года практики дорос до старшего бармена, работая в разных проектах и постоянно углубляя знания.
-            </p>
-            <p>
-              Продолжая развиваться, стал бар-менеджером — разрабатывал барные и ресторанные меню. Затем взял на себя роль шеф-бармена и управляющего — так я освоил полный операционный цикл: персонал, закупки, себестоимость, сервис. Именно этот опыт «с земли» даёт мне то, чего нет у большинства консультантов: я знаю, как устроено заведение на каждом уровне.
-            </p>
-            <p>
-              Сегодня я помогаю владельцам ресторанов, кафе и баров выстраивать системы, которые работают без постоянного участия собственника — и при этом приносят стабильную прибыль. Каждое заведение для меня индивидуально: я не даю шаблонных решений, я нахожу конкретные точки потерь и устраняю их.
+            <p className="text-[#ff8c00] font-semibold text-center">
+              С радостью помогу открыть, развить и вывести в ТОП ваше заведение!
             </p>
           </div>
         </div>
@@ -80,10 +67,10 @@ export default function AboutSection() {
         {/* Итоговые цифры */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
-            { num: "16+", label: "лет в индустрии", icon: "Clock" },
+            { num: "16+", label: "лет опыта", icon: "Clock" },
             { num: "50+", label: "заведений открыто", icon: "Store" },
-            { num: "100+", label: "аудитов проведено", icon: "ClipboardList" },
-            { num: "150+", label: "специалистов обучено", icon: "Users" },
+            { num: "600+", label: "часов консультаций", icon: "ClipboardList" },
+            { num: "150+", label: "специалистов", icon: "Users" },
           ].map((stat) => (
             <div
               key={stat.label}
