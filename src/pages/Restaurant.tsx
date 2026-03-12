@@ -67,7 +67,8 @@ export default function Restaurant() {
             <div>
               <h1 className="text-5xl md:text-7xl font-oswald font-black text-white uppercase leading-none mb-2">
                 ЭКСПЕРТ И<br />
-                <span className="text-[#FF6B00]">КОНСУЛЬТАНТ</span>
+                <span className="text-[#FF6B00]">КОНСУЛЬТАНТ</span><br />
+                В СФЕРЕ HORECA
               </h1>
               <h2 className="text-xl md:text-2xl font-oswald font-bold text-white uppercase mb-8">
                 ДЛЯ РЕСТОРАНОВ, БАРОВ И КОФЕЕН
@@ -108,14 +109,14 @@ export default function Restaurant() {
               <div className="relative w-72 md:w-96">
                 <div className="absolute -inset-3 rounded-3xl bg-[rgba(255,107,0,0.15)] blur-2xl" />
                 <img
-                  src="https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/6162d9bf-e57b-4fca-b056-b7d25680bfcb.jpg"
+                  src="https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/37d67924-91f0-465c-abe7-a7fbee3f6efc.jpg"
                   alt="Руслан Фатуллаев"
                   className="relative w-full rounded-3xl object-cover object-top shadow-2xl"
                   style={{ aspectRatio: "3/4" }}
                 />
                 <div className="absolute bottom-4 left-4 right-4 bg-black/70 backdrop-blur-sm rounded-2xl p-3 text-center">
                   <div className="text-white font-oswald font-bold text-lg">Руслан Фатуллаев</div>
-                  <div className="text-[#FF6B00] text-sm">Ресторанный консультант · 16 лет опыта</div>
+                  <div className="text-[#FF6B00] text-sm">Антикризисный управляющий · 16 лет опыта</div>
                 </div>
               </div>
             </div>
