@@ -1,18 +1,16 @@
 {
   "tests": [
     {
-      "name": "Test notify - lead",
+      "name": "Test notify - diagnostic quiz",
       "method": "POST",
       "path": "/",
       "body": {
-        "name": "Тест",
-        "contact": "@test",
-        "city": "Москва",
-        "project": "Кафе Тест",
-        "staff": "10",
-        "problem": "Нет прибыли",
-        "score": 45,
-        "result_label": "Есть серьёзные зоны риска"
+        "source": "diagnostic_quiz",
+        "name": "Иванов Иван",
+        "contact": "+7 900 000 00 00",
+        "profitability": "Средняя рентабельность",
+        "info": "Ф.И.О.: Иванов Иван Иванович\nГород: Москва\nНазвание проекта: Бар Огонёк\nКоличество посадочных мест: 80\nКоличество сотрудников: 15\nФОТ: 350000\nРуководителей: 3",
+        "answers": "Какой проект у вас?\n→ Бар\n\nАтмосфера?\n→ Яркая и тусовочная"
       },
       "expectedStatus": 200,
       "bodyMatcher": "partial"

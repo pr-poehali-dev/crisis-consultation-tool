@@ -263,65 +263,22 @@ def handler(event: dict, context) -> dict:
 
     name = body.get("name", "—")
     contact = body.get("contact", "—")
-    city = body.get("city", "—")
-    project = body.get("project", "—")
-    staff = body.get("staff", "—")
-    problem = body.get("problem", "—")
-    score = body.get("score")
-    result_label = body.get("result_label", "—")
-    revenue_change = body.get("revenue_change", "")
-    avg_check = body.get("avg_check", "")
-    peak_load = body.get("peak_load", "")
-    cost_control = body.get("cost_control", "")
-    staff_turnover = body.get("staff_turnover", "")
-    service_standards = body.get("service_standards", "")
-    menu_relevance = body.get("menu_relevance", "")
-    main_costs = body.get("main_costs", "")
-    crisis_cases = body.get("crisis_cases", "")
-    tracked_metrics = body.get("tracked_metrics", "")
-    quiz_answers = body.get("quiz_answers", {})
-
-    conn = psycopg2.connect(os.environ["DATABASE_URL"])
-    cur = conn.cursor()
-    cur.execute(
-        "INSERT INTO t_p93544965_crisis_consultation_.leads "
-        "(name, contact, city, project, staff, problem, score, result_label, "
-        "revenue_change, avg_check, peak_load, cost_control, staff_turnover, "
-        "service_standards, menu_relevance, main_costs, crisis_cases, tracked_metrics) "
-        "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-        (name, contact, city, project, staff, problem, score, result_label,
-         revenue_change, avg_check, peak_load, cost_control, staff_turnover,
-         service_standards, menu_relevance, main_costs, crisis_cases, tracked_metrics),
-    )
-    conn.commit()
-    cur.close()
-    conn.close()
-
-    score_display = f"{score}%" if score is not None else "—"
-
-    def fld(label, val):
-        return f"\n<b>{label}:</b> {val}" if val and val != "—" else ""
+    profitability = body.get("profitability", "—")
+    info_text = body.get("info", "")
+    answers_text = body.get("answers", "")
 
     text = (
-        f"🔔 <b>Новая заявка с сайта!</b>\n\n"
+        f"🔔 <b>Новая диагностика с сайта!</b>\n\n"
         f"👤 <b>Имя:</b> {name}\n"
         f"📞 <b>Контакт:</b> {contact}\n"
-        f"🏙 <b>Город:</b> {city}\n"
-        f"🍽 <b>Заведение:</b> {project}\n"
-        f"👥 <b>Персонал:</b> {staff}\n"
-        f"❗️ <b>Проблема:</b> {problem}\n"
-        f"📊 <b>Результат:</b> {score_display} — {result_label}"
-        f"{fld('📈 Выручка (6 мес.)', revenue_change)}"
-        f"{fld('🧾 Средний чек', avg_check)}"
-        f"{fld('🪑 Заполненность в пик', peak_load)}"
-        f"{fld('📦 Учёт себестоимости', cost_control)}"
-        f"{fld('🔄 Текучесть персонала', staff_turnover)}"
-        f"{fld('📋 Стандарты сервиса', service_standards)}"
-        f"{fld('🍽 Актуальность меню', menu_relevance)}"
-        f"{fld('💸 Главные затраты', main_costs)}"
-        f"{fld('🚨 Кризисные ситуации', crisis_cases)}"
-        f"{fld('📉 Метрики', tracked_metrics)}"
+        f"📊 <b>Рентабельность:</b> {profitability}\n\n"
+        f"📋 <b>Данные проекта:</b>\n{info_text}\n\n"
+        f"💬 <b>Ответы на вопросы:</b>\n{answers_text}"
     )
+
+    # обрезаем до лимита Telegram (4096 символов)
+    if len(text) > 4096:
+        text = text[:4090] + "\n..."
 
     token = os.environ["TELEGRAM_BOT_TOKEN"]
     tg_url = f"https://api.telegram.org/bot{token}/sendMessage"
@@ -338,12 +295,7 @@ def handler(event: dict, context) -> dict:
             "body": json.dumps({"ok": False, "tg_error": error_body}),
         }
 
-    if contact and "@" in contact and "." in contact:
-        try:
-            html = build_quiz_email(name, score or 0, result_label, quiz_answers)
-            send_email(contact, f"Ваши результаты диагностики — {score_display}", html)
-        except Exception:
-            pass
+
 
     return {
         "statusCode": 200,
