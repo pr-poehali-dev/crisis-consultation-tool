@@ -5,6 +5,7 @@ const NOTIFY_URL = "https://functions.poehali.dev/c328fb70-3615-4b46-8463-95a676
 
 const INFO_FIELDS = [
   { id: "fullName", label: "Ф.И.О.", placeholder: "Иванов Иван Иванович" },
+  { id: "phone", label: "Телефон / Telegram", placeholder: "+7 900 000 00 00 или @username" },
   { id: "city", label: "Город", placeholder: "Москва" },
   { id: "projectName", label: "Название проекта", placeholder: "Бар «Огонёк»" },
   { id: "seats", label: "Количество посадочных мест", placeholder: "80", type: "number" },
@@ -199,7 +200,7 @@ export default function DiagnosticQuiz({ diagRef }: DiagnosticQuizProps) {
           body: JSON.stringify({
             source: "diagnostic_quiz",
             name: info.fullName,
-            contact: info.city,
+            contact: info.phone,
             profitability: result.label,
             info: infoText,
             answers: answersText,
