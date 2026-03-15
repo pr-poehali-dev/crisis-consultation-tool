@@ -155,7 +155,7 @@ export default function ChecklistsSection({ onBuyClick }: ChecklistsSectionProps
           <div>
             <div className="flex items-baseline gap-3 mb-1">
               <span className="text-5xl font-oswald font-bold text-white">999 ₽</span>
-              <span className="text-gray-500 line-through text-xl">1 499 ₽</span>
+              <span className="text-gray-500 line-through text-xl">9 900 ₽</span>
               <span className="bg-[#FF2D55] text-white text-sm font-bold px-2 py-1 rounded-lg">Акция</span>
             </div>
             <p className="text-gray-400 text-sm">Все 16 чек-листов сразу на вашу почту после оплаты</p>
