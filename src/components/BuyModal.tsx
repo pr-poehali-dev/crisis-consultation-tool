@@ -111,10 +111,10 @@ export default function BuyModal({ open, onClose }: BuyModalProps) {
             </div>
             <div className="flex items-center justify-between mb-4">
               <div>
-                <span className="text-3xl font-oswald font-bold text-white">1 999 ₽</span>
-                <span className="text-gray-500 line-through text-base ml-2">9 900 ₽</span>
+                <span className="text-3xl font-oswald font-bold text-white">999 ₽</span>
+                <span className="text-gray-500 line-through text-base ml-2">1 499 ₽</span>
               </div>
-              <span className="bg-[#FF2D55] text-white text-sm font-bold px-3 py-1 rounded-lg">Скидка 80%</span>
+              <span className="bg-[#FF2D55] text-white text-sm font-bold px-3 py-1 rounded-lg">Акция</span>
             </div>
             <button
               onClick={handleBuy}
