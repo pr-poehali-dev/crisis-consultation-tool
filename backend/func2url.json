@@ -1,3 +1,6 @@
 {
-  "counter": "https://functions.poehali.dev/466a7ae9-ffcb-4019-87a3-51ac4a629d27"
+  "tg-buy": "https://functions.poehali.dev/dfce89ef-d515-41f3-ba64-9917db793829",
+  "counter": "https://functions.poehali.dev/466a7ae9-ffcb-4019-87a3-51ac4a629d27",
+  "admin-leads": "https://functions.poehali.dev/93ceb604-c90c-428f-8e00-ab5b08257ecf",
+  "notify": "https://functions.poehali.dev/c328fb70-3615-4b46-8463-95a676ea3214"
 }
