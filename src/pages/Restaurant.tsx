@@ -19,6 +19,7 @@ import CookieConsent from "@/components/CookieConsent";
 import ActivityToast from "@/components/ActivityToast";
 import BuyModal from "@/components/BuyModal";
 import DiagnosticQuiz from "@/components/DiagnosticQuiz";
+import ContactsSection from "@/components/ContactsSection";
 
 const positionStyles: Record<string, string> = {
   "top-left": "-top-4 -left-6",
@@ -175,6 +176,7 @@ export default function Restaurant() {
       <MarathonSection />
       <TipsSection />
       <FaqSection />
+      <ContactsSection />
 
       {/* Footer */}
       <footer className="py-8 px-4 border-t border-white/5">
