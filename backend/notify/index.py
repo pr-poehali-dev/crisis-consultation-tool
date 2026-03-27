@@ -243,7 +243,7 @@ def handle_marathon(body: dict) -> dict:
 
 
 def handler(event: dict, context) -> dict:
-    """Уведомления: новая заявка (диагностика) или запись на марафон. Отправляет персонализированный email участнику."""
+    """Уведомления: новая заявка (диагностика) или запись на марафон. Отправляет персонализированный email участнику. v2."""
     if event.get("httpMethod") == "OPTIONS":
         return {
             "statusCode": 200,
