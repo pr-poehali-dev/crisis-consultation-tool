@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
 
-const NOTIFY_URL = "https://functions.poehali.dev/c328fb70-3615-4b46-8463-95a676ea3214";
+const NOTIFY_URL = "https://functions.poehali.dev/7bba2fb3-0000-4130-964b-1f300eb201bc";
 
 const INFO_FIELDS = [
   { id: "fullName", label: "Ф.И.О.", placeholder: "Иванов Иван Иванович" },

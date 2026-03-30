@@ -6,16 +6,19 @@ interface BuyModalProps {
   onClose: () => void;
 }
 
-const TG_BUY_URL = "https://functions.poehali.dev/dfce89ef-d515-41f3-ba64-9917db793829";
+const LEADS_URL = "https://functions.poehali.dev/7bba2fb3-0000-4130-964b-1f300eb201bc";
+const CARD_NUMBER = "4377 7278 0412 1940";
+const CARD_NAME = "Руслан Фатуллаев";
+const AMOUNT = "999 ₽";
 
-type Step = "email" | "card" | "done";
+type Step = "email" | "card";
 
 export default function BuyModal({ open, onClose }: BuyModalProps) {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [step, setStep] = useState<Step>("email");
-  const [cardInfo, setCardInfo] = useState({ card: "", card_name: "", amount: "", order_id: "" });
+  const [orderId, setOrderId] = useState("");
 
   if (!open) return null;
 
@@ -28,35 +31,22 @@ export default function BuyModal({ open, onClose }: BuyModalProps) {
     }
     setError("");
     setLoading(true);
-    try {
-      const res = await fetch(TG_BUY_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-      const data = await res.json();
-      if (data.ok) {
-        setCardInfo({
-          card: data.card,
-          card_name: data.card_name,
-          amount: data.amount,
-          order_id: String(data.order_id),
-        });
-        setStep("card");
-      } else {
-        setError("Ошибка. Попробуйте ещё раз.");
-      }
-    } catch {
-      setError("Ошибка соединения. Попробуйте ещё раз.");
-    } finally {
-      setLoading(false);
-    }
+    const newOrderId = String(Date.now()).slice(-6);
+    setOrderId(newOrderId);
+    setStep("card");
+    setLoading(false);
+    fetch(LEADS_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ source: "buy_checklist", email, order_id: newOrderId }),
+    }).catch(() => {});
   };
 
   const handleClose = () => {
     setStep("email");
     setEmail("");
     setError("");
+    setOrderId("");
     onClose();
   };
 
@@ -143,25 +133,25 @@ export default function BuyModal({ open, onClose }: BuyModalProps) {
               Переведите оплату
             </h2>
             <p className="text-gray-400 text-center text-sm mb-6">
-              Переведите <strong className="text-white">{cardInfo.amount}</strong> на карту ниже
+              Переведите <strong className="text-white">{AMOUNT}</strong> на карту ниже
             </p>
 
             <div className="bg-[rgba(255,107,0,0.08)] border border-[rgba(255,107,0,0.3)] rounded-xl p-5 mb-6 space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-gray-400 text-sm">Карта</span>
-                <span className="text-white font-bold text-lg tracking-widest">{cardInfo.card}</span>
+                <span className="text-white font-bold text-lg tracking-widest">{CARD_NUMBER}</span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-gray-400 text-sm">Получатель</span>
-                <span className="text-white font-medium">{cardInfo.card_name}</span>
+                <span className="text-white font-medium">{CARD_NAME}</span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-gray-400 text-sm">Сумма</span>
-                <span className="text-[#FF6B00] font-bold text-xl">{cardInfo.amount}</span>
+                <span className="text-[#FF6B00] font-bold text-xl">{AMOUNT}</span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-gray-400 text-sm">Заказ №</span>
-                <span className="text-gray-300 text-sm">{cardInfo.order_id}</span>
+                <span className="text-gray-300 text-sm">{orderId}</span>
               </div>
             </div>
 
