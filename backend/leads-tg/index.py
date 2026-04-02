@@ -8,7 +8,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 CHAT_ID = "7728954739"
-OWNER_EMAIL = "ruslan_f1980@mail.ru"
+OWNER_EMAIL = "r.fatullaew@yandex.ru"
 
 CORS = {
     "Access-Control-Allow-Origin": "*",
