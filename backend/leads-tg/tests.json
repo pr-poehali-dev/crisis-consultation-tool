@@ -10,7 +10,25 @@
       "name": "Exit popup lead",
       "method": "POST",
       "path": "/",
-      "body": {"name": "Тест", "contact": "+79001234567", "source": "exit_popup"},
+      "body": {"name": "Тест Руслан", "contact": "+79001234567", "source": "exit_popup"},
+      "expectedStatus": 200,
+      "expectedBody": {"ok": true},
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Buy checklist lead",
+      "method": "POST",
+      "path": "/",
+      "body": {"source": "buy_checklist", "email": "test@test.com", "order_id": "999999"},
+      "expectedStatus": 200,
+      "expectedBody": {"ok": true},
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Diagnostic quiz lead",
+      "method": "POST",
+      "path": "/",
+      "body": {"name": "Тест Диагностика", "contact": "+79001234567", "profitability": "Средняя рентабельность", "info": "Бар Тест, Москва", "answers": "type: Бар\nspeed: 5-10 минут"},
       "expectedStatus": 200,
       "expectedBody": {"ok": true},
       "bodyMatcher": "partial"
