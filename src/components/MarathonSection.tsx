@@ -157,6 +157,7 @@ interface MarathonModalProps {
 
 function MarathonModal({ onClose }: MarathonModalProps) {
   const [mode, setMode] = useState<"choose" | "telegram" | "email" | "done">("choose");
+  const [deliveryMode, setDeliveryMode] = useState<"telegram" | "email">("telegram");
   const [telegram, setTelegram] = useState("");
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -168,6 +169,7 @@ function MarathonModal({ onClose }: MarathonModalProps) {
     if (mode === "telegram" && !telegram.trim()) { setError("Введите ник в Telegram"); return; }
     if (mode === "email" && !email.trim()) { setError("Введите email"); return; }
 
+    setDeliveryMode(mode as "telegram" | "email");
     setLoading(true);
     setError("");
     try {
@@ -193,14 +195,57 @@ function MarathonModal({ onClose }: MarathonModalProps) {
         </button>
 
         {mode === "done" ? (
-          <div className="text-center py-4">
-            <div className="text-5xl mb-4">🎉</div>
-            <h3 className="font-heading text-2xl text-white mb-3">Готово!</h3>
-            <p className="text-white/70 text-sm leading-relaxed">
-              Марафон отправлен. Проверьте Telegram или почту.<br />
-              Удачи в прохождении — жду ваш финальный пакет!
+          <div className="text-center py-2">
+            {/* Иконка */}
+            <div className="relative w-20 h-20 mx-auto mb-4">
+              <div className="absolute inset-0 rounded-full bg-[rgba(255,107,0,0.15)] animate-pulse" />
+              <div className="relative w-20 h-20 rounded-full bg-[rgba(255,107,0,0.2)] flex items-center justify-center">
+                <span className="text-4xl">🏃</span>
+              </div>
+            </div>
+
+            <h3 className="font-heading text-2xl text-white mb-1">Марафон запущен!</h3>
+            <p className="text-[#FF6B00] text-sm font-semibold mb-5">
+              {deliveryMode === "email" ? "Проверьте почту — письмо уже летит" : "Загляните в Telegram — марафон там"}
             </p>
-            <button onClick={onClose} className="neon-btn mt-6 px-8 py-3 rounded-xl font-semibold">
+
+            {/* Мотивация */}
+            <div className="bg-gradient-to-br from-[rgba(255,107,0,0.1)] to-[rgba(255,45,85,0.05)] border border-[rgba(255,107,0,0.2)] rounded-2xl p-5 mb-4 text-left">
+              <p className="text-[#FF6B00] font-bold text-sm mb-2">🔥 15 дней — и ваш бизнес изменится</p>
+              <p className="text-white text-sm leading-relaxed">
+                Каждый день — одно конкретное действие. Не теория, не советы "в стол". Только то, что даёт результат уже на этой неделе.
+              </p>
+              <p className="text-gray-400 text-sm mt-2 leading-relaxed">
+                Выполните все 15 заданий — и пришлите финальный пакет. Лично разберу ваш кейс.
+              </p>
+            </div>
+
+            {/* Шаги */}
+            <div className="space-y-2 mb-5 text-left">
+              {[
+                { icon: "Package", text: "Неделя 1 — Склад и учёт: найдём дыры" },
+                { icon: "Truck", text: "Неделя 2 — Закупки: снизим затраты" },
+                { icon: "BarChart2", text: "Неделя 3 — Процессы: внедрим систему" },
+              ].map(({ icon, text }) => (
+                <div key={text} className="flex items-center gap-3 bg-white/4 rounded-xl px-4 py-2.5">
+                  <Icon name={icon} size={16} className="text-[#FF6B00] flex-shrink-0" />
+                  <span className="text-gray-300 text-sm">{text}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Telegram */}
+            <a
+              href="https://t.me/Roko_Tiis"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 w-full border border-[rgba(0,136,204,0.4)] bg-[rgba(0,136,204,0.08)] text-[#0088cc] hover:bg-[rgba(0,136,204,0.15)] py-3 rounded-xl transition-colors text-sm font-semibold mb-3"
+            >
+              <Icon name="Send" size={16} />
+              Написать Руслану в Telegram
+            </a>
+
+            <button onClick={onClose} className="w-full text-gray-500 text-sm hover:text-gray-300 transition-colors py-1">
               Закрыть
             </button>
           </div>
