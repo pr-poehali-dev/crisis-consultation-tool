@@ -349,33 +349,69 @@ export default function DiagnosticQuiz({ diagRef }: DiagnosticQuizProps) {
         {/* DONE */}
         {step === "done" && (
           <div className="glass-card rounded-2xl p-8 text-center">
+
+            {/* Результат */}
             <div
-              className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5"
+              className="relative w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4"
               style={{ background: `${result.color}22` }}
             >
-              <Icon name={result.icon} size={32} style={{ color: result.color }} />
+              <div
+                className="absolute inset-0 rounded-full animate-pulse opacity-40"
+                style={{ background: result.color }}
+              />
+              <Icon name={result.icon} size={36} style={{ color: result.color }} className="relative z-10" />
             </div>
+
             <div
-              className="inline-block text-sm font-bold px-4 py-1.5 rounded-full mb-4"
+              className="inline-block text-xs font-bold px-3 py-1 rounded-full mb-3 uppercase tracking-wide"
               style={{ background: `${result.color}22`, color: result.color }}
             >
               {result.label}
             </div>
-            <h3 className="text-2xl font-oswald font-bold text-white mb-3 uppercase">
+
+            <h3 className="text-2xl font-oswald font-bold text-white mb-2 uppercase">
               {result.title}
             </h3>
-            <p className="text-gray-400 mb-6 max-w-md mx-auto">{result.text}</p>
-            <div className="glass-card rounded-xl p-4 mb-6 text-left">
-              <p className="text-gray-500 text-sm mb-1">Ваш проект</p>
+            <p className="text-gray-400 text-sm mb-5 max-w-sm mx-auto leading-relaxed">
+              {result.text}
+            </p>
+
+            {/* Проект */}
+            <div className="bg-white/4 border border-white/8 rounded-xl p-4 mb-5 text-left">
+              <p className="text-gray-500 text-xs mb-1 uppercase tracking-wide">Ваш проект</p>
               <p className="text-white font-semibold">{info.projectName} — {info.city}</p>
               <p className="text-gray-500 text-sm mt-1">
                 {info.seats} мест · {info.staff} сотрудников · ФОТ {parseInt(info.payroll || "0").toLocaleString("ru")} ₽/мес
               </p>
             </div>
-            <div className="bg-[rgba(255,107,0,0.08)] border border-[rgba(255,107,0,0.2)] rounded-xl p-4 text-sm text-gray-400">
-              <Icon name="CheckCircle" size={16} className="text-[#FF6B00] inline mr-2" />
-              Ваши ответы отправлены эксперту — ожидайте звонка или сообщения
+
+            {/* Мотивация */}
+            <div className="bg-gradient-to-br from-[rgba(255,107,0,0.12)] to-[rgba(255,45,85,0.06)] border border-[rgba(255,107,0,0.25)] rounded-2xl p-5 mb-5 text-left">
+              <p className="text-[#FF6B00] font-bold text-sm mb-2">💬 Слово от Руслана:</p>
+              <p className="text-white text-sm leading-relaxed">
+                Вы уже сделали то, что большинство откладывает месяцами — честно взглянули на свой бизнес. Это и есть первый шаг к реальным изменениям.
+              </p>
+              <p className="text-gray-400 text-sm mt-2 leading-relaxed">
+                Я лично изучу ваши ответы и свяжусь в ближайшее время. Готовьтесь — будем работать.
+              </p>
             </div>
+
+            {/* Статус */}
+            <div className="flex items-center justify-center gap-2 text-sm text-gray-400 mb-5">
+              <Icon name="CheckCircle" size={16} className="text-[#FF6B00]" />
+              Ответы отправлены эксперту — ожидайте связи
+            </div>
+
+            {/* Telegram */}
+            <a
+              href="https://t.me/Roko_Tiis"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 w-full border border-[rgba(0,136,204,0.4)] bg-[rgba(0,136,204,0.08)] text-[#0088cc] hover:bg-[rgba(0,136,204,0.15)] py-3 rounded-xl transition-colors text-sm font-semibold"
+            >
+              <Icon name="Send" size={16} />
+              Написать Руслану в Telegram
+            </a>
           </div>
         )}
       </div>
