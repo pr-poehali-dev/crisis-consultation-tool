@@ -96,7 +96,6 @@ def handler(event: dict, context) -> dict:
         )
         email_html = f"<h2>🏃 Новая запись на марафон!</h2><p><b>Имя:</b> {name}</p><p><b>Способ доставки:</b> {mode}</p><p><b>Контакт:</b> {contact}</p>"
 
-        tg_send(token, CHAT_ID, tg_text)
         email_send("🏃 Новая запись на марафон — сайт", email_html)
         save_lead(name, contact, "marathon")
 
@@ -118,7 +117,6 @@ def handler(event: dict, context) -> dict:
             f"<p>Отправь чек-листы после получения оплаты!</p>"
         )
 
-        tg_send(token, CHAT_ID, tg_text)
         email_send(f"💳 Заявка на чек-листы №{order_id}", email_html)
         save_lead(email, email, "buy_checklist", f"order_id={order_id}")
 
@@ -141,7 +139,6 @@ def handler(event: dict, context) -> dict:
             f"<p><b>Источник:</b> {source}{extra}</p>"
         )
 
-        tg_send(token, CHAT_ID, tg_text)
         email_send(f"🔔 Новая заявка — {source}", email_html)
         save_lead(name, contact, source, service)
 
@@ -172,7 +169,6 @@ def handler(event: dict, context) -> dict:
             f"<hr/><p><b>Ответы:</b></p><p>{answers_text.replace(chr(10), '<br/>')}</p>"
         )
 
-        tg_send(token, CHAT_ID, tg_text)
         email_send(f"📊 Диагностика — {name} ({profitability})", email_html)
         save_lead(name, contact, "diagnostic_quiz", profitability)
 
