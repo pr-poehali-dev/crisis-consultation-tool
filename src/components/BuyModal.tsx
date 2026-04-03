@@ -11,7 +11,7 @@ const CARD_NUMBER = "4377 7278 0412 1940";
 const CARD_NAME = "Руслан Фатуллаев";
 const AMOUNT = "999 ₽";
 
-type Step = "email" | "card";
+type Step = "email" | "card" | "thanks";
 
 export default function BuyModal({ open, onClose }: BuyModalProps) {
   const [email, setEmail] = useState("");
@@ -43,10 +43,12 @@ export default function BuyModal({ open, onClose }: BuyModalProps) {
   };
 
   const handleClose = () => {
-    setStep("email");
-    setEmail("");
-    setError("");
-    setOrderId("");
+    setTimeout(() => {
+      setStep("email");
+      setEmail("");
+      setError("");
+      setOrderId("");
+    }, 300);
     onClose();
   };
 
@@ -165,11 +167,71 @@ export default function BuyModal({ open, onClose }: BuyModalProps) {
             </div>
 
             <button
-              onClick={handleClose}
-              className="w-full border border-[rgba(255,255,255,0.15)] text-gray-300 hover:text-white hover:border-white py-3 rounded-xl transition-colors text-sm"
+              onClick={() => setStep("thanks")}
+              className="neon-btn w-full text-white font-bold py-3.5 rounded-xl flex items-center justify-center gap-2"
             >
-              Закрыть — жду чек-листы на почту
+              <Icon name="CheckCircle" size={18} />
+              Оплатил — жду чек-листы
             </button>
+            <button
+              onClick={handleClose}
+              className="w-full mt-2 text-gray-600 text-xs hover:text-gray-400 transition-colors py-1"
+            >
+              Закрыть
+            </button>
+          </>
+        )}
+
+        {step === "thanks" && (
+          <>
+            <div className="text-center pt-2 pb-4">
+              <div className="relative mx-auto mb-5 w-20 h-20">
+                <div className="absolute inset-0 rounded-full bg-[rgba(255,107,0,0.15)] animate-pulse" />
+                <div className="relative w-20 h-20 rounded-full bg-[rgba(255,107,0,0.2)] flex items-center justify-center">
+                  <span className="text-4xl">🔥</span>
+                </div>
+              </div>
+
+              <h2 className="text-2xl font-oswald font-bold text-white uppercase mb-1">
+                Отличное решение!
+              </h2>
+              <p className="text-[#FF6B00] font-semibold text-sm mb-5">
+                Чек-листы скоро будут на вашей почте
+              </p>
+
+              <div className="bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] rounded-2xl p-5 mb-5 text-left">
+                <p className="text-white text-sm leading-relaxed">
+                  Каждый успешный ресторатор начинал с одного шага. Вы сделали правильный выбор — теперь у вас есть инструменты, которые реально работают.
+                </p>
+                <p className="text-gray-400 text-sm leading-relaxed mt-3">
+                  Внедряйте по одному чек-листу в неделю — через месяц вы не узнаете свой бизнес.
+                </p>
+              </div>
+
+              <div className="bg-[rgba(255,107,0,0.08)] border border-[rgba(255,107,0,0.25)] rounded-xl px-4 py-3 mb-5 flex items-center gap-3">
+                <Icon name="Mail" size={16} className="text-[#FF6B00] flex-shrink-0" />
+                <p className="text-gray-300 text-sm">
+                  Письмо придёт на <strong className="text-white">{email}</strong> в течение нескольких минут
+                </p>
+              </div>
+
+              <div className="flex items-center gap-3 bg-[rgba(255,255,255,0.03)] rounded-xl p-3 mb-5">
+                <Icon name="MessageCircle" size={16} className="text-[#0088cc] flex-shrink-0" />
+                <p className="text-gray-400 text-xs">
+                  Вопросы? Пишите Руслану в{" "}
+                  <a href="https://t.me/Roko_Tiis" target="_blank" rel="noopener noreferrer" className="text-[#0088cc] hover:underline">
+                    Telegram @Roko_Tiis
+                  </a>
+                </p>
+              </div>
+
+              <button
+                onClick={handleClose}
+                className="neon-btn w-full text-white font-semibold py-3 rounded-xl"
+              >
+                Закрыть
+              </button>
+            </div>
           </>
         )}
       </div>
