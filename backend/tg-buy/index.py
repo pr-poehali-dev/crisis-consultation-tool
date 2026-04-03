@@ -1,5 +1,5 @@
-"""
-Единая функция для покупки чек-листов через Telegram:
+"""Единая функция для покупки чек-листов через Telegram:
+
 - POST / — принимает email покупателя, сохраняет заявку, отправляет уведомление владельцу
 - POST /webhook — обрабатывает callback от бота (кнопка подтверждения оплаты, отправка email)
 - POST /setup — загружает все 16 чек-листов в S3 (вызвать один раз после деплоя)
@@ -191,19 +191,33 @@ def send_email(to_email: str, order_id: str):
     print(f"[EMAIL] Sent to {to_email}")
 
 
+def register_webhook(token: str, webhook_url: str) -> dict:
+    url = f"https://api.telegram.org/bot{token}/setWebhook"
+    payload = json.dumps({"url": webhook_url}).encode()
+    req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(req) as resp:
+            return json.loads(resp.read().decode())
+    except Exception as e:
+        return {"error": str(e)}
+
+
 def handle_setup(body: dict) -> dict:
     secret = body.get("secret", "")
-    if secret != os.environ.get("TELEGRAM_BOT_TOKEN", "")[:10]:
+    token = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+    if secret != token[:10]:
         return {
             "statusCode": 403,
             "headers": CORS_HEADERS,
             "body": json.dumps({"error": "forbidden"}),
         }
     uploaded = upload_checklists_to_s3()
+    webhook_url = "https://functions.poehali.dev/dfce89ef-d515-41f3-ba64-9917db793829"
+    wh_result = register_webhook(token, webhook_url)
     return {
         "statusCode": 200,
         "headers": CORS_HEADERS,
-        "body": json.dumps({"ok": True, "uploaded": len(uploaded), "files": uploaded}, ensure_ascii=False),
+        "body": json.dumps({"ok": True, "uploaded": len(uploaded), "files": uploaded, "webhook": wh_result}, ensure_ascii=False),
     }
 
 
@@ -217,10 +231,11 @@ def handle_buy(body: dict, token: str) -> dict:
             "body": json.dumps({"error": "Некорректный email"}, ensure_ascii=False),
         }
 
+    schema = os.environ.get("MAIN_DB_SCHEMA", "t_p93544965_crisis_consultation_")
     conn = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = conn.cursor()
     cur.execute(
-        "INSERT INTO checklist_orders (email, status) VALUES (%s, 'pending') RETURNING id",
+        f"INSERT INTO {schema}.checklist_orders (email, status) VALUES (%s, 'pending') RETURNING id",
         (email,),
     )
     order_id = cur.fetchone()[0]
@@ -275,9 +290,10 @@ def handle_webhook(body: dict, token: str) -> dict:
     order_id = parts[1]
     email = parts[2]
 
+    schema = os.environ.get("MAIN_DB_SCHEMA", "t_p93544965_crisis_consultation_")
     conn = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = conn.cursor()
-    cur.execute("SELECT status FROM checklist_orders WHERE id = %s", (order_id,))
+    cur.execute(f"SELECT status FROM {schema}.checklist_orders WHERE id = %s", (order_id,))
     row = cur.fetchone()
 
     if row and row[0] == "paid":
@@ -286,7 +302,7 @@ def handle_webhook(body: dict, token: str) -> dict:
         conn.close()
         return {"statusCode": 200, "headers": CORS_HEADERS, "body": json.dumps({"ok": True})}
 
-    cur.execute("UPDATE checklist_orders SET status = 'paid' WHERE id = %s", (order_id,))
+    cur.execute(f"UPDATE {schema}.checklist_orders SET status = 'paid' WHERE id = %s", (order_id,))
     conn.commit()
     cur.close()
     conn.close()
@@ -295,11 +311,12 @@ def handle_webhook(body: dict, token: str) -> dict:
         send_email(email, order_id)
         conn2 = psycopg2.connect(os.environ["DATABASE_URL"])
         cur2 = conn2.cursor()
-        cur2.execute("""
-            INSERT INTO downloads_counter (download_date, count)
+        tbl = f"{schema}.downloads_counter"
+        cur2.execute(f"""
+            INSERT INTO {tbl} (download_date, count)
             VALUES (CURRENT_DATE, 1)
             ON CONFLICT (download_date) DO UPDATE
-            SET count = downloads_counter.count + 1
+            SET count = {tbl}.count + 1
         """)
         conn2.commit()
         cur2.close()
@@ -329,6 +346,11 @@ def handler(event: dict, context) -> dict:
     path = event.get("path", "/")
     body = json.loads(event.get("body") or "{}")
     token = os.environ["TELEGRAM_BOT_TOKEN"]
+
+    if body.get("action") == "register_webhook":
+        webhook_url = "https://functions.poehali.dev/dfce89ef-d515-41f3-ba64-9917db793829"
+        result = register_webhook(token, webhook_url)
+        return {"statusCode": 200, "headers": CORS_HEADERS, "body": json.dumps({"ok": True, "webhook": result})}
 
     if path.endswith("/setup") or body.get("action") == "setup":
         return handle_setup(body)

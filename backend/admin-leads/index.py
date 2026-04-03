@@ -1,3 +1,4 @@
+"""Список заявок для личного кабинета. v2."""
 import os
 import json
 import psycopg2

@@ -1,3 +1,4 @@
+"""Отправка уведомлений клиентам по email. v2."""
 import os
 import json
 import urllib.request

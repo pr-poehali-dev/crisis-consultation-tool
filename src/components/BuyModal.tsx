@@ -6,7 +6,7 @@ interface BuyModalProps {
   onClose: () => void;
 }
 
-const LEADS_URL = "https://functions.poehali.dev/7bba2fb3-0000-4130-964b-1f300eb201bc";
+const BUY_URL = "https://functions.poehali.dev/dfce89ef-d515-41f3-ba64-9917db793829";
 const CARD_NUMBER = "4377 7278 0412 1940";
 const CARD_NAME = "Руслан Фатуллаев";
 const AMOUNT = "999 ₽";
@@ -35,10 +35,10 @@ export default function BuyModal({ open, onClose }: BuyModalProps) {
     setOrderId(newOrderId);
     setStep("card");
     setLoading(false);
-    fetch(LEADS_URL, {
+    fetch(BUY_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ source: "buy_checklist", email, order_id: newOrderId }),
+      body: JSON.stringify({ email, order_id: newOrderId }),
     }).catch(() => {});
   };
 

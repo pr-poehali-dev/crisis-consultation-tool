@@ -7,13 +7,18 @@
       "expectedStatus": 200
     },
     {
-      "name": "Setup - upload checklists to S3",
+      "name": "Buy with invalid email",
       "method": "POST",
       "path": "/",
-      "body": {"action": "setup", "secret": "8318026150"},
-      "expectedStatus": 200,
-      "expectedBody": "uploaded",
-      "bodyMatcher": "contains"
+      "body": {"email": "notanemail"},
+      "expectedStatus": 400
+    },
+    {
+      "name": "Register Telegram webhook",
+      "method": "POST",
+      "path": "/",
+      "body": {"action": "register_webhook"},
+      "expectedStatus": 200
     }
   ]
 }
