@@ -4,14 +4,8 @@ import Icon from "@/components/ui/icon";
 const NOTIFY_URL = "https://functions.poehali.dev/7bba2fb3-0000-4130-964b-1f300eb201bc";
 
 const INFO_FIELDS = [
-  { id: "fullName", label: "Ф.И.О.", placeholder: "Иванов Иван Иванович" },
+  { id: "fullName", label: "Ваше имя", placeholder: "Иван Иванов" },
   { id: "phone", label: "Телефон / Telegram", placeholder: "+7 900 000 00 00 или @username" },
-  { id: "city", label: "Город", placeholder: "Москва" },
-  { id: "projectName", label: "Название проекта", placeholder: "Бар «Огонёк»" },
-  { id: "seats", label: "Количество посадочных мест", placeholder: "80", type: "number" },
-  { id: "staff", label: "Количество сотрудников проекта", placeholder: "15", type: "number" },
-  { id: "payroll", label: "Текущий Фонд Оплаты Труда (₽/мес)", placeholder: "350000", type: "number" },
-  { id: "managers", label: "Количество руководящих лиц", placeholder: "3", type: "number" },
 ];
 
 const QUESTIONS = [

@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 import Icon from "@/components/ui/icon";
-import CountdownTimer from "@/components/CountdownTimer";
 import FloatingCTA from "@/components/FloatingCTA";
 import GuaranteeSection from "@/components/GuaranteeSection";
 import ExitPopup from "@/components/ExitPopup";
@@ -117,7 +116,20 @@ export default function Restaurant() {
         </div>
       </nav>
 
-      <CountdownTimer />
+      {/* CTA Banner */}
+      <div className="w-full bg-gradient-to-r from-[#FF6B00] to-[#e55a00] py-3 px-4">
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-3 text-center">
+          <span className="text-white text-sm font-medium">
+            Получите бесплатный разбор вашего заведения от эксперта
+          </span>
+          <button
+            onClick={scrollToDiag}
+            className="bg-white text-[#FF6B00] font-bold text-sm px-5 py-1.5 rounded-lg hover:bg-orange-50 transition-colors whitespace-nowrap"
+          >
+            Получить бесплатную диагностику →
+          </button>
+        </div>
+      </div>
 
       {/* Hero */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
