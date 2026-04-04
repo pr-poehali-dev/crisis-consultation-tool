@@ -32,6 +32,24 @@
       "expectedStatus": 200,
       "expectedBody": {"ok": true},
       "bodyMatcher": "partial"
+    },
+    {
+      "name": "Audit lead",
+      "method": "POST",
+      "path": "/",
+      "body": {"source": "audit", "name": "Тест Аудит", "contact": "+79001234567", "type": "Кафе", "city": "Москва", "main_problem": "Падение выручки", "answers_text": "Тип заведения: Кафе\nГород: Москва"},
+      "expectedStatus": 200,
+      "expectedBody": {"ok": true},
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Consultation lead",
+      "method": "POST",
+      "path": "/",
+      "body": {"source": "consultation", "name": "Тест Консультация", "contact": "+79001234567", "date": "15 Апрель 2026", "time": "14:00", "price": "3 500 ₽"},
+      "expectedStatus": 200,
+      "expectedBody": {"ok": true},
+      "bodyMatcher": "partial"
     }
   ]
 }

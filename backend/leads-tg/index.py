@@ -142,6 +142,69 @@ def handler(event: dict, context) -> dict:
         email_send(f"🔔 Новая заявка — {source}", email_html)
         save_lead(name, contact, source, service)
 
+    elif source == "audit":
+        name = body.get("name", "—")
+        contact = body.get("contact", body.get("phone", "—"))
+        venue_type = body.get("type", "—")
+        city = body.get("city", "—")
+        main_problem = body.get("main_problem", "—")
+        answers_text = body.get("answers_text", "")
+
+        tg_text = (
+            f"🔍 <b>Новая заявка на онлайн-аудит!</b>\n\n"
+            f"👤 <b>Имя:</b> {name}\n"
+            f"📞 <b>Контакт:</b> {contact}\n"
+            f"🏪 <b>Тип:</b> {venue_type} · {city}\n"
+            f"⚡️ <b>Главная боль:</b> {main_problem}\n\n"
+            f"📋 <b>Ответы:</b>\n{answers_text[:1500]}"
+        )
+        if len(tg_text) > 4096:
+            tg_text = tg_text[:4090] + "\n..."
+
+        email_html = (
+            f"<h2>🔍 Новая заявка на онлайн-аудит!</h2>"
+            f"<p><b>Имя:</b> {name}</p>"
+            f"<p><b>Контакт:</b> {contact}</p>"
+            f"<p><b>Тип заведения:</b> {venue_type}</p>"
+            f"<p><b>Город:</b> {city}</p>"
+            f"<p><b>Главная боль:</b> {main_problem}</p>"
+            f"<hr/><p><b>Все ответы:</b></p><pre style='background:#f5f5f5;padding:12px;border-radius:6px;'>{answers_text}</pre>"
+        )
+
+        tg_send(token, CHAT_ID, tg_text)
+        email_send(f"🔍 Онлайн-аудит — {name} ({venue_type}, {city})", email_html)
+        save_lead(name, contact, "audit", f"{venue_type}, {city}")
+
+    elif source == "consultation":
+        name = body.get("name", "—")
+        contact = body.get("contact", body.get("phone", "—"))
+        date = body.get("date", "—")
+        time = body.get("time", "—")
+        comment = body.get("comment", "")
+        price = body.get("price", "—")
+
+        tg_text = (
+            f"📅 <b>Новая запись на консультацию!</b>\n\n"
+            f"👤 <b>Имя:</b> {name}\n"
+            f"📞 <b>Контакт:</b> {contact}\n"
+            f"🗓 <b>Дата:</b> {date} в {time}\n"
+            f"💰 <b>Стоимость:</b> {price}\n"
+            + (f"💬 <b>Комментарий:</b> {comment}" if comment else "")
+        )
+
+        email_html = (
+            f"<h2>📅 Новая запись на консультацию!</h2>"
+            f"<p><b>Имя:</b> {name}</p>"
+            f"<p><b>Контакт:</b> {contact}</p>"
+            f"<p><b>Дата:</b> {date} в {time}</p>"
+            f"<p><b>Стоимость:</b> {price}</p>"
+            + (f"<p><b>Комментарий:</b> {comment}</p>" if comment else "")
+        )
+
+        tg_send(token, CHAT_ID, tg_text)
+        email_send(f"📅 Консультация — {name} на {date} в {time}", email_html)
+        save_lead(name, contact, "consultation", f"{date} {time}")
+
     else:
         name = body.get("name", "—")
         contact = body.get("contact", body.get("phone", "—"))

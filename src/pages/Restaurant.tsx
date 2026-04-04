@@ -20,6 +20,8 @@ import ActivityToast from "@/components/ActivityToast";
 import BuyModal from "@/components/BuyModal";
 import DiagnosticQuiz from "@/components/DiagnosticQuiz";
 import ContactsSection from "@/components/ContactsSection";
+import AuditSection from "@/components/AuditSection";
+import ConsultationSection from "@/components/ConsultationSection";
 
 const positionStyles: Record<string, string> = {
   "top-left": "-top-4 -left-6",
@@ -188,6 +190,8 @@ export default function Restaurant() {
       <ReviewsSection />
       <AboutSection />
       <ChecklistsSection onBuyClick={() => setBuyModalOpen(true)} />
+      <AuditSection />
+      <ConsultationSection />
       <MarathonSection />
       <TipsSection />
       <FaqSection />
