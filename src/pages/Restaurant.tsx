@@ -14,7 +14,6 @@ import MarathonSection from "@/components/MarathonSection";
 import TipsSection from "@/components/TipsSection";
 import FaqSection from "@/components/FaqSection";
 import CookieConsent from "@/components/CookieConsent";
-import ActivityToast from "@/components/ActivityToast";
 import BuyModal from "@/components/BuyModal";
 import DiagnosticQuiz from "@/components/DiagnosticQuiz";
 import ContactsSection from "@/components/ContactsSection";
@@ -248,7 +247,6 @@ export default function Restaurant() {
       </footer>
 
       <FloatingCTA onClick={scrollToDiag} />
-      <ActivityToast />
       <CookieConsent />
       <BuyModal open={buyModalOpen} onClose={() => setBuyModalOpen(false)} />
     </div>
