@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from "react";
 import Icon from "@/components/ui/icon";
 import FloatingCTA from "@/components/FloatingCTA";
 import GuaranteeSection from "@/components/GuaranteeSection";
-import ExitPopup from "@/components/ExitPopup";
 import AboutSection from "@/components/AboutSection";
 import PainsSection from "@/components/PainsSection";
 import CalculatorSection from "@/components/CalculatorSection";
@@ -250,7 +249,6 @@ export default function Restaurant() {
 
       <FloatingCTA onClick={scrollToDiag} />
       <ActivityToast />
-      <ExitPopup />
       <CookieConsent />
       <BuyModal open={buyModalOpen} onClose={() => setBuyModalOpen(false)} />
     </div>
