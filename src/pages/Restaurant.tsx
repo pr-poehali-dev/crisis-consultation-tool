@@ -22,6 +22,7 @@ import DiagnosticQuiz from "@/components/DiagnosticQuiz";
 import ContactsSection from "@/components/ContactsSection";
 import AuditSection from "@/components/AuditSection";
 import ConsultationSection from "@/components/ConsultationSection";
+import VisitorCounter from "@/components/VisitorCounter";
 
 const positionStyles: Record<string, string> = {
   "top-left": "-top-4 -left-6",
@@ -81,6 +82,7 @@ export default function Restaurant() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
+      <VisitorCounter />
       {/* Telegram channel banner */}
       <a
         href="https://t.me/Ruslan_Management"
@@ -104,6 +106,7 @@ export default function Restaurant() {
             <a href="#services" className="text-gray-400 hover:text-white text-xs px-3 py-1.5 rounded-lg hover:bg-white/5 transition-all whitespace-nowrap">Услуги</a>
             <a href="#audit" className="text-gray-400 hover:text-white text-xs px-3 py-1.5 rounded-lg hover:bg-white/5 transition-all whitespace-nowrap">Аудит</a>
             <a href="#consultation" className="text-[#FF6B00] hover:text-white text-xs font-semibold px-3 py-1.5 rounded-lg bg-[rgba(255,107,0,0.12)] hover:bg-[rgba(255,107,0,0.2)] border border-[rgba(255,107,0,0.3)] transition-all whitespace-nowrap">Консультация</a>
+            <a href="#contacts" className="text-gray-400 hover:text-white text-xs px-3 py-1.5 rounded-lg hover:bg-white/5 transition-all whitespace-nowrap">Контакты</a>
           </div>
           <a
             href="#consultation"

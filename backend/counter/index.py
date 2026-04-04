@@ -1,6 +1,7 @@
-"""Счётчик скачиваний чек-листов. GET — сколько скачали сегодня, POST — +1 к сегодняшнему счётчику. v4."""
+"""Счётчик посетителей сайта. GET — сколько человек зашли сегодня (от 150 + реальные визиты). POST — +1 визит."""
 import json
 import os
+import datetime
 import psycopg2
 
 CORS = {
@@ -9,6 +10,15 @@ CORS = {
     "Access-Control-Allow-Headers": "Content-Type",
 }
 
+# Базовые значения по дням недели (пн=0 ... вс=6), стартуют от 150
+BASE_BY_WEEKDAY = [162, 178, 155, 191, 183, 210, 197]
+
+def get_day_multiplier():
+    """Каждый день счётчик чуть растёт — имитируем рост аудитории."""
+    start = datetime.date(2026, 1, 1)
+    today = datetime.date.today()
+    days = (today - start).days
+    return max(0, days // 7)  # +1 к базе каждую неделю
 
 def handler(event: dict, context) -> dict:
     if event.get("httpMethod") == "OPTIONS":
@@ -29,21 +39,21 @@ def handler(event: dict, context) -> dict:
         """)
         row = cur.fetchone()
         conn.commit()
-        count = row[0] if row else 1
+        real = row[0] if row else 1
     else:
         cur.execute("SELECT count FROM downloads_counter WHERE download_date = CURRENT_DATE")
         row = cur.fetchone()
         real = row[0] if row else 0
-        import datetime
-        today = datetime.date.today()
-        base = [34, 41, 28, 47, 39, 52, 44][today.weekday()]
-        count = base + real
 
     cur.close()
     conn.close()
 
+    today = datetime.date.today()
+    base = BASE_BY_WEEKDAY[today.weekday()] + get_day_multiplier()
+    count = base + real
+
     return {
         "statusCode": 200,
         "headers": {**CORS, "Content-Type": "application/json"},
-        "body": json.dumps({"count": count}),
+        "body": json.dumps({"count": count, "real": real}),
     }
