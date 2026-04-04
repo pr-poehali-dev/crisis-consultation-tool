@@ -19,7 +19,6 @@ import DiagnosticQuiz from "@/components/DiagnosticQuiz";
 import ContactsSection from "@/components/ContactsSection";
 import AuditSection from "@/components/AuditSection";
 import ConsultationSection from "@/components/ConsultationSection";
-import VisitorCounter from "@/components/VisitorCounter";
 
 const positionStyles: Record<string, string> = {
   "top-left": "-top-4 -left-6",
@@ -79,7 +78,6 @@ export default function Restaurant() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
-      <VisitorCounter />
       {/* Telegram channel banner */}
       <a
         href="https://t.me/Ruslan_Management"
