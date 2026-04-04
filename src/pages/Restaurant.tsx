@@ -145,6 +145,10 @@ export default function Restaurant() {
                   <Icon name="ClipboardList" size={22} />
                   Бесплатная диагностика
                 </button>
+                <a href="#audit" className="flex items-center gap-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[rgba(255,107,0,0.4)] text-white font-bold text-lg px-8 py-4 rounded-xl transition-all">
+                  <Icon name="Search" size={22} className="text-[#FF6B00]" />
+                  Пройти аудит
+                </a>
                 <a href="#cases" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm font-medium px-2">
                   <Icon name="ChevronRight" size={16} />
                   Смотреть кейсы с цифрами
