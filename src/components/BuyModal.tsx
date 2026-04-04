@@ -9,7 +9,7 @@ interface BuyModalProps {
 const BUY_URL = "https://functions.poehali.dev/dfce89ef-d515-41f3-ba64-9917db793829";
 const CARD_NUMBER = "4377 7278 0412 1940";
 const CARD_NAME = "Руслан Фатуллаев";
-const AMOUNT = "999 ₽";
+const AMOUNT = "1 499 ₽";
 
 type Step = "email" | "card" | "thanks";
 
@@ -103,7 +103,7 @@ export default function BuyModal({ open, onClose }: BuyModalProps) {
             </div>
             <div className="flex items-center justify-between mb-4">
               <div>
-                <span className="text-3xl font-oswald font-bold text-white">999 ₽</span>
+                <span className="text-3xl font-oswald font-bold text-white">1 499 ₽</span>
                 <span className="text-gray-500 line-through text-base ml-2">9 900 ₽</span>
               </div>
               <span className="bg-[#FF2D55] text-white text-sm font-bold px-3 py-1 rounded-lg">Акция</span>

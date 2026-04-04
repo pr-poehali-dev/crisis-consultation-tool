@@ -36,7 +36,7 @@ export default function CountdownTimer() {
         <div className="flex items-center gap-2">
           <Icon name="Zap" size={16} className="text-[#FF6B00]" />
           <span className="text-white text-sm font-medium">
-            Цена <span className="text-[#FF6B00] font-bold">999 ₽</span> действует только:
+            Цена <span className="text-[#FF6B00] font-bold">1 499 ₽</span> действует только:
           </span>
         </div>
         <div className="flex items-center gap-1.5">
