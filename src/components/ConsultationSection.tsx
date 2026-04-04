@@ -3,7 +3,7 @@ import Icon from "@/components/ui/icon";
 
 const LEADS_URL = "https://functions.poehali.dev/7bba2fb3-0000-4130-964b-1f300eb201bc";
 
-const PRICE = "3 500 ₽";
+const PRICE = "10 000 ₽";
 const DURATION = "60 минут";
 
 // Занятые дни (день месяца, месяц 0-based)
