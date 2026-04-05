@@ -128,6 +128,7 @@ export default function ChecklistsSection({ onBuyClick }: ChecklistsSectionProps
   const [email, setEmail] = useState("");
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
+  const [botLink, setBotLink] = useState("");
   const [error, setError] = useState("");
 
   const handleSubmit = async () => {
@@ -143,7 +144,9 @@ export default function ChecklistsSection({ onBuyClick }: ChecklistsSectionProps
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: name.trim(), email: email.trim() }),
       });
-      if (res.ok) {
+      const data = await res.json();
+      if (res.ok && data.bot_link) {
+        setBotLink(data.bot_link);
         setSent(true);
       } else {
         setError("Что-то пошло не так. Попробуйте ещё раз.");
@@ -178,8 +181,22 @@ export default function ChecklistsSection({ onBuyClick }: ChecklistsSectionProps
           {sent ? (
             <div className="text-center py-4">
               <div className="text-4xl mb-3">🎉</div>
-              <h3 className="text-white font-bold text-xl mb-2">Готово! Проверьте почту</h3>
-              <p className="text-gray-400 text-sm">Все 16 чек-листов уже летят к вам. Если не видите — проверьте папку «Спам».</p>
+              <h3 className="text-white font-bold text-xl mb-2">Отлично! Остался последний шаг</h3>
+              <p className="text-gray-300 text-sm mb-5">
+                Перейдите в Telegram-бот, подпишитесь на канал — и чек-листы сразу придут на <strong>{email}</strong>
+              </p>
+              <a
+                href={botLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 text-white font-bold text-base px-8 py-3 rounded-xl transition-opacity hover:opacity-90"
+                style={{ background: "#229ED9" }}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                  <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+                </svg>
+                Открыть Telegram-бот и получить чек-листы
+              </a>
             </div>
           ) : (
             <div className="flex flex-col md:flex-row items-center gap-6">

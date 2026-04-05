@@ -1,0 +1,1 @@
+ALTER TABLE checklist_subscribers ADD COLUMN IF NOT EXISTS token TEXT;

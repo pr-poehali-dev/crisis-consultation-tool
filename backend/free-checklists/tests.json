@@ -12,6 +12,15 @@
       "path": "/",
       "body": {"name": "Тест"},
       "expectedStatus": 400
+    },
+    {
+      "name": "Register with email returns bot_link",
+      "method": "POST",
+      "path": "/",
+      "body": {"name": "Тест", "email": "test@example.com"},
+      "expectedStatus": 200,
+      "expectedBody": {"ok": true},
+      "bodyMatcher": "partial"
     }
   ]
 }
