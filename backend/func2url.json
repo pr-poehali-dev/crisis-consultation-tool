@@ -1,7 +1,3 @@
 {
-  "free-checklists": "https://functions.poehali.dev/733d4042-b125-4eeb-ade2-b7225c6503bb",
-  "leads-tg": "https://functions.poehali.dev/7bba2fb3-0000-4130-964b-1f300eb201bc",
-  "counter": "https://functions.poehali.dev/466a7ae9-ffcb-4019-87a3-51ac4a629d27",
-  "admin-leads": "https://functions.poehali.dev/93ceb604-c90c-428f-8e00-ab5b08257ecf",
-  "notify": "https://functions.poehali.dev/c328fb70-3615-4b46-8463-95a676ea3214"
+  "leads-tg": "https://functions.poehali.dev/7bba2fb3-0000-4130-964b-1f300eb201bc"
 }

@@ -32,8 +32,10 @@ def tg_send(token: str, chat_id: str, text: str):
 def email_send(subject: str, body_html: str):
     try:
         smtp_host = os.environ.get("SMTP_HOST", "smtp.mail.ru")
-        smtp_user = os.environ["SMTP_USER"]
-        smtp_pass = os.environ["SMTP_PASSWORD"]
+        smtp_user = os.environ.get("SMTP_USER", "")
+        smtp_pass = os.environ.get("SMTP_PASSWORD", "")
+
+        print(f"[EMAIL] host={smtp_host} user={smtp_user[:5]}*** to={OWNER_EMAIL}")
 
         msg = MIMEMultipart("alternative")
         msg["Subject"] = subject
@@ -46,7 +48,7 @@ def email_send(subject: str, body_html: str):
             server.sendmail(smtp_user, OWNER_EMAIL, msg.as_string())
         print(f"[EMAIL OK] sent to {OWNER_EMAIL}")
     except Exception as e:
-        print(f"[EMAIL ERROR] {e}")
+        print(f"[EMAIL ERROR] {type(e).__name__}: {e}")
 
 
 def save_lead(name: str, contact: str, source: str, extra: str = ""):
