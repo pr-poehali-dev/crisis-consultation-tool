@@ -234,11 +234,16 @@ export default function Restaurant() {
       <ContactsSection />
 
       {/* Footer */}
-      <footer className="py-8 px-4 border-t border-white/5">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="text-gray-600 text-sm">© 2024 Руслан Фатуллаев · Консультант для рестораторов</div>
-          <div className="flex items-center gap-4">
-            <a href="/privacy" className="text-gray-600 hover:text-gray-400 text-sm transition-colors">Политика конфиденциальности</a>
+      <footer className="py-10 px-4 border-t border-white/5">
+        <div className="max-w-5xl mx-auto flex flex-col gap-4">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div className="text-gray-600 text-sm">© 2025 Руслан Фатуллаев · Консультант для рестораторов</div>
+            <div className="flex items-center gap-4">
+              <a href="/privacy" className="text-gray-600 hover:text-gray-400 text-sm transition-colors">Политика конфиденциальности</a>
+            </div>
+          </div>
+          <div className="text-gray-700 text-xs leading-relaxed border-t border-white/5 pt-4">
+            Фатуллаев Руслан Вафадарович · Самозанятый · ИНН 644307628958 · Деятельность осуществляется в соответствии с Федеральным законом № 422-ФЗ «О проведении эксперимента по установлению специального налогового режима»
           </div>
         </div>
       </footer>
