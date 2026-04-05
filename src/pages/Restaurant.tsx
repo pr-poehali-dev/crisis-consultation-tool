@@ -14,7 +14,6 @@ import MarathonSection from "@/components/MarathonSection";
 import TipsSection from "@/components/TipsSection";
 import FaqSection from "@/components/FaqSection";
 import CookieConsent from "@/components/CookieConsent";
-import BuyModal from "@/components/BuyModal";
 import DiagnosticQuiz from "@/components/DiagnosticQuiz";
 import ContactsSection from "@/components/ContactsSection";
 import AuditSection from "@/components/AuditSection";
@@ -69,7 +68,7 @@ function FloatingPain({ text, delay, position }: { text: string; delay: number; 
 }
 
 export default function Restaurant() {
-  const [buyModalOpen, setBuyModalOpen] = useState(false);
+
   const diagRef = useRef<HTMLElement>(null);
 
   const scrollToDiag = () => {
@@ -226,7 +225,7 @@ export default function Restaurant() {
 
       <ReviewsSection />
       <AboutSection />
-      <ChecklistsSection onBuyClick={() => setBuyModalOpen(true)} />
+      <ChecklistsSection onBuyClick={() => {}} />
       <AuditSection />
       <ConsultationSection />
       <MarathonSection />
@@ -246,7 +245,7 @@ export default function Restaurant() {
 
       <FloatingCTA onClick={scrollToDiag} />
       <CookieConsent />
-      <BuyModal open={buyModalOpen} onClose={() => setBuyModalOpen(false)} />
+
     </div>
   );
 }
