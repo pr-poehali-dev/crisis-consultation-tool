@@ -204,6 +204,7 @@ export default function DiagnosticQuiz({ diagRef }: DiagnosticQuizProps) {
         console.error(e);
       }
       setSending(false);
+      window.ym?.(108400507, "reachGoal", "quiz_complete");
       setStep("done");
     }
   };

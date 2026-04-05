@@ -101,6 +101,7 @@ export default function ConsultationSection() {
       }),
     }).catch(() => {});
     setLoading(false);
+    window.ym?.(108400507, "reachGoal", "consultation_submit");
     setDone(true);
   };
 

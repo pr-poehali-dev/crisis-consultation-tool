@@ -1,3 +1,5 @@
+declare global { interface Window { ym?: (id: number, action: string, goal: string) => void } }
+
 const ContactsSection = () => {
   return (
     <section className="py-16 px-4 border-t border-white/5" id="contacts">
@@ -10,6 +12,7 @@ const ContactsSection = () => {
           href="https://t.me/Roko_Tiis"
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => window.ym?.(108400507, "reachGoal", "click_telegram")}
           className="flex items-center gap-4 p-5 rounded-2xl bg-white/5 hover:bg-white/10 transition-all border border-white/10 mb-4 group"
         >
           <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "#229ED9" }}>
@@ -29,6 +32,7 @@ const ContactsSection = () => {
           href="https://wa.me/79773908720"
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => window.ym?.(108400507, "reachGoal", "click_whatsapp")}
           className="flex items-center gap-4 p-5 rounded-2xl bg-white/5 hover:bg-white/10 transition-all border border-white/10 mb-4 group"
         >
           <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "#25D366" }}>
