@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
 
+const FREE_CHECKLISTS_URL = "https://functions.poehali.dev/733d4042-b125-4eeb-ade2-b7225c6503bb";
+
 const CHECKLISTS = [
   {
     id: 1,
@@ -122,6 +124,36 @@ interface ChecklistsSectionProps {
 
 export default function ChecklistsSection({ onBuyClick }: ChecklistsSectionProps) {
   const [expanded, setExpanded] = useState<number | null>(null);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [sending, setSending] = useState(false);
+  const [sent, setSent] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async () => {
+    if (!email.trim() || !email.includes("@")) {
+      setError("Введите корректный email");
+      return;
+    }
+    setSending(true);
+    setError("");
+    try {
+      const res = await fetch(FREE_CHECKLISTS_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: name.trim(), email: email.trim() }),
+      });
+      if (res.ok) {
+        setSent(true);
+      } else {
+        setError("Что-то пошло не так. Попробуйте ещё раз.");
+      }
+    } catch {
+      setError("Ошибка соединения. Попробуйте ещё раз.");
+    } finally {
+      setSending(false);
+    }
+  };
 
   return (
     <section className="py-16 px-4" id="checklists">
@@ -140,29 +172,50 @@ export default function ChecklistsSection({ onBuyClick }: ChecklistsSectionProps
           </p>
         </div>
 
-        {/* Telegram block */}
-        <div className="glass-card rounded-2xl p-6 mb-10 flex flex-col md:flex-row items-center justify-between gap-6"
-          style={{ background: "linear-gradient(135deg, rgba(34,158,217,0.15) 0%, rgba(10,10,10,0.8) 100%)", borderColor: "rgba(34,158,217,0.3)" }}>
-          <div>
-            <div className="flex items-center gap-3 mb-2">
-              <span className="bg-[#229ED9] text-white text-sm font-bold px-3 py-1 rounded-lg">Бесплатно</span>
-              <span className="text-white font-bold text-xl">Все 16 чек-листов</span>
+        {/* Email form block */}
+        <div className="glass-card rounded-2xl p-6 mb-10"
+          style={{ background: "linear-gradient(135deg, rgba(255,107,0,0.1) 0%, rgba(10,10,10,0.8) 100%)", borderColor: "rgba(255,107,0,0.3)" }}>
+          {sent ? (
+            <div className="text-center py-4">
+              <div className="text-4xl mb-3">🎉</div>
+              <h3 className="text-white font-bold text-xl mb-2">Готово! Проверьте почту</h3>
+              <p className="text-gray-400 text-sm">Все 16 чек-листов уже летят к вам. Если не видите — проверьте папку «Спам».</p>
             </div>
-            <p className="text-gray-300 text-sm mb-1">Напишите моему Telegram-боту и получите все 16 материалов бесплатно</p>
-            <p className="text-gray-500 text-xs">Бот пришлёт всё автоматически — сразу после нажатия кнопки</p>
-          </div>
-          <a
-            href="https://t.me/Tancredoblack91_bot"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-3 text-white font-bold text-lg px-10 py-4 rounded-xl whitespace-nowrap transition-opacity hover:opacity-90"
-            style={{ background: "#229ED9" }}
-          >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
-              <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
-            </svg>
-            Подписаться и получить
-          </a>
+          ) : (
+            <div className="flex flex-col md:flex-row items-center gap-6">
+              <div className="flex-1">
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="bg-[#FF6B00] text-white text-sm font-bold px-3 py-1 rounded-lg">Бесплатно</span>
+                  <span className="text-white font-bold text-xl">Все 16 чек-листов на почту</span>
+                </div>
+                <p className="text-gray-400 text-sm">Введите имя и email — пришлю все материалы сразу на почту</p>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                <input
+                  type="text"
+                  placeholder="Ваше имя"
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                  className="bg-white/5 border border-white/10 text-white placeholder-gray-500 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[rgba(255,107,0,0.5)] w-full sm:w-36"
+                />
+                <input
+                  type="email"
+                  placeholder="Ваш email"
+                  value={email}
+                  onChange={e => { setEmail(e.target.value); setError(""); }}
+                  className="bg-white/5 border border-white/10 text-white placeholder-gray-500 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[rgba(255,107,0,0.5)] w-full sm:w-52"
+                />
+                <button
+                  onClick={handleSubmit}
+                  disabled={sending}
+                  className="neon-btn text-white font-bold text-sm px-6 py-3 rounded-xl whitespace-nowrap disabled:opacity-60"
+                >
+                  {sending ? "Отправляем..." : "Получить →"}
+                </button>
+              </div>
+            </div>
+          )}
+          {error && <p className="text-red-400 text-sm mt-3 text-center">{error}</p>}
         </div>
 
         {/* Checklists grid */}
