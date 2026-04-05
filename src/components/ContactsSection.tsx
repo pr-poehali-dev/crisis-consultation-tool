@@ -3,9 +3,21 @@ declare global { interface Window { ym?: (id: number, action: string, goal: stri
 const ContactsSection = () => {
   return (
     <section className="py-16 px-4 border-t border-white/5" id="contacts">
-      <div className="max-w-2xl mx-auto text-center">
-        <h2 className="text-3xl font-bold text-white mb-3">Связаться со мной</h2>
-        <p className="text-gray-400 mb-10">Напишите в удобный мессенджер — отвечу лично</p>
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl font-bold text-white mb-3">Связаться со мной</h2>
+          <p className="text-gray-400">Напишите в удобный мессенджер — отвечу лично</p>
+        </div>
+        <div className="flex flex-col md:flex-row gap-8 items-center">
+          <div className="flex-shrink-0 w-56 hidden md:block">
+            <img
+              src="https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/44bebf40-e76b-46f2-9ac0-67d159a7ebab.jpg"
+              alt="Руслан Фатуллаев"
+              className="w-full rounded-3xl object-cover object-top shadow-2xl"
+              style={{ height: "320px" }}
+            />
+          </div>
+          <div className="flex-1 w-full">
 
         {/* Telegram */}
         <a
@@ -65,6 +77,8 @@ const ContactsSection = () => {
           </div>
           <div className="ml-auto text-gray-600 group-hover:text-primary transition-colors text-xl">→</div>
         </a>
+          </div>
+        </div>
       </div>
     </section>
   );

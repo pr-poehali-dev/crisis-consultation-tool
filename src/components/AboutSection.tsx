@@ -20,7 +20,7 @@ export default function AboutSection() {
           {/* Фото */}
           <div className="relative rounded-3xl overflow-hidden group" style={{ aspectRatio: "3/4" }}>
             <img
-              src="https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/6b01a2cf-6b28-421c-878b-c4ef3f45cfe0.png"
+              src="https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/216fa2ca-4df4-4ec2-8b91-a6390fc772e2.jpg"
               alt="Руслан Фатуллаев"
               className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
             />
