@@ -11,7 +11,7 @@ const ContactsSection = () => {
         <div className="flex flex-col md:flex-row gap-8 items-center">
           <div className="flex-shrink-0 w-56 hidden md:block">
             <img
-              src="https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/44bebf40-e76b-46f2-9ac0-67d159a7ebab.jpg"
+              src="https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/cd098359-130c-437b-b089-c4b97b59bf13.jpg"
               alt="Руслан Фатуллаев"
               className="w-full rounded-3xl object-cover object-top shadow-2xl"
               style={{ height: "320px" }}
