@@ -127,18 +127,22 @@ export default function CalculatorSection() {
             </div>
 
             <div className="bg-white/3 border border-white/10 rounded-2xl overflow-hidden">
-              <div className="flex items-end gap-4 p-4 pb-0">
+              <div className="flex items-end gap-5 px-5 pt-5 pb-0">
                 <img
                   src="https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/8fbcc73c-f4e2-499a-aafc-debec5c94519.jpg"
                   alt="Руслан Фатуллаев"
-                  className="w-24 rounded-xl object-cover object-top flex-shrink-0"
-                  style={{ height: "120px" }}
+                  className="w-36 rounded-xl object-cover object-top flex-shrink-0"
+                  style={{ height: "180px" }}
                 />
-                <p className="text-gray-300 text-sm leading-relaxed pb-3">
-                  Это приблизительный расчёт. На бесплатной диагностике я разберу ваш реальный случай и назову точные цифры.
-                </p>
+                <div className="pb-4">
+                  <p className="text-white font-semibold text-base mb-1">Руслан Фатуллаев</p>
+                  <p className="text-gray-400 text-xs mb-3">Эксперт по прибыльности ресторанов</p>
+                  <p className="text-gray-300 text-sm leading-relaxed">
+                    Это приблизительный расчёт. На бесплатной диагностике я разберу ваш реальный случай и назову точные цифры.
+                  </p>
+                </div>
               </div>
-              <div className="p-4 pt-3">
+              <div className="p-5 pt-4">
                 <button
                   onClick={scrollToForm}
                   className="w-full bg-[#FF2D55] hover:bg-[#e0253d] text-white font-semibold py-3 rounded-xl transition-colors"
