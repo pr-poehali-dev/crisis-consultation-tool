@@ -148,11 +148,11 @@ export default function ChecklistsSection({ onBuyClick }: ChecklistsSectionProps
               <span className="bg-[#229ED9] text-white text-sm font-bold px-3 py-1 rounded-lg">Бесплатно</span>
               <span className="text-white font-bold text-xl">Все 16 чек-листов</span>
             </div>
-            <p className="text-gray-300 text-sm mb-1">Подпишитесь на мой Telegram-канал и получите все материалы бесплатно</p>
-            <p className="text-gray-500 text-xs">Там же — разборы кейсов, советы и инсайты из практики каждую неделю</p>
+            <p className="text-gray-300 text-sm mb-1">Напишите моему Telegram-боту и получите все 16 материалов бесплатно</p>
+            <p className="text-gray-500 text-xs">Бот пришлёт всё автоматически — сразу после нажатия кнопки</p>
           </div>
           <a
-            href="https://t.me/Ruslan_Management"
+            href="https://t.me/Tancredoblack91_bot"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-3 text-white font-bold text-lg px-10 py-4 rounded-xl whitespace-nowrap transition-opacity hover:opacity-90"
