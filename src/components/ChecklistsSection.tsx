@@ -1,7 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Icon from "@/components/ui/icon";
-
-const COUNTER_URL = "https://functions.poehali.dev/466a7ae9-ffcb-4019-87a3-51ac4a629d27";
 
 const CHECKLISTS = [
   {
@@ -124,14 +122,6 @@ interface ChecklistsSectionProps {
 
 export default function ChecklistsSection({ onBuyClick }: ChecklistsSectionProps) {
   const [expanded, setExpanded] = useState<number | null>(null);
-  const [todayCount, setTodayCount] = useState<number | null>(null);
-
-  useEffect(() => {
-    fetch(COUNTER_URL)
-      .then(r => r.json())
-      .then(data => setTodayCount(data.count))
-      .catch(() => {});
-  }, []);
 
   return (
     <section className="py-16 px-4" id="checklists">
@@ -150,29 +140,29 @@ export default function ChecklistsSection({ onBuyClick }: ChecklistsSectionProps
           </p>
         </div>
 
-        {/* Price block */}
-        <div className="glass-card rounded-2xl p-6 mb-10 flex flex-col md:flex-row items-center justify-between gap-6">
+        {/* Telegram block */}
+        <div className="glass-card rounded-2xl p-6 mb-10 flex flex-col md:flex-row items-center justify-between gap-6"
+          style={{ background: "linear-gradient(135deg, rgba(34,158,217,0.15) 0%, rgba(10,10,10,0.8) 100%)", borderColor: "rgba(34,158,217,0.3)" }}>
           <div>
-            <div className="flex items-baseline gap-3 mb-1">
-              <span className="text-5xl font-oswald font-bold text-white">1 499 ₽</span>
-              <span className="text-gray-500 line-through text-xl">9 900 ₽</span>
-              <span className="bg-[#FF2D55] text-white text-sm font-bold px-2 py-1 rounded-lg">Акция</span>
+            <div className="flex items-center gap-3 mb-2">
+              <span className="bg-[#229ED9] text-white text-sm font-bold px-3 py-1 rounded-lg">Бесплатно</span>
+              <span className="text-white font-bold text-xl">Все 16 чек-листов</span>
             </div>
-            <p className="text-gray-400 text-sm">Все 16 чек-листов сразу на вашу почту после оплаты</p>
-            {todayCount !== null && todayCount > 0 && (
-              <div className="flex items-center gap-2 mt-2">
-                <span className="inline-block w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                <span className="text-green-400 text-sm font-medium">Сегодня скачали: {todayCount}</span>
-              </div>
-            )}
+            <p className="text-gray-300 text-sm mb-1">Подпишитесь на мой Telegram-канал и получите все материалы бесплатно</p>
+            <p className="text-gray-500 text-xs">Там же — разборы кейсов, советы и инсайты из практики каждую неделю</p>
           </div>
-          <button
-            onClick={onBuyClick}
-            className="neon-btn text-white font-bold text-lg px-10 py-4 rounded-xl flex items-center gap-3 whitespace-nowrap"
+          <a
+            href="https://t.me/Ruslan_Management"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 text-white font-bold text-lg px-10 py-4 rounded-xl whitespace-nowrap transition-opacity hover:opacity-90"
+            style={{ background: "#229ED9" }}
           >
-            <Icon name="ShoppingCart" size={22} />
-            Купить все чек-листы
-          </button>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
+              <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+            </svg>
+            Подписаться и получить
+          </a>
         </div>
 
         {/* Checklists grid */}
