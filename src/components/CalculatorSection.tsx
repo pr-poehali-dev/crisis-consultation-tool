@@ -131,13 +131,11 @@ export default function CalculatorSection() {
                 <img
                   src="https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/8fbcc73c-f4e2-499a-aafc-debec5c94519.jpg"
                   alt="Руслан Фатуллаев"
-                  className="w-36 rounded-xl object-cover object-top flex-shrink-0"
-                  style={{ height: "180px" }}
+                  className="w-44 rounded-xl object-cover object-top flex-shrink-0"
+                  style={{ height: "220px" }}
                 />
                 <div className="pb-4">
-                  <p className="text-white font-semibold text-base mb-1">Руслан Фатуллаев</p>
-                  <p className="text-gray-400 text-xs mb-3">Эксперт по прибыльности ресторанов</p>
-                  <p className="text-gray-300 text-sm leading-relaxed">
+                  <p className="text-gray-300 text-base leading-relaxed">
                     Это приблизительный расчёт. На бесплатной диагностике я разберу ваш реальный случай и назову точные цифры.
                   </p>
                 </div>
