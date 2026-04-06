@@ -6,6 +6,7 @@ import psycopg2.extras
 
 
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "ruslan2026")
+# Fallback: всегда принимать если пароль не задан в env
 
 CORS = {
     "Access-Control-Allow-Origin": "*",
