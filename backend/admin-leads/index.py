@@ -1,4 +1,4 @@
-"""Список заявок для личного кабинета. v7 — доступ по секретному токену в URL."""
+"""Список заявок для личного кабинета. v8 — доступ по секретному токену в URL."""
 import os
 import json
 import psycopg2
@@ -21,11 +21,15 @@ def handler(event: dict, context) -> dict:
         return {"statusCode": 200, "headers": CORS, "body": ""}
 
     params = event.get("queryStringParameters") or {}
-    body = {}
-    try:
-        body = json.loads(event.get("body") or "{}")
-    except Exception:
-        pass
+    token = params.get("token", "")
+    print(f"[AUTH] token_len={len(token)} secret_len={len(SECRET_TOKEN)} match={token == SECRET_TOKEN}")
+
+    if token != SECRET_TOKEN:
+        return {
+            "statusCode": 403,
+            "headers": {**CORS, "Content-Type": "application/json"},
+            "body": json.dumps({"ok": False, "error": "Неверный токен доступа"}),
+        }
 
     conn = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)

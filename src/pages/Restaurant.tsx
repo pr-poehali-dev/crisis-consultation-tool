@@ -18,6 +18,7 @@ import DiagnosticQuiz from "@/components/DiagnosticQuiz";
 import ContactsSection from "@/components/ContactsSection";
 import AuditSection from "@/components/AuditSection";
 import ConsultationSection from "@/components/ConsultationSection";
+import ExitPopup from "@/components/ExitPopup";
 
 const positionStyles: Record<string, string> = {
   "top-left": "-top-4 -left-6",
@@ -249,6 +250,7 @@ export default function Restaurant() {
       </footer>
 
       <FloatingCTA onClick={scrollToDiag} />
+      <ExitPopup />
       <CookieConsent />
 
     </div>

@@ -1,10 +1,25 @@
 {
   "tests": [
     {
-      "name": "Unauthorized without password",
+      "name": "OPTIONS preflight",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Unauthorized without token",
       "method": "GET",
       "path": "/",
-      "expectedStatus": 401,
+      "expectedStatus": 403,
+      "expectedBody": {"ok": false},
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Authorized with token",
+      "method": "GET",
+      "path": "/?token=ruslan2026",
+      "expectedStatus": 200,
+      "expectedBody": {"ok": true},
       "bodyMatcher": "partial"
     }
   ]
