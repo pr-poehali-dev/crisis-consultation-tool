@@ -27,16 +27,6 @@ def handler(event: dict, context) -> dict:
     except Exception:
         pass
 
-    token = params.get("token", "") or params.get("p", "") or body.get("p", "") or body.get("token", "")
-    print(f"[AUTH] token_len={len(token)} secret_len={len(SECRET_TOKEN)} match={token == SECRET_TOKEN}")
-
-    if token != SECRET_TOKEN:
-        return {
-            "statusCode": 401,
-            "headers": {**CORS, "Content-Type": "application/json"},
-            "body": json.dumps({"ok": False, "error": "Unauthorized"}),
-        }
-
     conn = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     cur.execute(
