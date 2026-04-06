@@ -1,11 +1,11 @@
-"""Список заявок для личного кабинета. v8 — доступ по секретному токену в URL."""
+"""Список заявок для личного кабинета. v9 — статус уведомлений TG/email."""
 import os
 import json
 import psycopg2
 import psycopg2.extras
 
-
 SECRET_TOKEN = os.environ.get("ADMIN_PASSWORD", "ruslan2026")
+SCHEMA = "t_p93544965_crisis_consultation_"
 
 CORS = {
     "Access-Control-Allow-Origin": "*",
@@ -16,7 +16,7 @@ CORS = {
 
 
 def handler(event: dict, context) -> dict:
-    """Возвращает список заявок для личного кабинета."""
+    """Возвращает список заявок с статусом уведомлений для личного кабинета."""
     if event.get("httpMethod") == "OPTIONS":
         return {"statusCode": 200, "headers": CORS, "body": ""}
 
@@ -34,9 +34,10 @@ def handler(event: dict, context) -> dict:
     conn = psycopg2.connect(os.environ["DATABASE_URL"])
     cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     cur.execute(
-        "SELECT id, created_at, name, contact, city, project, staff, problem, score, result_label "
-        "FROM t_p93544965_crisis_consultation_.leads "
-        "ORDER BY created_at DESC"
+        f"SELECT id, created_at, name, contact, city, project, staff, problem, score, result_label,"
+        f" notify_tg, notify_email, notify_error "
+        f"FROM {SCHEMA}.leads "
+        f"ORDER BY created_at DESC"
     )
     rows = cur.fetchall()
     cur.close()
