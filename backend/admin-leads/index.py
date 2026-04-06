@@ -23,7 +23,8 @@ def handler(event: dict, context) -> dict:
         }
 
     headers = event.get("headers") or {}
-    password = headers.get("X-Admin-Password", "")
+    params = event.get("queryStringParameters") or {}
+    password = headers.get("X-Admin-Password", "") or params.get("p", "")
     if not ADMIN_PASSWORD or password != ADMIN_PASSWORD:
         return {
             "statusCode": 401,
