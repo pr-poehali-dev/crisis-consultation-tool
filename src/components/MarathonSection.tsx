@@ -173,7 +173,7 @@ function MarathonModal({ onClose }: MarathonModalProps) {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch("https://functions.poehali.dev/c328fb70-3615-4b46-8463-95a676ea3214", {
+      const res = await fetch("https://functions.poehali.dev/7bba2fb3-0000-4130-964b-1f300eb201bc", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ type: "marathon", name, telegram: mode === "telegram" ? telegram : "", email: mode === "email" ? email : "", mode }),

@@ -49,6 +49,7 @@ export default function ConsultationSection() {
   const [form, setForm] = useState({ name: "", phone: "", comment: "" });
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
+  const [error, setError] = useState("");
 
   const busyDays = getBusyDays(viewYear, viewMonth);
   const busySlots = selectedDate ? getBusySlots(selectedDate.year, selectedDate.month, selectedDate.day) : new Set<string>();
@@ -86,23 +87,30 @@ export default function ConsultationSection() {
   const handleSubmit = async () => {
     if (!selectedDate || !selectedTime || !form.name || !form.phone) return;
     setLoading(true);
+    setError("");
     const dateStr = `${selectedDate.day} ${MONTH_NAMES[selectedDate.month]} ${selectedDate.year}`;
-    await fetch(LEADS_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        source: "consultation",
-        name: form.name,
-        contact: form.phone,
-        date: dateStr,
-        time: selectedTime,
-        comment: form.comment,
-        price: PRICE,
-      }),
-    }).catch(() => {});
-    setLoading(false);
-    window.ym?.(108400507, "reachGoal", "consultation_submit");
-    setDone(true);
+    try {
+      const res = await fetch(LEADS_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          source: "consultation",
+          name: form.name,
+          contact: form.phone,
+          date: dateStr,
+          time: selectedTime,
+          comment: form.comment,
+          price: PRICE,
+        }),
+      });
+      if (!res.ok) throw new Error("server error");
+      window.ym?.(108400507, "reachGoal", "consultation_submit");
+      setDone(true);
+    } catch {
+      setError("Ошибка сети, попробуйте ещё раз");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const canSubmit = selectedDate && selectedTime && form.name && form.phone;
@@ -296,6 +304,9 @@ export default function ConsultationSection() {
                   <span className="text-gray-500 text-xs">Оплата при встрече</span>
                 </div>
 
+                {error && (
+                  <p className="text-[#FF2D55] text-sm text-center mb-2">{error}</p>
+                )}
                 <button
                   onClick={handleSubmit}
                   disabled={!canSubmit || loading}

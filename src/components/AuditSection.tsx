@@ -59,6 +59,7 @@ export default function AuditSection() {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
+  const [error, setError] = useState("");
 
   const current = STEPS[step];
   const isLast = step === STEPS.length - 1;
@@ -78,25 +79,32 @@ export default function AuditSection() {
 
   const handleSubmit = async () => {
     setLoading(true);
+    setError("");
     const lines = STEPS.flatMap((s) =>
       s.questions.map((q) => `${q.label}: ${answers[q.id] || "—"}`)
     ).join("\n");
 
-    await fetch(LEADS_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        source: "audit",
-        name: answers["name"] || "—",
-        contact: answers["phone"] || answers["email"] || "—",
-        answers_text: lines,
-        type: answers["type"] || "—",
-        city: answers["city"] || "—",
-        main_problem: answers["main_problem"] || "—",
-      }),
-    }).catch(() => {});
-    setLoading(false);
-    setDone(true);
+    try {
+      const res = await fetch(LEADS_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          source: "audit",
+          name: answers["name"] || "—",
+          contact: answers["phone"] || answers["email"] || "—",
+          answers_text: lines,
+          type: answers["type"] || "—",
+          city: answers["city"] || "—",
+          main_problem: answers["main_problem"] || "—",
+        }),
+      });
+      if (!res.ok) throw new Error("server error");
+      setDone(true);
+    } catch {
+      setError("Ошибка сети, попробуйте ещё раз");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -185,7 +193,10 @@ export default function AuditSection() {
               </div>
 
               {/* Navigation */}
-              <div className="flex gap-3 mt-8">
+              {error && (
+                <p className="text-[#FF2D55] text-sm text-center mt-4">{error}</p>
+              )}
+              <div className="flex gap-3 mt-4">
                 {step > 0 && (
                   <button
                     onClick={() => setStep((s) => s - 1)}

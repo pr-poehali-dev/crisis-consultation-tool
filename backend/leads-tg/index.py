@@ -98,6 +98,7 @@ def handler(event: dict, context) -> dict:
         )
         email_html = f"<h2>🏃 Новая запись на марафон!</h2><p><b>Имя:</b> {name}</p><p><b>Способ доставки:</b> {mode}</p><p><b>Контакт:</b> {contact}</p>"
 
+        tg_send(token, CHAT_ID, tg_text)
         email_send("🏃 Новая запись на марафон — сайт", email_html)
         save_lead(name, contact, "marathon")
 
