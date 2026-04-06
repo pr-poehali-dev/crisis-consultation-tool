@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
 import { sendLead } from "@/utils/sendLead";
+import ContactFallback from "@/components/ContactFallback";
 
 const PRICE = "10 000 ₽";
 const DURATION = "60 минут";
@@ -141,6 +142,7 @@ export default function ConsultationSection() {
                 </span>
               </div>
             )}
+            <ContactFallback />
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

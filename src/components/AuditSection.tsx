@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
 import { sendLead } from "@/utils/sendLead";
+import ContactFallback from "@/components/ContactFallback";
 
 const STEPS = [
   {
@@ -123,6 +124,7 @@ export default function AuditSection() {
             <h3 className="text-2xl font-oswald font-bold text-white mb-3 uppercase">Аудит принят!</h3>
             <p className="text-gray-400 mb-2">Руслан изучит вашу ситуацию и свяжется с вами лично.</p>
             <p className="text-[#FF6B00] font-medium">Обычно ответ приходит в течение нескольких часов.</p>
+            <ContactFallback />
           </div>
         ) : (
           <div className="glass-card rounded-2xl overflow-hidden">
