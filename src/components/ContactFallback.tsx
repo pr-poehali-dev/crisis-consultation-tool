@@ -26,7 +26,7 @@ export default function ContactFallback({ isError = false }: ContactFallbackProp
 
       <div className="flex items-center justify-center gap-3 flex-wrap">
         <a
-          href="https://t.me/FatullayevRuslan"
+          href="https://t.me/Roko_Tiis"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1.5 bg-[rgba(0,136,204,0.15)] border border-[rgba(0,136,204,0.3)] rounded-lg px-3 py-1.5 text-[#29b6f6] text-sm font-medium hover:bg-[rgba(0,136,204,0.25)] transition-colors"

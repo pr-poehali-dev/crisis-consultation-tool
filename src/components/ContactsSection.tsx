@@ -21,7 +21,7 @@ const ContactsSection = () => {
 
         {/* Telegram */}
         <a
-          href="https://t.me/FatullayevRuslan"
+          href="https://t.me/Roko_Tiis"
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => window.ym?.(108400507, "reachGoal", "click_telegram")}
@@ -34,7 +34,7 @@ const ContactsSection = () => {
           </div>
           <div className="text-left">
             <div className="text-white font-semibold text-lg group-hover:text-primary transition-colors">Telegram</div>
-            <div className="text-gray-400 text-sm">@FatullayevRuslan</div>
+            <div className="text-gray-400 text-sm">@Roko_Tiis</div>
           </div>
           <div className="ml-auto text-gray-600 group-hover:text-primary transition-colors text-xl">→</div>
         </a>
