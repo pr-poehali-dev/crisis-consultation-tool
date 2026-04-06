@@ -1,4 +1,4 @@
-"""Список заявок для личного кабинета. v4."""
+"""Список заявок для личного кабинета. v5."""
 import os
 import json
 import psycopg2
@@ -7,29 +7,38 @@ import psycopg2.extras
 
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "")
 
+CORS = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, X-Admin-Password",
+    "Access-Control-Max-Age": "86400",
+}
+
 
 def handler(event: dict, context) -> dict:
     """Возвращает список заявок для личного кабинета (требует пароль)."""
     if event.get("httpMethod") == "OPTIONS":
-        return {
-            "statusCode": 200,
-            "headers": {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "GET, OPTIONS",
-                "Access-Control-Allow-Headers": "Content-Type, X-Admin-Password",
-                "Access-Control-Max-Age": "86400",
-            },
-            "body": "",
-        }
+        return {"statusCode": 200, "headers": CORS, "body": ""}
 
     headers = event.get("headers") or {}
     params = event.get("queryStringParameters") or {}
-    password = headers.get("X-Admin-Password", "") or params.get("p", "")
-    print(f"[AUTH] env_pwd_set={bool(ADMIN_PASSWORD)} env_len={len(ADMIN_PASSWORD)} given_len={len(password)} match={password == ADMIN_PASSWORD}")
+    body = {}
+    try:
+        body = json.loads(event.get("body") or "{}")
+    except Exception:
+        pass
+
+    password = (
+        headers.get("X-Admin-Password", "")
+        or params.get("p", "")
+        or body.get("p", "")
+    )
+    print(f"[AUTH] env_set={bool(ADMIN_PASSWORD)} env_len={len(ADMIN_PASSWORD)} given_len={len(password)} match={password == ADMIN_PASSWORD}")
+
     if not ADMIN_PASSWORD or password != ADMIN_PASSWORD:
         return {
             "statusCode": 401,
-            "headers": {"Access-Control-Allow-Origin": "*"},
+            "headers": {**CORS, "Content-Type": "application/json"},
             "body": json.dumps({"ok": False, "error": "Unauthorized"}),
         }
 
@@ -52,6 +61,6 @@ def handler(event: dict, context) -> dict:
 
     return {
         "statusCode": 200,
-        "headers": {"Access-Control-Allow-Origin": "*"},
+        "headers": {**CORS, "Content-Type": "application/json"},
         "body": json.dumps({"ok": True, "leads": leads}),
     }

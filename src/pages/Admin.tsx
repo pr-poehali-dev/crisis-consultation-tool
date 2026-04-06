@@ -46,7 +46,11 @@ export default function Admin() {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch(`${ADMIN_LEADS_URL}?p=${encodeURIComponent(password)}`);
+      const res = await fetch(ADMIN_LEADS_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ p: password }),
+      });
       const data = await res.json();
       if (data.ok) {
         setAuthed(true);
@@ -64,7 +68,11 @@ export default function Admin() {
   const refresh = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${ADMIN_LEADS_URL}?p=${encodeURIComponent(password)}`);
+      const res = await fetch(ADMIN_LEADS_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ p: password }),
+      });
       const data = await res.json();
       if (data.ok) setLeads(data.leads);
     } finally {
