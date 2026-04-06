@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
 import { sendLead } from "@/utils/sendLead";
+import ContactFallback from "@/components/ContactFallback";
 
 const INFO_FIELDS = [
   { id: "fullName", label: "Ваше имя", placeholder: "Иван Иванов" },
@@ -402,6 +403,7 @@ export default function DiagnosticQuiz({ diagRef }: DiagnosticQuizProps) {
               <Icon name="Send" size={16} />
               Написать Руслану в Telegram
             </a>
+            <ContactFallback />
           </div>
         )}
       </div>

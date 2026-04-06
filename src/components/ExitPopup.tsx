@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Icon from "@/components/ui/icon";
 import { sendLead } from "@/utils/sendLead";
+import ContactFallback from "@/components/ContactFallback";
 
 interface ExitPopupProps {
   onClose?: () => void;
@@ -62,7 +63,8 @@ export default function ExitPopup({ onClose }: ExitPopupProps) {
             </div>
             <h3 className="text-xl font-oswald font-bold text-white mb-2">Отлично! Заявка принята</h3>
             <p className="text-gray-400 text-sm">Руслан свяжется с вами в ближайшее время</p>
-            <button onClick={close} className="mt-6 text-gray-500 text-sm hover:text-white transition-colors">
+            <ContactFallback />
+            <button onClick={close} className="mt-4 text-gray-500 text-sm hover:text-white transition-colors">
               Закрыть
             </button>
           </div>

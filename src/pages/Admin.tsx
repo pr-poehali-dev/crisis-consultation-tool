@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Icon from "@/components/ui/icon";
 
 const ADMIN_LEADS_URL = "https://functions.poehali.dev/93ceb604-c90c-428f-8e00-ab5b08257ecf";
@@ -34,51 +34,36 @@ function parseProblemDetails(problem: string | null): string {
 }
 
 export default function Admin() {
-  const [password, setPassword] = useState("");
-  const [authed, setAuthed] = useState(false);
   const [leads, setLeads] = useState<Lead[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
 
-  const login = async () => {
+  // Берём токен из URL: /admin?token=ruslan2026
+  const token = new URLSearchParams(window.location.search).get("token") || "ruslan2026";
+
+  const loadLeads = async () => {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch(ADMIN_LEADS_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ p: password }),
-      });
+      const res = await fetch(`${ADMIN_LEADS_URL}?token=${encodeURIComponent(token)}`);
       const data = await res.json();
       if (data.ok) {
-        setAuthed(true);
         setLeads(data.leads);
       } else {
-        setError("Неверный пароль");
+        setError("Неверный токен доступа");
       }
     } catch {
-      setError("Ошибка подключения, попробуйте снова");
+      setError("Ошибка подключения");
     } finally {
       setLoading(false);
     }
   };
 
-  const refresh = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch(ADMIN_LEADS_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ p: password }),
-      });
-      const data = await res.json();
-      if (data.ok) setLeads(data.leads);
-    } finally {
-      setLoading(false);
-    }
-  };
+  useEffect(() => {
+    loadLeads();
+  }, []);
 
   const FILTERS = [
     { id: "all", label: "Все" },
@@ -97,19 +82,14 @@ export default function Admin() {
       l.name.toLowerCase().includes(q) ||
       l.contact.toLowerCase().includes(q) ||
       (l.problem || "").toLowerCase().includes(q);
-    const matchFilter =
-      filter === "all" || (l.problem || "").includes(`[${filter}]`);
+    const matchFilter = filter === "all" || (l.problem || "").includes(`[${filter}]`);
     return matchSearch && matchFilter;
   });
 
   const formatDate = (iso: string) => {
-    const d = new Date(iso);
-    return d.toLocaleString("ru-RU", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
+    return new Date(iso).toLocaleString("ru-RU", {
+      day: "2-digit", month: "2-digit", year: "numeric",
+      hour: "2-digit", minute: "2-digit",
     });
   };
 
@@ -119,47 +99,40 @@ export default function Admin() {
     return `https://t.me/${contact.replace("@", "")}`;
   };
 
-  if (!authed) {
+  const newToday = leads.filter(l => {
+    const d = new Date(l.created_at);
+    const t = new Date();
+    return d.getDate() === t.getDate() && d.getMonth() === t.getMonth() && d.getFullYear() === t.getFullYear();
+  }).length;
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <Icon name="Loader2" size={40} className="animate-spin text-orange-500 mx-auto mb-3" />
+          <p className="text-gray-500">Загружаем заявки...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-        <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-sm">
-          <div className="w-12 h-12 rounded-2xl bg-orange-100 flex items-center justify-center mb-5">
-            <Icon name="Lock" size={24} className="text-orange-600" />
-          </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-1">Личный кабинет</h1>
-          <p className="text-gray-500 text-sm mb-6">Заявки с сайта ruslan-consult.ru</p>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && login()}
-            placeholder="Введите пароль"
-            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-gray-900 mb-3 focus:outline-none focus:ring-2 focus:ring-orange-500"
-          />
-          {error && <p className="text-red-500 text-sm mb-3">{error}</p>}
-          <button
-            onClick={login}
-            disabled={loading || !password}
-            className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-xl py-3 transition-colors disabled:opacity-50"
-          >
-            {loading ? "Проверка..." : "Войти"}
+        <div className="bg-white rounded-2xl shadow p-8 text-center max-w-sm">
+          <Icon name="AlertCircle" size={40} className="text-red-500 mx-auto mb-3" />
+          <p className="text-gray-700 font-semibold mb-2">{error}</p>
+          <p className="text-gray-400 text-sm mb-4">Откройте страницу по ссылке:<br/><code className="bg-gray-100 px-2 py-1 rounded text-xs">/admin?token=ruslan2026</code></p>
+          <button onClick={loadLeads} className="bg-orange-500 text-white px-6 py-2 rounded-xl text-sm font-medium">
+            Попробовать снова
           </button>
         </div>
       </div>
     );
   }
 
-  const consultCount = leads.filter(l => (l.problem || "").includes("[consultation]")).length;
-  const auditCount = leads.filter(l => (l.problem || "").includes("[audit]")).length;
-  const newToday = leads.filter(l => {
-    const d = new Date(l.created_at);
-    const today = new Date();
-    return d.getDate() === today.getDate() && d.getMonth() === today.getMonth() && d.getFullYear() === today.getFullYear();
-  }).length;
-
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
       <div className="bg-white border-b border-gray-200 px-4 py-4">
         <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3">
           <div>
@@ -169,11 +142,10 @@ export default function Admin() {
           <div className="flex items-center gap-3">
             <a href="/" className="text-sm text-gray-500 hover:text-gray-700 py-2">← На сайт</a>
             <button
-              onClick={refresh}
-              disabled={loading}
+              onClick={loadLeads}
               className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium px-4 py-2 rounded-xl transition-colors"
             >
-              <Icon name="RefreshCw" size={16} className={loading ? "animate-spin" : ""} />
+              <Icon name="RefreshCw" size={16} />
               Обновить
             </button>
           </div>
@@ -181,13 +153,12 @@ export default function Admin() {
       </div>
 
       <div className="max-w-6xl mx-auto px-4 py-6">
-        {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
           {[
             { label: "Всего заявок", value: leads.length, icon: "Inbox", color: "text-gray-700" },
             { label: "Сегодня", value: newToday, icon: "Clock", color: "text-orange-600" },
-            { label: "Консультаций", value: consultCount, icon: "Calendar", color: "text-orange-600" },
-            { label: "Аудитов", value: auditCount, icon: "Search", color: "text-blue-600" },
+            { label: "Консультаций", value: leads.filter(l => (l.problem||"").includes("[consultation]")).length, icon: "Calendar", color: "text-orange-600" },
+            { label: "Аудитов", value: leads.filter(l => (l.problem||"").includes("[audit]")).length, icon: "Search", color: "text-blue-600" },
           ].map((s) => (
             <div key={s.label} className="bg-white rounded-2xl border border-gray-100 p-4">
               <Icon name={s.icon as Parameters<typeof Icon>[0]["name"]} size={20} className={`${s.color} mb-2`} />
@@ -197,7 +168,6 @@ export default function Admin() {
           ))}
         </div>
 
-        {/* Search + Filter */}
         <div className="flex flex-col sm:flex-row gap-3 mb-4">
           <div className="relative flex-1">
             <Icon name="Search" size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -215,9 +185,7 @@ export default function Admin() {
                 key={f.id}
                 onClick={() => setFilter(f.id)}
                 className={`px-3 py-2 rounded-xl text-xs font-medium transition-colors ${
-                  filter === f.id
-                    ? "bg-orange-500 text-white"
-                    : "bg-white border border-gray-200 text-gray-600 hover:border-orange-300"
+                  filter === f.id ? "bg-orange-500 text-white" : "bg-white border border-gray-200 text-gray-600 hover:border-orange-300"
                 }`}
               >
                 {f.label}
@@ -226,7 +194,6 @@ export default function Admin() {
           </div>
         </div>
 
-        {/* Leads list */}
         {filtered.length === 0 ? (
           <div className="text-center py-16 text-gray-400">
             <Icon name="Inbox" size={48} className="mx-auto mb-3 opacity-40" />
@@ -247,34 +214,15 @@ export default function Admin() {
                       </div>
                       <div>
                         <p className="font-semibold text-gray-900 text-base">{lead.name}</p>
-                        <a
-                          href={contactHref(lead.contact)}
-                          className="text-orange-600 hover:underline text-sm font-medium"
-                        >
+                        <a href={contactHref(lead.contact)} className="text-orange-600 hover:underline text-sm font-medium">
                           {lead.contact}
                         </a>
                       </div>
                     </div>
                     <span className="text-xs text-gray-400 whitespace-nowrap">{formatDate(lead.created_at)}</span>
                   </div>
-
                   {details !== "—" && (
-                    <div className="bg-gray-50 rounded-xl px-4 py-3 text-sm text-gray-700">
-                      {details}
-                    </div>
-                  )}
-
-                  {lead.score !== null && (
-                    <div className="mt-2 flex items-center gap-2">
-                      <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
-                        lead.score >= 70 ? "bg-green-100 text-green-700" :
-                        lead.score >= 40 ? "bg-yellow-100 text-yellow-700" :
-                        "bg-red-100 text-red-700"
-                      }`}>
-                        {lead.score}%
-                      </span>
-                      {lead.result_label && <span className="text-xs text-gray-500">{lead.result_label}</span>}
-                    </div>
+                    <div className="bg-gray-50 rounded-xl px-4 py-3 text-sm text-gray-700">{details}</div>
                   )}
                 </div>
               );

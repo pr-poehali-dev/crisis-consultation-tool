@@ -1,27 +1,25 @@
-"""Список заявок для личного кабинета. v6."""
+"""Список заявок для личного кабинета. v7 — доступ по секретному токену в URL."""
 import os
 import json
 import psycopg2
 import psycopg2.extras
 
 
-ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "ruslan2026")
-# Fallback: всегда принимать если пароль не задан в env
+SECRET_TOKEN = os.environ.get("ADMIN_PASSWORD", "ruslan2026")
 
 CORS = {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, X-Admin-Password",
+    "Access-Control-Allow-Headers": "Content-Type",
     "Access-Control-Max-Age": "86400",
 }
 
 
 def handler(event: dict, context) -> dict:
-    """Возвращает список заявок для личного кабинета (требует пароль)."""
+    """Возвращает список заявок для личного кабинета."""
     if event.get("httpMethod") == "OPTIONS":
         return {"statusCode": 200, "headers": CORS, "body": ""}
 
-    headers = event.get("headers") or {}
     params = event.get("queryStringParameters") or {}
     body = {}
     try:
@@ -29,14 +27,10 @@ def handler(event: dict, context) -> dict:
     except Exception:
         pass
 
-    password = (
-        headers.get("X-Admin-Password", "")
-        or params.get("p", "")
-        or body.get("p", "")
-    )
-    print(f"[AUTH] env_set={bool(ADMIN_PASSWORD)} env_len={len(ADMIN_PASSWORD)} given_len={len(password)} match={password == ADMIN_PASSWORD}")
+    token = params.get("token", "") or params.get("p", "") or body.get("p", "") or body.get("token", "")
+    print(f"[AUTH] token_len={len(token)} secret_len={len(SECRET_TOKEN)} match={token == SECRET_TOKEN}")
 
-    if not ADMIN_PASSWORD or password != ADMIN_PASSWORD:
+    if token != SECRET_TOKEN:
         return {
             "statusCode": 401,
             "headers": {**CORS, "Content-Type": "application/json"},
