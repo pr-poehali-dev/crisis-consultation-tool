@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
-
-const LEADS_URL = "https://functions.poehali.dev/7bba2fb3-0000-4130-964b-1f300eb201bc";
+import { sendLead } from "@/utils/sendLead";
 
 const STEPS = [
   {
@@ -85,20 +84,15 @@ export default function AuditSection() {
     ).join("\n");
 
     try {
-      const res = await fetch(LEADS_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          source: "audit",
-          name: answers["name"] || "—",
-          contact: answers["phone"] || answers["email"] || "—",
-          answers_text: lines,
-          type: answers["type"] || "—",
-          city: answers["city"] || "—",
-          main_problem: answers["main_problem"] || "—",
-        }),
+      await sendLead({
+        source: "audit",
+        name: answers["name"] || "—",
+        contact: answers["phone"] || answers["email"] || "—",
+        answers_text: lines,
+        type: answers["type"] || "—",
+        city: answers["city"] || "—",
+        main_problem: answers["main_problem"] || "—",
       });
-      if (!res.ok) throw new Error("server error");
       setDone(true);
     } catch {
       setError("Ошибка сети, попробуйте ещё раз");

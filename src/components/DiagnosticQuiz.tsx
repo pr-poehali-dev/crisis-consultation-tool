@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
-
-const NOTIFY_URL = "https://functions.poehali.dev/7bba2fb3-0000-4130-964b-1f300eb201bc";
+import { sendLead } from "@/utils/sendLead";
 
 const INFO_FIELDS = [
   { id: "fullName", label: "Ваше имя", placeholder: "Иван Иванов" },
@@ -188,20 +187,16 @@ export default function DiagnosticQuiz({ diagRef }: DiagnosticQuizProps) {
       const answersText = QUESTIONS.map((q) => `${q.question}\n→ ${newAnswers[q.id] || "—"}`).join("\n\n");
 
       try {
-        await fetch(NOTIFY_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            source: "diagnostic_quiz",
-            name: info.fullName,
-            contact: info.phone,
-            profitability: result.label,
-            info: infoText,
-            answers: answersText,
-          }),
+        await sendLead({
+          source: "diagnostic_quiz",
+          name: info.fullName,
+          contact: info.phone,
+          profitability: result.label,
+          info: infoText,
+          answers: answersText,
         });
-      } catch (e) {
-        console.error(e);
+      } catch {
+        // retry уже внутри sendLead
       }
       setSending(false);
       window.ym?.(108400507, "reachGoal", "quiz_complete");

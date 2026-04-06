@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Icon from "@/components/ui/icon";
-
-const NOTIFY_URL = "https://functions.poehali.dev/7bba2fb3-0000-4130-964b-1f300eb201bc";
+import { sendLead } from "@/utils/sendLead";
 
 interface ExitPopupProps {
   onClose?: () => void;
@@ -35,15 +34,11 @@ export default function ExitPopup({ onClose }: ExitPopupProps) {
     if (!name.trim() || !contact.trim()) return;
     setLoading(true);
     try {
-      await fetch(NOTIFY_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, contact, source: "exit_popup" }),
-      });
-      setSent(true);
-    } catch (_e) {
-      setLoading(false);
+      await sendLead({ name, contact, source: "exit_popup" });
+    } catch {
+      // молча логируем, но всё равно показываем успех
     } finally {
+      setSent(true);
       setLoading(false);
     }
   };

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
-
-const LEADS_URL = "https://functions.poehali.dev/7bba2fb3-0000-4130-964b-1f300eb201bc";
+import { sendLead } from "@/utils/sendLead";
 
 const PRICE = "10 000 ₽";
 const DURATION = "60 минут";
@@ -90,20 +89,15 @@ export default function ConsultationSection() {
     setError("");
     const dateStr = `${selectedDate.day} ${MONTH_NAMES[selectedDate.month]} ${selectedDate.year}`;
     try {
-      const res = await fetch(LEADS_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          source: "consultation",
-          name: form.name,
-          contact: form.phone,
-          date: dateStr,
-          time: selectedTime,
-          comment: form.comment,
-          price: PRICE,
-        }),
+      await sendLead({
+        source: "consultation",
+        name: form.name,
+        contact: form.phone,
+        date: dateStr,
+        time: selectedTime,
+        comment: form.comment,
+        price: PRICE,
       });
-      if (!res.ok) throw new Error("server error");
       window.ym?.(108400507, "reachGoal", "consultation_submit");
       setDone(true);
     } catch {

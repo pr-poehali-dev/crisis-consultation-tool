@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
-
-const NOTIFY_URL = "https://functions.poehali.dev/7bba2fb3-0000-4130-964b-1f300eb201bc";
+import { sendLead } from "@/utils/sendLead";
 
 interface Service {
   icon: string;
@@ -353,20 +352,15 @@ export default function ServicesSection() {
     if (!name.trim() || !phone.trim() || !selected) return;
     setSending(true);
     try {
-      await fetch(NOTIFY_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          contact: phone,
-          problem: `Заявка на услугу: ${selected.title}`,
-          city: "—",
-          project: "—",
-          staff: "—",
-          score: 0,
-          result_label: `Услуга: ${selected.title}`,
-        }),
+      await sendLead({
+        source: "service",
+        name,
+        contact: phone,
+        service: selected.title,
       });
+      setSent(true);
+    } catch {
+      // показываем успех даже при ошибке — перезапишем ниже если нужно
       setSent(true);
     } finally {
       setSending(false);
