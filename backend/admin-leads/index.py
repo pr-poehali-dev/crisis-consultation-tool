@@ -25,6 +25,7 @@ def handler(event: dict, context) -> dict:
     headers = event.get("headers") or {}
     params = event.get("queryStringParameters") or {}
     password = headers.get("X-Admin-Password", "") or params.get("p", "")
+    print(f"[AUTH] env_pwd_set={bool(ADMIN_PASSWORD)} env_len={len(ADMIN_PASSWORD)} given_len={len(password)} match={password == ADMIN_PASSWORD}")
     if not ADMIN_PASSWORD or password != ADMIN_PASSWORD:
         return {
             "statusCode": 401,
