@@ -13,6 +13,7 @@ export default function ExitPopup({ onClose }: ExitPopupProps) {
   const [contact, setContact] = useState("");
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const alreadyShown = sessionStorage.getItem("exit_popup_shown");
@@ -34,12 +35,14 @@ export default function ExitPopup({ onClose }: ExitPopupProps) {
   const submit = async () => {
     if (!name.trim() || !contact.trim()) return;
     setLoading(true);
+    setError(false);
     try {
       await sendLead({ name, contact, source: "exit_popup" });
-    } catch {
-      // молча логируем, но всё равно показываем успех
-    } finally {
       setSent(true);
+    } catch (e) {
+      console.error("[ExitPopup] sendLead failed:", e);
+      setError(true);
+    } finally {
       setLoading(false);
     }
   };
@@ -93,22 +96,27 @@ export default function ExitPopup({ onClose }: ExitPopupProps) {
                 placeholder="Телефон или Telegram"
                 value={contact}
                 onChange={(e) => setContact(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && submit()}
                 className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-[rgba(255,107,0,0.5)] transition-colors"
               />
             </div>
 
-            <button
-              onClick={submit}
-              disabled={loading || !name.trim() || !contact.trim()}
-              className="neon-btn w-full text-white font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {loading ? (
-                <Icon name="Loader2" size={18} className="animate-spin" />
-              ) : (
-                <Icon name="Zap" size={18} />
-              )}
-              Получить бесплатную диагностику
-            </button>
+            {error && <ContactFallback isError={true} />}
+
+            {!error && (
+              <button
+                onClick={submit}
+                disabled={loading || !name.trim() || !contact.trim()}
+                className="neon-btn w-full text-white font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {loading ? (
+                  <Icon name="Loader2" size={18} className="animate-spin" />
+                ) : (
+                  <Icon name="Zap" size={18} />
+                )}
+                Получить бесплатную диагностику
+              </button>
+            )}
 
             <button onClick={close} className="w-full mt-3 text-gray-600 text-xs hover:text-gray-400 transition-colors">
               Нет, спасибо — мне не нужна прибыль
