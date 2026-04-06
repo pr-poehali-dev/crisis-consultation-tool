@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
 import { sendLead } from "@/utils/sendLead";
+import ContactFallback from "@/components/ContactFallback";
 
 const WEEKS = [
   {
@@ -324,7 +325,7 @@ function MarathonModal({ onClose }: MarathonModalProps) {
                   />
                 </div>
               )}
-              {error && <p className="text-red-400 text-sm">{error}</p>}
+              {error && <ContactFallback isError={true} />}
               <button
                 onClick={handleSubmit}
                 disabled={loading}

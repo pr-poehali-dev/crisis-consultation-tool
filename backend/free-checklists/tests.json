@@ -19,7 +19,7 @@
       "path": "/",
       "body": {"name": "Тест", "email": "test@example.com"},
       "expectedStatus": 200,
-      "expectedBody": {"ok": true},
+      "expectedBody": {"ok": true, "bot_link": "string"},
       "bodyMatcher": "partial"
     }
   ]

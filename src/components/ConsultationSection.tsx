@@ -301,7 +301,7 @@ export default function ConsultationSection() {
                 </div>
 
                 {error && (
-                  <p className="text-[#FF2D55] text-sm text-center mb-2">{error}</p>
+                  <ContactFallback isError={true} />
                 )}
                 <button
                   onClick={handleSubmit}

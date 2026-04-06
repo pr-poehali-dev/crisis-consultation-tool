@@ -190,7 +190,7 @@ export default function AuditSection() {
 
               {/* Navigation */}
               {error && (
-                <p className="text-[#FF2D55] text-sm text-center mt-4">{error}</p>
+                <ContactFallback isError={true} />
               )}
               <div className="flex gap-3 mt-4">
                 {step > 0 && (
