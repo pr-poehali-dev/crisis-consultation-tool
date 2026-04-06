@@ -5,7 +5,7 @@ import psycopg2
 import psycopg2.extras
 
 
-ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "")
+ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "ruslan2026")
 
 CORS = {
     "Access-Control-Allow-Origin": "*",
