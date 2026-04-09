@@ -1,4 +1,4 @@
-"""Универсальный приём заявок: Telegram + Email владельцу + сохранение в БД. v6."""
+"""Универсальный приём заявок: Telegram + Email владельцу + сохранение в БД. v7."""
 import os
 import json
 import smtplib
