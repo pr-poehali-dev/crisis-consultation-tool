@@ -2,20 +2,32 @@ import { useEffect, useState } from "react";
 import Icon from "@/components/ui/icon";
 
 const COUNTER_URL = "https://functions.poehali.dev/466a7ae9-ffcb-4019-87a3-51ac4a629d27";
+const CACHE_KEY = "visitor_count_cache";
+const CACHE_TTL = 5 * 60 * 1000; // 5 минут
 
 export default function VisitorCounter() {
   const [count, setCount] = useState<number | null>(null);
   const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
-    // Регистрируем визит
-    fetch(COUNTER_URL, { method: "POST" }).catch(() => {});
+    const cached = sessionStorage.getItem(CACHE_KEY);
+    if (cached) {
+      try {
+        const { value, ts } = JSON.parse(cached);
+        if (Date.now() - ts < CACHE_TTL) {
+          setCount(value);
+          setTimeout(() => setAnimate(true), 300);
+          return;
+        }
+      } catch (_e) { /* ignore bad cache */ }
+    }
 
-    // Получаем актуальное значение
-    fetch(COUNTER_URL)
+    // POST регистрирует визит и сразу возвращает счётчик — один запрос
+    fetch(COUNTER_URL, { method: "POST" })
       .then((r) => r.json())
       .then((data) => {
         setCount(data.count);
+        sessionStorage.setItem(CACHE_KEY, JSON.stringify({ value: data.count, ts: Date.now() }));
         setTimeout(() => setAnimate(true), 300);
       })
       .catch(() => setCount(null));

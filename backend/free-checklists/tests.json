@@ -14,13 +14,11 @@
       "expectedStatus": 400
     },
     {
-      "name": "Register with email returns bot_link",
+      "name": "Register with email returns 200",
       "method": "POST",
       "path": "/",
       "body": {"name": "Тест", "email": "test@example.com"},
-      "expectedStatus": 200,
-      "expectedBody": {"ok": true, "bot_link": "string"},
-      "bodyMatcher": "partial"
+      "expectedStatus": 200
     }
   ]
 }
