@@ -9,8 +9,7 @@ import ServicesSection from "@/components/ServicesSection";
 import HowWeWorkSection from "@/components/HowWeWorkSection";
 import CasesSection from "@/components/CasesSection";
 import ReviewsSection from "@/components/ReviewsSection";
-import ChecklistsSection from "@/components/ChecklistsSection";
-import MarathonSection from "@/components/MarathonSection";
+import MyStorySection from "@/components/MyStorySection";
 import TipsSection from "@/components/TipsSection";
 import FaqSection from "@/components/FaqSection";
 import CookieConsent from "@/components/CookieConsent";
@@ -226,10 +225,9 @@ export default function Restaurant() {
 
       <ReviewsSection />
       <AboutSection />
-      <ChecklistsSection onBuyClick={() => {}} />
+      <MyStorySection />
       <AuditSection />
       <ConsultationSection />
-      <MarathonSection />
       <TipsSection />
       <FaqSection />
       <ContactsSection />
