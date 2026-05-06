@@ -210,6 +210,33 @@ export default function Restaurant() {
         </div>
       </section>
 
+      {/* Блок-провокация под hero */}
+      <section className="relative py-0">
+        <div className="bg-gradient-to-r from-[#1a0800] via-[#2a0f00] to-[#1a0800] border-y border-[#FF6B00]/20">
+          <div className="max-w-5xl mx-auto px-4 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-5">
+              <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-[#FF6B00]/15 border border-[#FF6B00]/30 flex items-center justify-center">
+                <Icon name="TrendingDown" size={28} className="text-[#FF6B00]" />
+              </div>
+              <div>
+                <p className="text-white font-oswald font-bold text-xl md:text-2xl leading-tight">
+                  Среднестатистический ресторан теряет{" "}
+                  <span className="text-[#FF6B00]">30% прибыли</span> незаметно.
+                </p>
+                <p className="text-gray-400 text-sm mt-1">А ты? Посчитай за 2 минуты — сколько уходит именно у тебя.</p>
+              </div>
+            </div>
+            <a
+              href="#calculator"
+              className="flex-shrink-0 neon-btn text-white font-bold text-base px-7 py-3.5 rounded-xl flex items-center gap-2.5 whitespace-nowrap"
+            >
+              <Icon name="Calculator" size={20} />
+              Посчитать потери →
+            </a>
+          </div>
+        </div>
+      </section>
+
       <PainsSection />
       <CalculatorSection />
 

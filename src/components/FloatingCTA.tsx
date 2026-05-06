@@ -18,18 +18,39 @@ export default function FloatingCTA({ onClick }: FloatingCTAProps) {
 
   return (
     <div
-      className={`fixed bottom-6 right-4 z-40 transition-all duration-500 ${
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8 pointer-events-none"
+      className={`fixed bottom-0 left-0 right-0 z-40 transition-all duration-500 ${
+        visible ? "opacity-100 translate-y-0" : "opacity-100 translate-y-0 pointer-events-none"
       }`}
+      style={{ display: visible ? "block" : "none" }}
     >
-      <button
-        onClick={onClick}
-        className="neon-btn text-white font-bold text-sm px-5 py-3.5 rounded-2xl flex items-center gap-2.5 shadow-2xl"
-      >
-        <Icon name="MessageCircle" size={20} />
-        <span className="hidden sm:inline">Записаться на диагностику</span>
-        <span className="sm:hidden">Записаться</span>
-      </button>
+      <div className="bg-[#0f0500]/95 backdrop-blur-md border-t border-[#FF6B00]/30 px-4 py-3">
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-[#FF6B00]/15 border border-[#FF6B00]/30 flex items-center justify-center flex-shrink-0">
+              <Icon name="TrendingDown" size={16} className="text-[#FF6B00]" />
+            </div>
+            <p className="text-gray-300 text-sm">
+              <span className="text-white font-semibold">Посчитай свои потери →</span>
+              {" "}Узнай, сколько уходит из твоей кассы прямо сейчас
+            </p>
+          </div>
+          <div className="flex items-center gap-3 flex-shrink-0">
+            <a
+              href="#calculator"
+              className="neon-btn text-white font-bold text-sm px-5 py-2.5 rounded-xl flex items-center gap-2 whitespace-nowrap"
+            >
+              <Icon name="Calculator" size={16} />
+              Посчитать бесплатно
+            </a>
+            <button
+              onClick={onClick}
+              className="text-gray-500 hover:text-white text-xs underline whitespace-nowrap transition-colors"
+            >
+              Записаться
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
