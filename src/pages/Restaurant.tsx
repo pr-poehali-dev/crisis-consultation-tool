@@ -137,14 +137,27 @@ export default function Restaurant() {
 
             {/* Левая колонка — текст */}
             <div>
-              <h1 className="text-5xl md:text-7xl font-oswald font-black text-white uppercase leading-none mb-2">
+              {/* Бейдж спикера */}
+              <div className="inline-flex items-center gap-2 bg-white/5 border border-white/15 rounded-full px-4 py-1.5 mb-5">
+                <span className="w-2 h-2 rounded-full bg-[#FF6B00] animate-pulse flex-shrink-0" />
+                <span className="text-gray-300 text-sm font-medium tracking-wide">Спикер школы <span className="text-white font-semibold">UPSKILL Group</span></span>
+              </div>
+
+              <h1 className="text-5xl md:text-7xl font-oswald font-black text-white uppercase leading-none mb-3">
                 ЭКСПЕРТ И<br />
                 <span className="text-[#FF6B00]">КОНСУЛЬТАНТ</span><br />
-                В СФЕРЕ HORECA
+                <span className="text-white">В СФЕРЕ</span>{" "}
+                <span className="relative inline-block">
+                  <span className="text-[#FF6B00]">HoReCa</span>
+                </span>
               </h1>
-              <h2 className="text-xl md:text-2xl font-oswald font-bold text-white uppercase mb-8">
-                ДЛЯ РЕСТОРАНОВ, БАРОВ И КОФЕЕН
-              </h2>
+
+              <div className="flex items-center gap-3 mb-8">
+                <div className="h-px flex-1 max-w-[40px] bg-[#FF6B00]/50" />
+                <h2 className="text-base md:text-lg font-oswald font-bold text-gray-400 uppercase tracking-widest">
+                  Рестораны · Бары · Кофейни
+                </h2>
+              </div>
 
               <p className="text-gray-300 text-lg mb-8 leading-relaxed">
                 Найду скрытые потери, выстрою процессы и дам конкретный план — без воды и шаблонных советов
