@@ -160,9 +160,18 @@ export default function Restaurant() {
                 </h2>
               </div>
 
-              <p className="text-gray-300 text-lg mb-8 leading-relaxed">
+              <p className="text-gray-300 text-lg mb-5 leading-relaxed">
                 Найду скрытые потери, выстрою процессы и дам конкретный план — без воды и шаблонных советов
               </p>
+
+              {/* Онлайн-статус */}
+              <div className="inline-flex items-center gap-3 bg-white/5 border border-green-500/30 rounded-full px-4 py-2 mb-8">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500" />
+                </span>
+                <span className="text-green-400 text-sm font-medium">Руслан онлайн — отвечает сегодня</span>
+              </div>
 
               <div className="flex flex-col sm:flex-row gap-4 mb-10">
                 <button onClick={scrollToDiag} className="neon-btn text-white font-bold text-lg px-8 py-4 rounded-xl flex items-center gap-3">
