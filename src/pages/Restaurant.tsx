@@ -18,6 +18,7 @@ import ContactsSection from "@/components/ContactsSection";
 import AuditSection from "@/components/AuditSection";
 import ConsultationSection from "@/components/ConsultationSection";
 import ExitPopup from "@/components/ExitPopup";
+import MessengerButton from "@/components/MessengerButton";
 
 const positionStyles: Record<string, string> = {
   "top-left": "-top-4 -left-6",
@@ -290,6 +291,7 @@ export default function Restaurant() {
       <FloatingCTA onClick={scrollToDiag} />
       <ExitPopup />
       <CookieConsent />
+      <MessengerButton />
 
     </div>
   );

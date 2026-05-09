@@ -2,12 +2,13 @@ import { useState, useEffect } from "react";
 import Icon from "@/components/ui/icon";
 
 const MESSAGES = [
-  { text: "Сейчас 3 человека проходят диагностику", icon: "ClipboardList", color: "text-blue-400" },
-  { text: "2 ресторатора записались на марафон сегодня", icon: "Zap", color: "text-amber-400" },
+  { text: "Новая заявка на диагностику — 12 минут назад", icon: "ClipboardList", color: "text-blue-400" },
+  { text: "Ресторатор из Москвы оставил заявку час назад", icon: "Zap", color: "text-amber-400" },
   { text: "5 человек изучают кейсы прямо сейчас", icon: "Star", color: "text-pink-400" },
-  { text: "Сейчас 4 человека проходят диагностику", icon: "ClipboardList", color: "text-blue-400" },
-  { text: "1 ресторатор записался на марафон только что", icon: "Zap", color: "text-amber-400" },
-  { text: "7 человек на сайте прямо сейчас", icon: "Users", color: "text-green-400" },
+  { text: "Владелец кафе записался на консультацию сегодня", icon: "CheckCircle", color: "text-green-400" },
+  { text: "Заявка на аудит — 34 минуты назад", icon: "ClipboardList", color: "text-blue-400" },
+  { text: "7 рестораторов на сайте прямо сейчас", icon: "Users", color: "text-green-400" },
+  { text: "Руслан принял заявку — ответит сегодня", icon: "MessageCircle", color: "text-amber-400" },
 ];
 
 export default function ActivityToast() {
