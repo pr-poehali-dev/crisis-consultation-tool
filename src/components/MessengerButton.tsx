@@ -20,7 +20,7 @@ export default function MessengerButton() {
             Написать в Telegram
           </a>
           <a
-            href="https://wa.me/79053473618"
+            href="https://wa.me/79773908720"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-3 bg-[#25D366] text-white text-sm font-semibold px-4 py-3 rounded-2xl shadow-2xl hover:brightness-110 transition-all whitespace-nowrap"
