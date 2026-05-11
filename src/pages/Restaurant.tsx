@@ -103,12 +103,25 @@ export default function Restaurant() {
             <a href="#consultation" className="text-[#FF6B00] hover:text-white text-xs font-semibold px-3 py-1.5 rounded-lg bg-[rgba(255,107,0,0.12)] hover:bg-[rgba(255,107,0,0.2)] border border-[rgba(255,107,0,0.3)] transition-all whitespace-nowrap">Консультация</a>
             <a href="#contacts" className="text-gray-400 hover:text-white text-xs px-3 py-1.5 rounded-lg hover:bg-white/5 transition-all whitespace-nowrap">Контакты</a>
           </div>
-          <a
-            href="#consultation"
-            className="flex-shrink-0 neon-btn text-white font-bold text-xs px-4 py-2 rounded-lg"
-          >
-            Записаться
-          </a>
+          <div className="flex items-center gap-2 flex-shrink-0">
+            <a
+              href="https://dzen.ru/profile/editor/id/695a5b8043c19f4e6f622e8b/publications"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 text-gray-400 hover:text-white text-xs px-3 py-1.5 rounded-lg hover:bg-white/5 transition-all whitespace-nowrap border border-white/10"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" className="text-[#FF6600]">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+              </svg>
+              Дзен
+            </a>
+            <a
+              href="#consultation"
+              className="neon-btn text-white font-bold text-xs px-4 py-2 rounded-lg"
+            >
+              Записаться
+            </a>
+          </div>
         </div>
       </nav>
 
