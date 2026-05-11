@@ -93,6 +93,21 @@ export default function Restaurant() {
         <span className="opacity-70">→</span>
       </a>
 
+      {/* Дзен-баннер */}
+      <a
+        href="https://dzen.ru/profile/editor/id/695a5b8043c19f4e6f622e8b/publications"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-medium text-white transition-opacity hover:opacity-90"
+        style={{ background: "#FF6600" }}
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white" className="flex-shrink-0">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+        </svg>
+        <span>Читайте мои статьи в <strong>Яндекс Дзен</strong> — советы для владельцев ресторанов и кофеен</span>
+        <span className="opacity-70">→</span>
+      </a>
+
       {/* Навигация */}
       <nav className="sticky top-0 z-50 bg-[#0a0a0a]/95 backdrop-blur-md border-b border-white/5">
         <div className="max-w-6xl mx-auto px-4 flex items-center justify-between h-12 gap-2 overflow-x-auto scrollbar-none">
