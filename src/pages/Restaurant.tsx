@@ -71,6 +71,7 @@ function FloatingPain({ text, delay, position }: { text: string; delay: number; 
 export default function Restaurant() {
 
   const diagRef = useRef<HTMLElement>(null);
+  const spotsLeft = useState(() => [1, 2, 3, 4][Math.floor(Math.random() * 4)])[0];
 
   const scrollToDiag = () => {
     diagRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -172,25 +173,19 @@ export default function Restaurant() {
                 <span className="text-gray-300 text-sm font-medium tracking-wide">Спикер школы <span className="text-white font-semibold">UPSKILL Group</span></span>
               </div>
 
-              {/* Акция — 5 мест на бесплатный разбор */}
+              {/* Акция — бесплатный разбор */}
               <div className="mb-6 rounded-2xl border border-[rgba(255,107,0,0.4)] bg-[rgba(255,107,0,0.07)] p-4">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-[#FF6B00] text-xs font-bold uppercase tracking-widest">🔥 22–23 мая</span>
                   <span className="text-white/40 text-xs">·</span>
-                  <span className="text-white/60 text-xs">Только 5 мест</span>
+                  <span className="text-red-400 text-xs font-semibold">Осталось {spotsLeft} {spotsLeft === 1 ? "место" : "места"}</span>
                 </div>
-                <p className="text-white text-sm font-semibold leading-snug mb-1">
-                  Отберу 5 заведений для бесплатного полного разбора
+                <p className="text-white text-sm font-semibold leading-snug mb-3">
+                  Бесплатный полный разбор вашего заведения — пройдите диагностику и запишитесь
                 </p>
-                <p className="text-gray-400 text-xs leading-relaxed mb-3">
-                  Пройдите диагностику и запишитесь — 5 проектов получат полный разбор своего заведения
-                </p>
-                <div className="flex items-center gap-2">
-                  <button onClick={scrollToDiag} className="neon-btn text-white font-bold text-xs px-4 py-2 rounded-lg">
-                    Пройти диагностику →
-                  </button>
-                  <span className="text-gray-500 text-xs">Осталось мест: <span className="text-[#FF6B00] font-bold">5</span></span>
-                </div>
+                <button onClick={scrollToDiag} className="neon-btn text-white font-bold text-xs px-4 py-2 rounded-lg">
+                  Пройти диагностику →
+                </button>
               </div>
 
               <h1 className="text-5xl md:text-7xl font-oswald font-black text-white uppercase leading-none mb-3">
