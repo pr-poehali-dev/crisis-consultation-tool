@@ -4,7 +4,6 @@ import { sendLead } from "@/utils/sendLead";
 import ContactFallback from "@/components/ContactFallback";
 
 const PRICE = "10 000 ₽";
-const DURATION = "60 минут";
 
 // Занятые дни (день месяца, месяц 0-based)
 // Генерируем правдоподобно занятые дни
@@ -123,7 +122,7 @@ export default function ConsultationSection() {
             Запись к <span className="neon-text">Руслану</span>
           </h2>
           <p className="text-gray-400 text-lg max-w-xl mx-auto">
-            Разберём вашу ситуацию, найдём точки потерь и составим план действий. {DURATION} · {PRICE}
+            Разберём вашу ситуацию, найдём точки потерь и составим план действий. {PRICE}
           </p>
         </div>
 
