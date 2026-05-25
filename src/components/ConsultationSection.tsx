@@ -294,7 +294,6 @@ export default function ConsultationSection() {
                 <div className="flex items-center justify-between mt-4 mb-4">
                   <div>
                     <span className="text-2xl font-oswald font-bold text-white">{PRICE}</span>
-                    <span className="text-gray-500 text-sm ml-2">· {DURATION}</span>
                   </div>
                   <span className="text-gray-500 text-xs">Оплата при встрече</span>
                 </div>
