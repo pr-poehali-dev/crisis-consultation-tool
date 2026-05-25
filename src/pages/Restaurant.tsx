@@ -142,14 +142,14 @@ export default function Restaurant() {
       </nav>
 
       {/* CTA Banner */}
-      <div className="w-full bg-gradient-to-r from-[#FF6B00] to-[#e55a00] py-3 px-4">
+      <div className="w-full bg-gradient-to-r from-[#b86e00] to-[#8f5500] py-3 px-4">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-3 text-center">
           <span className="text-white text-sm font-medium">
             Получите бесплатный разбор вашего заведения от эксперта
           </span>
           <button
             onClick={scrollToDiag}
-            className="bg-white text-[#FF6B00] font-bold text-sm px-5 py-1.5 rounded-lg hover:bg-orange-50 transition-colors whitespace-nowrap"
+            className="bg-white text-[#b86e00] font-bold text-sm px-5 py-1.5 rounded-lg hover:bg-orange-50 transition-colors whitespace-nowrap"
           >
             Получить бесплатную диагностику →
           </button>
@@ -160,7 +160,7 @@ export default function Restaurant() {
       <section className="relative min-h-screen flex items-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#2a1000] via-[#1a0800] to-[#0a0a0a]" />
         <div className="absolute top-0 right-0 w-1/2 h-full opacity-20 pointer-events-none"
-          style={{ background: "radial-gradient(ellipse at 80% 20%, #FF6B00 0%, transparent 70%)" }} />
+          style={{ background: "radial-gradient(ellipse at 80% 20%, #b86e00 0%, transparent 70%)" }} />
 
         <div className="max-w-6xl mx-auto px-4 py-20 relative z-10 w-full">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
@@ -169,14 +169,14 @@ export default function Restaurant() {
             <div>
               {/* Бейдж спикера */}
               <div className="inline-flex items-center gap-2 bg-white/5 border border-white/15 rounded-full px-4 py-1.5 mb-5">
-                <span className="w-2 h-2 rounded-full bg-[#FF6B00] animate-pulse flex-shrink-0" />
+                <span className="w-2 h-2 rounded-full bg-[#D4870A] animate-pulse flex-shrink-0" />
                 <span className="text-gray-300 text-sm font-medium tracking-wide">Спикер школы <span className="text-white font-semibold">UPSKILL Group</span></span>
               </div>
 
               {/* Акция — бесплатный разбор */}
-              <div className="mb-6 rounded-2xl border border-[rgba(255,107,0,0.4)] bg-[rgba(255,107,0,0.07)] p-4">
+              <div className="mb-6 rounded-2xl border border-[rgba(212,135,10,0.35)] bg-[rgba(212,135,10,0.06)] p-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-[#FF6B00] text-xs font-bold uppercase tracking-widest">🔥 22–23 июня</span>
+                  <span className="text-[#D4870A] text-xs font-bold uppercase tracking-widest">🔥 22–23 июня</span>
                   <span className="text-white/40 text-xs">·</span>
                   <span className="text-red-400 text-xs font-semibold">Осталось {spotsLeft} {spotsLeft === 1 ? "место" : "места"}</span>
                 </div>
