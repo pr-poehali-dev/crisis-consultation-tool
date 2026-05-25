@@ -64,6 +64,7 @@ const ContactsSection = () => {
           href="https://max.ru/Roko_Tiis"
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => window.ym?.(108400507, "reachGoal", "click_max")}
           className="flex items-center gap-4 p-5 rounded-2xl bg-white/5 hover:bg-white/10 transition-all border border-white/10 group"
         >
           <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "#0077FF" }}>

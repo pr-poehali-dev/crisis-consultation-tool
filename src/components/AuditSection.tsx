@@ -94,6 +94,7 @@ export default function AuditSection() {
         city: answers["city"] || "—",
         main_problem: answers["main_problem"] || "—",
       });
+      window.ym?.(108400507, "reachGoal", "audit_submit");
       setDone(true);
     } catch {
       setError("Ошибка сети, попробуйте ещё раз");

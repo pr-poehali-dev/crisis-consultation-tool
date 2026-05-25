@@ -74,6 +74,7 @@ export default function Restaurant() {
   const spotsLeft = useState(() => [1, 2, 3, 4][Math.floor(Math.random() * 4)])[0];
 
   const scrollToDiag = () => {
+    window.ym?.(108400507, "reachGoal", "click_diagnostics");
     diagRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
