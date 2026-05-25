@@ -78,7 +78,7 @@ export default function Restaurant() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white">
+    <div className="min-h-screen bg-[#081009] text-white">
       {/* Telegram channel banner */}
       <a
         href="https://t.me/Ruslan_Management"
@@ -100,7 +100,7 @@ export default function Restaurant() {
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-medium text-white transition-opacity hover:opacity-90"
-        style={{ background: "#FF6600" }}
+        style={{ background: "#5C3317" }}
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="white" className="flex-shrink-0">
           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
@@ -110,13 +110,13 @@ export default function Restaurant() {
       </a>
 
       {/* Навигация */}
-      <nav className="sticky top-0 z-50 bg-[#0a0a0a]/95 backdrop-blur-md border-b border-white/5">
+      <nav className="sticky top-0 z-50 bg-[#081009]/95 backdrop-blur-md border-b border-white/5">
         <div className="max-w-6xl mx-auto px-4 flex items-center justify-between h-12 gap-2 overflow-x-auto scrollbar-none">
           <div className="flex items-center gap-1 flex-shrink-0">
             <a href="#cases" className="text-gray-400 hover:text-white text-xs px-3 py-1.5 rounded-lg hover:bg-white/5 transition-all whitespace-nowrap">Кейсы</a>
             <a href="#services" className="text-gray-400 hover:text-white text-xs px-3 py-1.5 rounded-lg hover:bg-white/5 transition-all whitespace-nowrap">Услуги</a>
             <a href="#audit" className="text-gray-400 hover:text-white text-xs px-3 py-1.5 rounded-lg hover:bg-white/5 transition-all whitespace-nowrap">Аудит</a>
-            <a href="#consultation" className="text-[#FF6B00] hover:text-white text-xs font-semibold px-3 py-1.5 rounded-lg bg-[rgba(255,107,0,0.12)] hover:bg-[rgba(255,107,0,0.2)] border border-[rgba(255,107,0,0.3)] transition-all whitespace-nowrap">Консультация</a>
+            <a href="#consultation" className="text-[#7C9E6E] hover:text-white text-xs font-semibold px-3 py-1.5 rounded-lg bg-[rgba(124,158,110,0.12)] hover:bg-[rgba(124,158,110,0.2)] border border-[rgba(124,158,110,0.3)] transition-all whitespace-nowrap">Консультация</a>
             <a href="#contacts" className="text-gray-400 hover:text-white text-xs px-3 py-1.5 rounded-lg hover:bg-white/5 transition-all whitespace-nowrap">Контакты</a>
           </div>
           <div className="flex items-center gap-2 flex-shrink-0">
@@ -142,14 +142,14 @@ export default function Restaurant() {
       </nav>
 
       {/* CTA Banner */}
-      <div className="w-full bg-gradient-to-r from-[#b86e00] to-[#8f5500] py-3 px-4">
+      <div className="w-full bg-gradient-to-r from-[#1B4332] to-[#2d6a4f] py-3 px-4">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-3 text-center">
           <span className="text-white text-sm font-medium">
             Получите бесплатный разбор вашего заведения от эксперта
           </span>
           <button
             onClick={scrollToDiag}
-            className="bg-white text-[#b86e00] font-bold text-sm px-5 py-1.5 rounded-lg hover:bg-orange-50 transition-colors whitespace-nowrap"
+            className="bg-white text-[#1B4332] font-bold text-sm px-5 py-1.5 rounded-lg hover:bg-green-50 transition-colors whitespace-nowrap"
           >
             Получить бесплатную диагностику →
           </button>
@@ -158,9 +158,16 @@ export default function Restaurant() {
 
       {/* Hero */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#2a1000] via-[#1a0800] to-[#0a0a0a]" />
-        <div className="absolute top-0 right-0 w-1/2 h-full opacity-20 pointer-events-none"
-          style={{ background: "radial-gradient(ellipse at 80% 20%, #b86e00 0%, transparent 70%)" }} />
+        <div className="absolute inset-0"
+          style={{
+            backgroundImage: "url('https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/files/9a4ca78b-9f6c-41e6-b1a3-c98eaf94666e.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#081009]/92 via-[#0f1e10]/85 to-[#0a0a0a]/95" />
+        <div className="absolute top-0 right-0 w-1/2 h-full opacity-15 pointer-events-none"
+          style={{ background: "radial-gradient(ellipse at 80% 20%, #2d6a4f 0%, transparent 70%)" }} />
 
         <div className="max-w-6xl mx-auto px-4 py-20 relative z-10 w-full">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
@@ -169,14 +176,14 @@ export default function Restaurant() {
             <div>
               {/* Бейдж спикера */}
               <div className="inline-flex items-center gap-2 bg-white/5 border border-white/15 rounded-full px-4 py-1.5 mb-5">
-                <span className="w-2 h-2 rounded-full bg-[#D4870A] animate-pulse flex-shrink-0" />
+                <span className="w-2 h-2 rounded-full bg-[#7C9E6E] animate-pulse flex-shrink-0" />
                 <span className="text-gray-300 text-sm font-medium tracking-wide">Спикер школы <span className="text-white font-semibold">UPSKILL Group</span></span>
               </div>
 
               {/* Акция — бесплатный разбор */}
-              <div className="mb-6 rounded-2xl border border-[rgba(212,135,10,0.35)] bg-[rgba(212,135,10,0.06)] p-4">
+              <div className="mb-6 rounded-2xl border border-[rgba(124,158,110,0.35)] bg-[rgba(124,158,110,0.06)] p-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-[#D4870A] text-xs font-bold uppercase tracking-widest">🔥 22–23 июня</span>
+                  <span className="text-[#7C9E6E] text-xs font-bold uppercase tracking-widest">🔥 22–23 июня</span>
                   <span className="text-white/40 text-xs">·</span>
                   <span className="text-red-400 text-xs font-semibold">Осталось {spotsLeft} {spotsLeft === 1 ? "место" : "места"}</span>
                 </div>
@@ -190,15 +197,15 @@ export default function Restaurant() {
 
               <h1 className="text-5xl md:text-7xl font-oswald font-black text-white uppercase leading-none mb-3">
                 ЭКСПЕРТ И<br />
-                <span className="text-[#FF6B00]">КОНСУЛЬТАНТ</span><br />
+                <span className="text-[#7C9E6E]">КОНСУЛЬТАНТ</span><br />
                 <span className="text-white">В СФЕРЕ</span>{" "}
                 <span className="relative inline-block">
-                  <span className="text-[#FF6B00]">HoReCa</span>
+                  <span className="text-[#C8975A]">HoReCa</span>
                 </span>
               </h1>
 
               <div className="flex items-center gap-3 mb-8">
-                <div className="h-px flex-1 max-w-[40px] bg-[#FF6B00]/50" />
+                <div className="h-px flex-1 max-w-[40px] bg-[#7C9E6E]/50" />
                 <h2 className="text-base md:text-lg font-oswald font-bold text-gray-400 uppercase tracking-widest">
                   Рестораны · Бары · Кофейни
                 </h2>
@@ -222,12 +229,12 @@ export default function Restaurant() {
                   <Icon name="ClipboardList" size={22} />
                   Бесплатная диагностика
                 </button>
-                <a href="#audit" className="flex items-center gap-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[rgba(255,107,0,0.4)] text-white font-bold text-lg px-8 py-4 rounded-xl transition-all">
-                  <Icon name="Search" size={22} className="text-[#FF6B00]" />
+                <a href="#audit" className="flex items-center gap-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[rgba(124,158,110,0.4)] text-white font-bold text-lg px-8 py-4 rounded-xl transition-all">
+                  <Icon name="Search" size={22} className="text-[#7C9E6E]" />
                   Пройти аудит
                 </a>
-                <a href="#consultation" className="flex items-center gap-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[rgba(255,107,0,0.4)] text-white font-bold text-lg px-8 py-4 rounded-xl transition-all">
-                  <Icon name="Calendar" size={22} className="text-[#FF6B00]" />
+                <a href="#consultation" className="flex items-center gap-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[rgba(124,158,110,0.4)] text-white font-bold text-lg px-8 py-4 rounded-xl transition-all">
+                  <Icon name="Calendar" size={22} className="text-[#C8975A]" />
                   Записаться
                 </a>
                 <a href="#cases" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm font-medium px-2">
@@ -244,7 +251,7 @@ export default function Restaurant() {
                   { value: "+30%", label: "средний рост прибыли" },
                 ].map((stat) => (
                   <div key={stat.label} className="glass-card rounded-xl p-4">
-                    <div className="text-2xl font-oswald font-bold text-[#FF6B00] mb-0.5">{stat.value}</div>
+                    <div className="text-2xl font-oswald font-bold text-[#C8975A] mb-0.5">{stat.value}</div>
                     <div className="text-gray-500 text-xs leading-snug">{stat.label}</div>
                   </div>
                 ))}
@@ -254,7 +261,7 @@ export default function Restaurant() {
             {/* Правая колонка — фото */}
             <div className="flex justify-center md:justify-end">
               <div className="relative w-72 md:w-96">
-                <div className="absolute -inset-3 rounded-3xl bg-[rgba(255,107,0,0.15)] blur-2xl" />
+                <div className="absolute -inset-3 rounded-3xl bg-[rgba(124,158,110,0.12)] blur-2xl" />
                 <img
                   src="https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/ee99e909-4bd8-48c5-bcae-461615ec5bb0.jpg"
                   alt="Руслан Фатуллаев"
@@ -263,7 +270,7 @@ export default function Restaurant() {
                 />
                 <div className="absolute bottom-4 left-4 right-4 bg-black/70 backdrop-blur-sm rounded-2xl p-3 text-center">
                   <div className="text-white font-oswald font-bold text-lg">Руслан Фатуллаев</div>
-                  <div className="text-[#FF6B00] text-sm">Антикризисный управляющий · 16 лет опыта</div>
+                  <div className="text-[#C8975A] text-sm">Антикризисный управляющий · 16 лет опыта</div>
                 </div>
 
                 {/* Всплывающие фразы-боли */}

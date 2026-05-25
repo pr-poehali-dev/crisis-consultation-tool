@@ -4,40 +4,40 @@
 
 @layer base {
   :root {
-    --background: 0 0% 4%;
-    --foreground: 0 0% 98%;
+    --background: 157 40% 6%;
+    --foreground: 40 30% 95%;
 
-    --card: 0 0% 8%;
-    --card-foreground: 0 0% 98%;
+    --card: 157 35% 9%;
+    --card-foreground: 40 30% 95%;
 
-    --popover: 0 0% 8%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 157 35% 9%;
+    --popover-foreground: 40 30% 95%;
 
-    --primary: 28 100% 54%;
-    --primary-foreground: 0 0% 4%;
+    --primary: 22 50% 35%;
+    --primary-foreground: 40 30% 95%;
 
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 157 25% 13%;
+    --secondary-foreground: 40 30% 95%;
 
-    --muted: 0 0% 12%;
-    --muted-foreground: 0 0% 60%;
+    --muted: 157 25% 13%;
+    --muted-foreground: 40 15% 55%;
 
-    --accent: 28 100% 54%;
-    --accent-foreground: 0 0% 4%;
+    --accent: 22 50% 35%;
+    --accent-foreground: 40 30% 95%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 62% 40%;
+    --destructive-foreground: 40 30% 95%;
 
-    --border: 0 0% 16%;
-    --input: 0 0% 14%;
-    --ring: 28 100% 54%;
+    --border: 157 20% 16%;
+    --input: 157 20% 13%;
+    --ring: 22 50% 35%;
 
     --radius: 0.75rem;
 
-    --neon: #d4870a;
-    --neon-glow: rgba(212, 135, 10, 0.2);
-    --gold: #d4870a;
-    --red-hot: #c0392b;
+    --neon: #7c9e6e;
+    --neon-glow: rgba(124, 158, 110, 0.18);
+    --gold: #c8975a;
+    --red-hot: #8b4513;
   }
 }
 
@@ -70,24 +70,25 @@
   }
 
   .neon-btn {
-    background: linear-gradient(135deg, #d4870a, #b86e00);
-    box-shadow: 0 2px 12px rgba(212, 135, 10, 0.25);
+    background: linear-gradient(135deg, #6b3a2a, #4a2419);
+    box-shadow: 0 2px 12px rgba(107, 58, 42, 0.3);
     transition: all 0.3s ease;
   }
 
   .neon-btn:hover {
-    box-shadow: 0 4px 20px rgba(212, 135, 10, 0.4);
+    background: linear-gradient(135deg, #7a4332, #5a2d1f);
+    box-shadow: 0 4px 20px rgba(107, 58, 42, 0.45);
     transform: translateY(-1px);
   }
 
   .glass-card {
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(212, 135, 10, 0.15);
+    border: 1px solid rgba(124, 158, 110, 0.15);
   }
 
   .progress-glow {
-    box-shadow: 0 0 8px rgba(212, 135, 10, 0.3);
+    box-shadow: 0 0 8px rgba(124, 158, 110, 0.3);
   }
 
   .animate-fade-in {
@@ -159,14 +160,14 @@
 }
 
 .option-card:hover {
-  border-color: rgba(212, 135, 10, 0.5);
-  background: rgba(212, 135, 10, 0.07);
+  border-color: rgba(124, 158, 110, 0.5);
+  background: rgba(124, 158, 110, 0.07);
   transform: translateX(4px);
 }
 
 .option-card.selected {
-  border-color: #d4870a;
-  background: rgba(212, 135, 10, 0.12);
+  border-color: #7c9e6e;
+  background: rgba(124, 158, 110, 0.12);
   box-shadow: none;
 }
 
@@ -175,9 +176,9 @@
   width: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: #0a0f0b;
 }
 ::-webkit-scrollbar-thumb {
-  background: #d4870a;
+  background: #6b3a2a;
   border-radius: 2px;
 }
