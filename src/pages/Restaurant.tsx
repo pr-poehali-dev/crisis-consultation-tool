@@ -160,10 +160,21 @@ export default function Restaurant() {
 
             {/* Левая колонка — текст */}
             <div>
-              {/* Бейдж спикера */}
-              <div className="inline-flex items-center gap-2 bg-white/5 border border-white/15 rounded-full px-4 py-1.5 mb-5">
-                <span className="w-2 h-2 rounded-full bg-[#7C9E6E] animate-pulse flex-shrink-0" />
-                <span className="text-gray-300 text-sm font-medium tracking-wide">Спикер школы <span className="text-white font-semibold">UPSKILL Group</span></span>
+              {/* Бейджи спикера */}
+              <div className="flex flex-wrap gap-2 mb-5">
+                <div className="inline-flex items-center gap-2 bg-white/5 border border-white/15 rounded-full px-4 py-1.5">
+                  <span className="w-2 h-2 rounded-full bg-[#7C9E6E] animate-pulse flex-shrink-0" />
+                  <span className="text-gray-300 text-sm font-medium tracking-wide">Спикер школы <span className="text-white font-semibold">UPSKILL Group</span></span>
+                </div>
+                <a
+                  href="https://bestspeakers.ru/speaker/fatullaev-ruslan/#reviews"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-white/5 border border-white/15 rounded-full px-4 py-1.5 hover:bg-white/10 hover:border-white/25 transition-all duration-200 group"
+                >
+                  <span className="text-lg leading-none">🎤</span>
+                  <span className="text-gray-300 text-sm font-medium tracking-wide group-hover:text-white transition-colors">Спикер на <span className="text-white font-semibold">Best Speakers</span></span>
+                </a>
               </div>
 
               {/* Акция — бесплатный разбор */}
