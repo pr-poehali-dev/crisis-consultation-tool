@@ -180,7 +180,7 @@ export default function Restaurant() {
               {/* Акция — бесплатный разбор */}
               <div className="mb-6 rounded-2xl border border-[rgba(124,158,110,0.35)] bg-[rgba(124,158,110,0.06)] p-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-[#7C9E6E] text-xs font-bold uppercase tracking-widest">🔥 22–23 июня</span>
+                  <span className="text-[#7C9E6E] text-xs font-bold uppercase tracking-widest">🔥 22–23 августа</span>
                   <span className="text-white/40 text-xs">·</span>
                   <span className="text-red-400 text-xs font-semibold">Осталось {spotsLeft} {spotsLeft === 1 ? "место" : "места"}</span>
                 </div>
