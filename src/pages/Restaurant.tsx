@@ -159,38 +159,6 @@ export default function Restaurant() {
 
             {/* Левая колонка — текст */}
             <div>
-              {/* Бейджи спикера */}
-              <div className="flex flex-wrap gap-2 mb-5">
-                <div className="inline-flex items-center gap-2 bg-white/5 border border-white/15 rounded-full px-4 py-1.5">
-                  <span className="w-2 h-2 rounded-full bg-[#7C9E6E] animate-pulse flex-shrink-0" />
-                  <span className="text-gray-300 text-sm font-medium tracking-wide">Спикер школы <span className="text-white font-semibold">UPSKILL Group</span></span>
-                </div>
-                <a
-                  href="https://bestspeakers.ru/speaker/fatullaev-ruslan/#reviews"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-white/5 border border-white/15 rounded-full px-4 py-1.5 hover:bg-white/10 hover:border-white/25 transition-all duration-200 group"
-                >
-                  <span className="text-lg leading-none">🎤</span>
-                  <span className="text-gray-300 text-sm font-medium tracking-wide group-hover:text-white transition-colors">Спикер на <span className="text-white font-semibold">Best Speakers</span></span>
-                </a>
-              </div>
-
-              {/* Акция — бесплатный разбор */}
-              <div className="mb-6 rounded-2xl border border-[rgba(124,158,110,0.35)] bg-[rgba(124,158,110,0.06)] p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-[#7C9E6E] text-xs font-bold uppercase tracking-widest">🔥 22–23 августа</span>
-                  <span className="text-white/40 text-xs">·</span>
-                  <span className="text-red-400 text-xs font-semibold">Осталось {spotsLeft} {spotsLeft === 1 ? "место" : "места"}</span>
-                </div>
-                <p className="text-white text-sm font-semibold leading-snug mb-3">
-                  Бесплатный полный разбор вашего заведения — пройдите диагностику и запишитесь
-                </p>
-                <button onClick={scrollToDiag} className="neon-btn text-white font-bold text-xs px-4 py-2 rounded-lg">
-                  Пройти диагностику →
-                </button>
-              </div>
-
               <h1 className="text-5xl md:text-7xl font-oswald font-black text-white uppercase leading-none mb-3">
                 ЭКСПЕРТ И<br />
                 <span className="text-[#7C9E6E]">КОНСУЛЬТАНТ</span><br />
