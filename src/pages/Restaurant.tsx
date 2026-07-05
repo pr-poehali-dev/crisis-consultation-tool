@@ -12,7 +12,6 @@ import ReviewsSection from "@/components/ReviewsSection";
 import MyStorySection from "@/components/MyStorySection";
 import TipsSection from "@/components/TipsSection";
 import FaqSection from "@/components/FaqSection";
-import CookieConsent from "@/components/CookieConsent";
 import DiagnosticQuiz from "@/components/DiagnosticQuiz";
 import ContactsSection from "@/components/ContactsSection";
 import AuditSection from "@/components/AuditSection";
@@ -347,7 +346,6 @@ export default function Restaurant() {
 
       <FloatingCTA onClick={scrollToDiag} />
       <ExitPopup />
-      <CookieConsent />
       <MessengerButton />
 
     </div>
