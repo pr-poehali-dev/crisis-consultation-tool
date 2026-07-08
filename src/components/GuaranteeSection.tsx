@@ -8,19 +8,19 @@ export default function GuaranteeSection({ onDiagnosticClick }: GuaranteeSection
   return (
     <section className="py-12 px-4">
       <div className="max-w-4xl mx-auto">
-        <div className="glass-card rounded-2xl p-8 md:p-10 border-2 border-[rgba(255,107,0,0.3)] relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-48 h-48 bg-[rgba(255,107,0,0.05)] rounded-full blur-3xl pointer-events-none" />
+        <div className="glass-card rounded-2xl p-8 md:p-10 border-2 border-[rgba(199,8,12,0.3)] relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-48 h-48 bg-[rgba(199,8,12,0.05)] rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
             <div className="flex-shrink-0">
-              <div className="w-24 h-24 rounded-full bg-[rgba(255,107,0,0.15)] border-2 border-[rgba(255,107,0,0.4)] flex items-center justify-center">
-                <Icon name="ShieldCheck" size={48} className="text-[#FF6B00]" />
+              <div className="w-24 h-24 rounded-full bg-[rgba(199,8,12,0.15)] border-2 border-[rgba(199,8,12,0.4)] flex items-center justify-center">
+                <Icon name="ShieldCheck" size={48} className="text-[#C7080C]" />
               </div>
             </div>
 
             <div className="flex-1 text-center md:text-left">
-              <div className="inline-flex items-center gap-2 bg-[rgba(255,107,0,0.1)] border border-[rgba(255,107,0,0.3)] rounded-full px-3 py-1 mb-3">
-                <span className="text-[#FF6B00] text-xs font-medium uppercase tracking-wider">Гарантия результата</span>
+              <div className="inline-flex items-center gap-2 bg-[rgba(199,8,12,0.1)] border border-[rgba(199,8,12,0.3)] rounded-full px-3 py-1 mb-3">
+                <span className="text-[#C7080C] text-xs font-medium uppercase tracking-wider">Гарантия результата</span>
               </div>
               <h3 className="text-2xl md:text-3xl font-oswald font-bold text-white mb-3">
                 Если не найдём точки роста — <span className="neon-text">вернём деньги</span>
@@ -52,8 +52,8 @@ export default function GuaranteeSection({ onDiagnosticClick }: GuaranteeSection
               { icon: "TrendingUp", text: "Средний рост прибыли +30%" },
             ].map((item) => (
               <div key={item.text} className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-[rgba(255,107,0,0.1)] flex items-center justify-center flex-shrink-0">
-                  <Icon name={item.icon} size={16} className="text-[#FF6B00]" />
+                <div className="w-8 h-8 rounded-lg bg-[rgba(199,8,12,0.1)] flex items-center justify-center flex-shrink-0">
+                  <Icon name={item.icon} size={16} className="text-[#C7080C]" />
                 </div>
                 <span className="text-gray-400 text-sm">{item.text}</span>
               </div>

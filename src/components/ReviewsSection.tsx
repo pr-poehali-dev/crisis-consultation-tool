@@ -146,13 +146,13 @@ export default function ReviewsSection() {
     .toUpperCase();
 
   return (
-    <div className="py-16 px-6 w-full" style={{ background: "linear-gradient(180deg, transparent 0%, rgba(255,107,0,0.04) 50%, transparent 100%)" }}>
+    <div className="py-16 px-6 w-full" style={{ background: "linear-gradient(180deg, transparent 0%, rgba(199,8,12,0.04) 50%, transparent 100%)" }}>
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-10">
           <h2 className="font-oswald text-4xl font-bold uppercase mb-3 text-white">
             Реальные результаты
           </h2>
-          <span style={{ color: "#ff8c00" }} className="font-oswald text-2xl font-bold uppercase">
+          <span style={{ color: "#D99B5F" }} className="font-oswald text-2xl font-bold uppercase">
             моих клиентов
           </span>
           <div className="w-16 h-1 bg-neon mx-auto mt-3" />
@@ -163,7 +163,7 @@ export default function ReviewsSection() {
             className="rounded-2xl overflow-hidden"
             style={{
               background: "rgba(255,255,255,0.04)",
-              border: "1px solid rgba(255,107,0,0.2)",
+              border: "1px solid rgba(199,8,12,0.2)",
               boxShadow: "0 8px 40px rgba(0,0,0,0.4)",
             }}
           >
@@ -171,19 +171,19 @@ export default function ReviewsSection() {
               {/* LEFT — фото + имя */}
               <div
                 className="md:w-56 flex-shrink-0 flex flex-col items-center justify-center gap-4 p-8"
-                style={{ background: "rgba(255,107,0,0.07)", borderRight: "1px solid rgba(255,107,0,0.15)" }}
+                style={{ background: "rgba(199,8,12,0.07)", borderRight: "1px solid rgba(199,8,12,0.15)" }}
               >
                 {review.photo ? (
                   <img
                     src={review.photo}
                     alt={review.name}
                     className="w-20 h-20 rounded-full object-cover border-2"
-                    style={{ borderColor: "#ff6a00", objectPosition: "center top" }}
+                    style={{ borderColor: "#C7080C", objectPosition: "center top" }}
                   />
                 ) : (
                   <div
                     className="w-20 h-20 rounded-full flex items-center justify-center text-2xl font-bold font-oswald"
-                    style={{ background: "rgba(255,107,0,0.2)", border: "2px solid #ff6a00", color: "#ff8c00" }}
+                    style={{ background: "rgba(199,8,12,0.2)", border: "2px solid #C7080C", color: "#D99B5F" }}
                   >
                     {initials}
                   </div>
@@ -191,12 +191,12 @@ export default function ReviewsSection() {
                 <div className="text-center">
                   <p className="font-oswald font-bold text-white text-base leading-tight">{review.name}</p>
                   {review.role && (
-                    <p className="text-xs mt-1" style={{ color: "#ff8c00" }}>{review.role}</p>
+                    <p className="text-xs mt-1" style={{ color: "#D99B5F" }}>{review.role}</p>
                   )}
                 </div>
                 <div className="flex gap-1 mt-1">
                   {[1, 2, 3, 4, 5].map((s) => (
-                    <span key={s} style={{ color: "#ff8c00" }} className="text-sm">★</span>
+                    <span key={s} style={{ color: "#D99B5F" }} className="text-sm">★</span>
                   ))}
                 </div>
               </div>
@@ -204,7 +204,7 @@ export default function ReviewsSection() {
               {/* RIGHT — отзыв */}
               <div className="flex-1 p-8 flex flex-col justify-between">
                 <div>
-                  <Icon name="Quote" size={28} className="mb-4 opacity-30" style={{ color: "#ff6a00" }} />
+                  <Icon name="Quote" size={28} className="mb-4 opacity-30" style={{ color: "#C7080C" }} />
                   <p className="text-white/80 leading-relaxed text-sm md:text-base">{review.text}</p>
                 </div>
 
@@ -217,14 +217,14 @@ export default function ReviewsSection() {
                     <button
                       onClick={prev}
                       className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-105"
-                      style={{ background: "rgba(255,107,0,0.15)", border: "1px solid rgba(255,107,0,0.3)" }}
+                      style={{ background: "rgba(199,8,12,0.15)", border: "1px solid rgba(199,8,12,0.3)" }}
                     >
                       <Icon name="ChevronLeft" size={18} className="text-white" />
                     </button>
                     <button
                       onClick={next}
                       className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-105"
-                      style={{ background: "#ff6a00" }}
+                      style={{ background: "#C7080C" }}
                     >
                       <Icon name="ChevronRight" size={18} className="text-white" />
                     </button>
@@ -244,7 +244,7 @@ export default function ReviewsSection() {
                 style={{
                   width: i === current ? "24px" : "8px",
                   height: "8px",
-                  background: i === current ? "#ff6a00" : "rgba(255,255,255,0.2)",
+                  background: i === current ? "#C7080C" : "rgba(255,255,255,0.2)",
                 }}
               />
             ))}
@@ -274,7 +274,7 @@ export default function ReviewsSection() {
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-all hover:brightness-110"
-              style={{ background: "rgba(255,107,0,0.15)", border: "1px solid rgba(255,107,0,0.4)", color: "#FF6B00" }}
+              style={{ background: "rgba(199,8,12,0.15)", border: "1px solid rgba(199,8,12,0.4)", color: "#C7080C" }}
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />

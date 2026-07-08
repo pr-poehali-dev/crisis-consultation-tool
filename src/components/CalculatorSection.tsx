@@ -33,7 +33,7 @@ export default function CalculatorSection() {
   };
 
   return (
-    <section id="calculator" className="py-16 px-4 bg-[#0a0a0a]">
+    <section id="calculator" className="py-16 px-4 bg-[#0a0505]">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-10">
           <div className="inline-flex items-center gap-2 bg-red-500/10 border border-red-500/30 rounded-full px-4 py-1.5 mb-4">
@@ -143,7 +143,7 @@ export default function CalculatorSection() {
               <div className="p-5 pt-4">
                 <button
                   onClick={scrollToForm}
-                  className="w-full bg-[#FF2D55] hover:bg-[#e0253d] text-white font-semibold py-3 rounded-xl transition-colors"
+                  className="w-full bg-[#C7080C] hover:bg-[#8C0102] text-white font-semibold py-3 rounded-xl transition-colors"
                 >
                   Узнать точные потери — бесплатно
                 </button>
@@ -176,7 +176,7 @@ function SliderField({
         step={step}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full accent-[#FF2D55] cursor-pointer"
+        className="w-full accent-[#C7080C] cursor-pointer"
       />
     </div>
   );

@@ -58,9 +58,10 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				neon: '#FF6B00',
-				gold: '#FFB800',
-				'red-hot': '#FF2D55',
+				neon: '#C7080C',
+				gold: '#D99B5F',
+				copper: '#B8733D',
+				'red-hot': '#8C0102',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

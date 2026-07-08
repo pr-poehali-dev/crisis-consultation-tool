@@ -51,7 +51,7 @@ export default function PainsSection() {
   };
 
   return (
-    <section className="py-16 px-4 bg-[#0d0d0d]">
+    <section className="py-16 px-4 bg-[#150808]">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-10">
           <div className="inline-flex items-center gap-2 bg-orange-500/10 border border-orange-500/30 rounded-full px-4 py-1.5 mb-4">
@@ -75,19 +75,19 @@ export default function PainsSection() {
                 onClick={() => toggle(i)}
                 className={`w-full flex items-center gap-4 px-5 py-4 rounded-2xl border text-left transition-all duration-200 ${
                   active
-                    ? "border-[#FF2D55]/50 bg-[#FF2D55]/10"
+                    ? "border-[#C7080C]/50 bg-[#C7080C]/10"
                     : "border-white/10 bg-white/3 hover:border-white/20"
                 }`}
               >
                 <div
                   className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center flex-shrink-0 transition-all ${
-                    active ? "border-[#FF2D55] bg-[#FF2D55]" : "border-white/20"
+                    active ? "border-[#C7080C] bg-[#C7080C]" : "border-white/20"
                   }`}
                 >
                   {active && <Icon name="Check" size={14} className="text-white" />}
                 </div>
                 <div className={`flex items-center gap-3 ${active ? "text-white" : "text-gray-300"}`}>
-                  <Icon name={pain.icon} size={18} className={active ? "text-[#FF2D55]" : "text-gray-500"} />
+                  <Icon name={pain.icon} size={18} className={active ? "text-[#C7080C]" : "text-gray-500"} />
                   <span className="text-sm leading-snug">{pain.text}</span>
                 </div>
               </button>
@@ -96,7 +96,7 @@ export default function PainsSection() {
         </div>
 
         {checked.length >= 3 && (
-          <div className="bg-[#FF2D55]/10 border border-[#FF2D55]/30 rounded-2xl p-6 text-center animate-fade-in">
+          <div className="bg-[#C7080C]/10 border border-[#C7080C]/30 rounded-2xl p-6 text-center animate-fade-in">
             <p className="text-white font-semibold text-lg mb-1">
               Вы отметили {checked.length} из {PAINS.length} пунктов
             </p>
@@ -105,7 +105,7 @@ export default function PainsSection() {
             </p>
             <button
               onClick={scrollToForm}
-              className="bg-[#FF2D55] hover:bg-[#e0253d] text-white font-semibold px-8 py-3 rounded-xl transition-colors"
+              className="bg-[#C7080C] hover:bg-[#8C0102] text-white font-semibold px-8 py-3 rounded-xl transition-colors"
             >
               Записаться на бесплатную диагностику
             </button>
