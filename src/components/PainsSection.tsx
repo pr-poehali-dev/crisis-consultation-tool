@@ -75,19 +75,19 @@ export default function PainsSection() {
                 onClick={() => toggle(i)}
                 className={`w-full flex items-center gap-4 px-5 py-4 rounded-2xl border text-left transition-all duration-200 ${
                   active
-                    ? "border-[#C7080C]/50 bg-[#C7080C]/10"
+                    ? "border-[#B8733D]/50 bg-[#B8733D]/10"
                     : "border-white/10 bg-white/3 hover:border-white/20"
                 }`}
               >
                 <div
                   className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center flex-shrink-0 transition-all ${
-                    active ? "border-[#C7080C] bg-[#C7080C]" : "border-white/20"
+                    active ? "border-[#B8733D] bg-[#B8733D]" : "border-white/20"
                   }`}
                 >
                   {active && <Icon name="Check" size={14} className="text-white" />}
                 </div>
                 <div className={`flex items-center gap-3 ${active ? "text-white" : "text-gray-300"}`}>
-                  <Icon name={pain.icon} size={18} className={active ? "text-[#C7080C]" : "text-gray-500"} />
+                  <Icon name={pain.icon} size={18} className={active ? "text-[#D99B5F]" : "text-gray-500"} />
                   <span className="text-sm leading-snug">{pain.text}</span>
                 </div>
               </button>
@@ -96,7 +96,7 @@ export default function PainsSection() {
         </div>
 
         {checked.length >= 3 && (
-          <div className="bg-[#C7080C]/10 border border-[#C7080C]/30 rounded-2xl p-6 text-center animate-fade-in">
+          <div className="bg-[#B8733D]/10 border border-[#B8733D]/30 rounded-2xl p-6 text-center animate-fade-in">
             <p className="text-white font-semibold text-lg mb-1">
               Вы отметили {checked.length} из {PAINS.length} пунктов
             </p>

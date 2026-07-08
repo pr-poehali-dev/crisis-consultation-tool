@@ -6,7 +6,7 @@ export default function AboutSection() {
       <div className="max-w-6xl mx-auto">
 
         <div className="text-center mb-14">
-          <div className="inline-flex items-center gap-2 bg-[#C7080C]/10 border border-[#C7080C]/30 text-[#D99B5F] text-xs font-semibold px-3 py-1.5 rounded-full mb-4 uppercase tracking-widest">
+          <div className="inline-flex items-center gap-2 bg-[#B8733D]/10 border border-[#B8733D]/30 text-[#D99B5F] text-xs font-semibold px-3 py-1.5 rounded-full mb-4 uppercase tracking-widest">
             Об эксперте
           </div>
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
@@ -26,7 +26,7 @@ export default function AboutSection() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
             <div className="absolute bottom-5 left-5">
-              <div className="inline-flex items-center gap-2 bg-[#C7080C]/90 text-white text-xs font-bold px-3 py-1.5 rounded-lg uppercase tracking-wide">
+              <div className="inline-flex items-center gap-2 bg-[#B8733D]/90 text-white text-xs font-bold px-3 py-1.5 rounded-lg uppercase tracking-wide">
                 <Icon name="Award" size={14} />
                 16+ лет в индустрии
               </div>
@@ -46,14 +46,14 @@ export default function AboutSection() {
             </div>
 
             {/* Философия */}
-            <div className="rounded-2xl border border-[#C7080C]/25 p-6"
+            <div className="rounded-2xl border border-[#B8733D]/25 p-6"
               style={{ background: "linear-gradient(135deg, #1a0808, #1a0808)" }}>
-              <Icon name="Quote" size={28} className="text-[#C7080C] mb-3 opacity-80" />
+              <Icon name="Quote" size={28} className="text-[#B8733D] mb-3 opacity-80" />
               <p className="text-white/90 leading-relaxed italic text-base">
                 «Каждое заведение должно создавать уникальный опыт для гостей и при этом быть прибыльным. Я не даю шаблонных решений — каждый проект индивидуален.»
               </p>
               <div className="mt-4 flex items-center gap-3">
-                <div className="w-8 h-0.5 bg-[#C7080C]" />
+                <div className="w-8 h-0.5 bg-[#B8733D]" />
                 <span className="text-[#D99B5F] font-semibold text-sm">Моя философия</span>
               </div>
             </div>
@@ -74,10 +74,10 @@ export default function AboutSection() {
           ].map((stat) => (
             <div
               key={stat.label}
-              className="rounded-2xl border border-[#C7080C]/20 p-5 text-center hover:border-[#C7080C]/40 transition-colors"
+              className="rounded-2xl border border-[#B8733D]/20 p-5 text-center hover:border-[#B8733D]/40 transition-colors"
               style={{ background: "linear-gradient(135deg, #1a0808, #150808)" }}
             >
-              <Icon name={stat.icon} size={20} className="text-[#C7080C] mx-auto mb-2 opacity-70" />
+              <Icon name={stat.icon} size={20} className="text-[#B8733D] mx-auto mb-2 opacity-70" />
               <div className="text-3xl font-black text-white mb-1">{stat.num}</div>
               <div className="text-gray-400 text-xs leading-tight">{stat.label}</div>
             </div>

@@ -176,7 +176,7 @@ function SliderField({
         step={step}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full accent-[#C7080C] cursor-pointer"
+        className="w-full accent-[#B8733D] cursor-pointer"
       />
     </div>
   );

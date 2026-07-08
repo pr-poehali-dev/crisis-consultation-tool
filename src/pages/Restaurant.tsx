@@ -59,9 +59,9 @@ function FloatingPain({ text, delay, position }: { text: string; delay: number; 
         visible && !hidden ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-3 scale-95 pointer-events-none"
       }`}
     >
-      <div className="bg-black/90 backdrop-blur-sm border border-[#C7080C]/70 rounded-xl px-3 py-2.5 shadow-2xl">
+      <div className="bg-black/90 backdrop-blur-sm border border-[#B8733D]/70 rounded-xl px-3 py-2.5 shadow-2xl">
         <p className="text-white text-xs font-bold leading-snug">{text}</p>
-        <div className="absolute -bottom-1.5 left-4 w-2.5 h-2.5 bg-[#C7080C] rounded-full animate-ping opacity-80" />
+        <div className="absolute -bottom-1.5 left-4 w-2.5 h-2.5 bg-[#B8733D] rounded-full animate-ping opacity-80" />
       </div>
     </div>
   );
@@ -85,7 +85,7 @@ export default function Restaurant() {
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-medium text-white transition-opacity hover:opacity-90"
-        style={{ background: "#8C0102" }}
+        style={{ background: "#B8733D" }}
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="white" className="flex-shrink-0">
           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
@@ -111,7 +111,7 @@ export default function Restaurant() {
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 text-gray-400 hover:text-white text-xs px-3 py-1.5 rounded-lg hover:bg-white/5 transition-all whitespace-nowrap border border-white/10"
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" className="text-[#C7080C]">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" className="text-[#B8733D]">
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
               </svg>
               Дзен
@@ -127,14 +127,14 @@ export default function Restaurant() {
       </nav>
 
       {/* CTA Banner */}
-      <div className="w-full bg-gradient-to-r from-[#8C0102] to-[#C7080C] py-3 px-4">
+      <div className="w-full bg-[#B8733D] py-3 px-4">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-3 text-center">
           <span className="text-white text-sm font-medium">
             Получите бесплатный разбор вашего заведения от эксперта
           </span>
           <button
             onClick={scrollToDiag}
-            className="bg-white text-[#8C0102] font-bold text-sm px-5 py-1.5 rounded-lg hover:bg-red-50 transition-colors whitespace-nowrap"
+            className="bg-[#C7080C] hover:bg-[#8C0102] text-white font-bold text-sm px-5 py-1.5 rounded-lg transition-colors whitespace-nowrap"
           >
             Получить бесплатную диагностику →
           </button>
@@ -178,7 +178,7 @@ export default function Restaurant() {
 
               <h1 className="text-5xl md:text-7xl font-oswald font-black text-white uppercase leading-none mb-3">
                 ЭКСПЕРТ И<br />
-                <span className="text-[#C7080C]">КОНСУЛЬТАНТ</span><br />
+                <span className="text-[#D99B5F]">КОНСУЛЬТАНТ</span><br />
                 <span className="text-white">В СФЕРЕ</span>{" "}
                 <span className="relative inline-block">
                   <span className="text-[#D99B5F]">HoReCa</span>
