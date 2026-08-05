@@ -4,46 +4,46 @@
 
 @layer base {
   :root {
-    --background: 203 60% 8%;
-    --foreground: 76 40% 95%;
+    --background: 212 45% 8%;
+    --foreground: 0 0% 93%;
 
-    --card: 203 55% 11%;
-    --card-foreground: 76 40% 95%;
+    --card: 212 45% 11%;
+    --card-foreground: 0 0% 93%;
 
-    --popover: 203 55% 11%;
-    --popover-foreground: 76 40% 95%;
+    --popover: 212 45% 11%;
+    --popover-foreground: 0 0% 93%;
 
-    --primary: 69 100% 49%;
-    --primary-foreground: 203 100% 12%;
+    --primary: 37 98% 53%;
+    --primary-foreground: 212 45% 10%;
 
-    --secondary: 203 40% 16%;
-    --secondary-foreground: 76 40% 95%;
+    --secondary: 212 40% 16%;
+    --secondary-foreground: 0 0% 93%;
 
-    --muted: 203 30% 14%;
-    --muted-foreground: 76 15% 65%;
+    --muted: 212 35% 14%;
+    --muted-foreground: 0 0% 65%;
 
-    --accent: 69 90% 55%;
-    --accent-foreground: 203 100% 10%;
+    --accent: 37 95% 58%;
+    --accent-foreground: 212 45% 10%;
 
     --destructive: 358 77% 51%;
     --destructive-foreground: 28 43% 93%;
 
-    --border: 203 40% 18%;
-    --input: 203 40% 15%;
-    --ring: 69 90% 50%;
+    --border: 212 35% 18%;
+    --input: 212 35% 15%;
+    --ring: 37 95% 53%;
 
     --radius: 0.75rem;
 
-    --neon: #d6fb00;
-    --neon-glow: rgba(214, 251, 0, 0.25);
-    --gold: #ecffb6;
-    --red-hot: #003a5f;
-    --copper: #0a5a86;
-    --lime: #d6fb00;
-    --lime-glow: rgba(214, 251, 0, 0.25);
-    --lime-soft: #ecffb6;
-    --teal-dark: #003a5f;
-    --teal: #0a5a86;
+    --neon: #fca311;
+    --neon-glow: rgba(252, 163, 17, 0.25);
+    --gold: #fbba51;
+    --red-hot: #142130;
+    --copper: #1f3651;
+    --lime: #fca311;
+    --lime-glow: rgba(252, 163, 17, 0.25);
+    --lime-soft: #fbba51;
+    --teal-dark: #142130;
+    --teal: #1f3651;
   }
 }
 
@@ -76,26 +76,26 @@
   }
 
   .neon-btn {
-    background: linear-gradient(135deg, #d6fb00, #ecffb6);
-    color: #003a5f !important;
-    box-shadow: 0 2px 12px rgba(214, 251, 0, 0.35);
+    background: linear-gradient(135deg, #fca311, #fbba51);
+    color: #142130 !important;
+    box-shadow: 0 2px 12px rgba(252, 163, 17, 0.35);
     transition: all 0.3s ease;
   }
 
   .neon-btn:hover {
-    background: linear-gradient(135deg, #ecffb6, #d6fb00);
-    box-shadow: 0 4px 20px rgba(214, 251, 0, 0.5);
+    background: linear-gradient(135deg, #fbba51, #fca311);
+    box-shadow: 0 4px 20px rgba(252, 163, 17, 0.5);
     transform: translateY(-1px);
   }
 
   .glass-card {
     background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(214, 251, 0, 0.18);
+    border: 1px solid rgba(252, 163, 17, 0.18);
   }
 
   .progress-glow {
-    box-shadow: 0 0 8px rgba(214, 251, 0, 0.35);
+    box-shadow: 0 0 8px rgba(252, 163, 17, 0.35);
   }
 
   .animate-fade-in {
@@ -167,14 +167,14 @@
 }
 
 .option-card:hover {
-  border-color: rgba(214, 251, 0, 0.5);
-  background: rgba(214, 251, 0, 0.07);
+  border-color: rgba(252, 163, 17, 0.5);
+  background: rgba(252, 163, 17, 0.07);
   transform: translateX(4px);
 }
 
 .option-card.selected {
-  border-color: #d6fb00;
-  background: rgba(214, 251, 0, 0.12);
+  border-color: #fca311;
+  background: rgba(252, 163, 17, 0.12);
   box-shadow: none;
 }
 
@@ -183,9 +183,9 @@
   width: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: #04141f;
+  background: #0b141e;
 }
 ::-webkit-scrollbar-thumb {
-  background: #d6fb00;
+  background: #fca311;
   border-radius: 2px;
 }
