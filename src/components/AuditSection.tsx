@@ -104,12 +104,12 @@ export default function AuditSection() {
   };
 
   return (
-    <section className="py-16 px-4 bg-[#081721]" id="audit">
+    <section className="py-16 px-4 bg-[#1A1A1A]" id="audit">
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 bg-[rgba(214, 251, 0,0.1)] border border-[rgba(214, 251, 0,0.3)] rounded-full px-4 py-2 mb-6">
-            <Icon name="Search" size={16} className="text-[#D6FB00]" />
-            <span className="text-[#D6FB00] text-sm font-medium uppercase tracking-wider">Бесплатно</span>
+          <div className="inline-flex items-center gap-2 bg-[rgba(194, 61, 83, 0.1)] border border-[rgba(194, 61, 83, 0.3)] rounded-full px-4 py-2 mb-6">
+            <Icon name="Search" size={16} className="text-[#C23D53]" />
+            <span className="text-[#C23D53] text-sm font-medium uppercase tracking-wider">Бесплатно</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-oswald font-bold text-white mb-4 uppercase">
             Онлайн-аудит <span className="neon-text">вашего заведения</span>
@@ -124,7 +124,7 @@ export default function AuditSection() {
             <div className="text-6xl mb-4">✅</div>
             <h3 className="text-2xl font-oswald font-bold text-white mb-3 uppercase">Аудит принят!</h3>
             <p className="text-gray-400 mb-2">Руслан изучит вашу ситуацию и свяжется с вами лично.</p>
-            <p className="text-[#ECFFB6] font-medium">Обычно ответ приходит в течение нескольких часов.</p>
+            <p className="text-[#CE6476] font-medium">Обычно ответ приходит в течение нескольких часов.</p>
             <ContactFallback />
           </div>
         ) : (
@@ -132,7 +132,7 @@ export default function AuditSection() {
             {/* Progress */}
             <div className="h-1.5 bg-[rgba(255,255,255,0.06)]">
               <div
-                className="h-full bg-[#D6FB00] transition-all duration-500"
+                className="h-full bg-[#C23D53] transition-all duration-500"
                 style={{ width: `${progress}%` }}
               />
             </div>
@@ -140,7 +140,7 @@ export default function AuditSection() {
             <div className="p-8">
               {/* Step header */}
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-8 rounded-full bg-[#D6FB00] flex items-center justify-center text-[#003A5F] font-bold text-sm flex-shrink-0">
+                <div className="w-8 h-8 rounded-full bg-[#C23D53] flex items-center justify-center text-[#1A1A1A] font-bold text-sm flex-shrink-0">
                   {step + 1}
                 </div>
                 <h3 className="text-xl font-oswald font-bold text-white uppercase">{current.title}</h3>
@@ -160,8 +160,8 @@ export default function AuditSection() {
                             onClick={() => setAnswer(q.id, opt)}
                             className={`px-3 py-2.5 rounded-xl text-sm text-left transition-all duration-200 border ${
                               answers[q.id] === opt
-                                ? "bg-[rgba(214, 251, 0,0.2)] border-[#D6FB00] text-white"
-                                : "bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.08)] text-gray-400 hover:border-[rgba(214, 251, 0,0.4)] hover:text-white"
+                                ? "bg-[rgba(194, 61, 83, 0.2)] border-[#C23D53] text-white"
+                                : "bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.08)] text-gray-400 hover:border-[rgba(194, 61, 83, 0.4)] hover:text-white"
                             }`}
                           >
                             {opt}
@@ -174,7 +174,7 @@ export default function AuditSection() {
                         onChange={(e) => setAnswer(q.id, e.target.value)}
                         placeholder={q.placeholder}
                         rows={3}
-                        className="w-full bg-[rgba(255,255,255,0.06)] border border-[rgba(255,255,255,0.12)] rounded-xl px-4 py-3 text-white placeholder-gray-600 outline-none focus:border-[#D6FB00] transition-colors resize-none"
+                        className="w-full bg-[rgba(255,255,255,0.06)] border border-[rgba(255,255,255,0.12)] rounded-xl px-4 py-3 text-white placeholder-gray-600 outline-none focus:border-[#C23D53] transition-colors resize-none"
                       />
                     ) : (
                       <input
@@ -182,7 +182,7 @@ export default function AuditSection() {
                         value={answers[q.id] || ""}
                         onChange={(e) => setAnswer(q.id, e.target.value)}
                         placeholder={q.placeholder}
-                        className="w-full bg-[rgba(255,255,255,0.06)] border border-[rgba(255,255,255,0.12)] rounded-xl px-4 py-3 text-white placeholder-gray-600 outline-none focus:border-[#D6FB00] transition-colors"
+                        className="w-full bg-[rgba(255,255,255,0.06)] border border-[rgba(255,255,255,0.12)] rounded-xl px-4 py-3 text-white placeholder-gray-600 outline-none focus:border-[#C23D53] transition-colors"
                       />
                     )}
                   </div>

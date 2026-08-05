@@ -99,14 +99,14 @@ export default function TipsSection() {
     <>
       <div className="py-6 px-2 w-full">
         <p className="font-oswald text-2xl font-bold text-white uppercase tracking-wide mb-5 px-1">
-          СОВЕТЫ ДЛЯ <span style={{ color: "#D99B5F" }}>БИЗНЕСА</span>
+          СОВЕТЫ ДЛЯ <span style={{ color: "#CE6476" }}>БИЗНЕСА</span>
         </p>
         <div className="flex flex-col gap-3">
           {TIPS.map((tip, i) => (
             <div
               key={i}
               className="rounded-xl overflow-hidden flex gap-4 cursor-pointer group transition-all duration-200 hover:scale-[1.02]"
-              style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(184,115,61,0.25)" }}
+              style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(194, 61, 83, 0.25)" }}
               onClick={() => setSelected(tip)}
             >
               <img
@@ -115,7 +115,7 @@ export default function TipsSection() {
                 className="w-20 h-20 object-cover flex-shrink-0"
               />
               <div className="flex flex-col justify-center py-2 pr-4 gap-1">
-                <span className="text-xs font-bold uppercase tracking-wider" style={{ color: "#B8733D" }}>{tip.tag}</span>
+                <span className="text-xs font-bold uppercase tracking-wider" style={{ color: "#C23D53" }}>{tip.tag}</span>
                 <p className="text-white text-sm font-semibold leading-tight line-clamp-2">{tip.title}</p>
               </div>
             </div>
@@ -131,14 +131,14 @@ export default function TipsSection() {
         >
           <div
             className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl"
-            style={{ background: "#1c0a0a", border: "1px solid rgba(184,115,61,0.3)" }}
+            style={{ background: "#202020", border: "1px solid rgba(194, 61, 83, 0.3)" }}
             onClick={e => e.stopPropagation()}
           >
             <div className="relative h-48 overflow-hidden rounded-t-2xl">
               <img src={selected.image} alt={selected.title} className="w-full h-full object-cover" />
               <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(26,26,26,1) 0%, rgba(0,0,0,0.3) 100%)" }} />
               <div className="absolute bottom-0 left-0 px-7 pb-5">
-                <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-2 inline-block" style={{ background: "#B8733D", color: "#fff" }}>{selected.tag}</span>
+                <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-2 inline-block" style={{ background: "#C23D53", color: "#fff" }}>{selected.tag}</span>
                 <h2 className="font-oswald text-2xl font-bold text-white uppercase leading-tight mt-1">{selected.title}</h2>
               </div>
               <button
@@ -166,7 +166,7 @@ export default function TipsSection() {
 
               <div className="pt-2 border-t" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
                 <p className="text-gray-500 text-xs">Хотите разобрать эту тему применительно к вашему заведению?</p>
-                <p className="text-sm font-semibold mt-1" style={{ color: "#B8733D" }}>Запишитесь на консультацию с Русланом →</p>
+                <p className="text-sm font-semibold mt-1" style={{ color: "#C23D53" }}>Запишитесь на консультацию с Русланом →</p>
               </div>
             </div>
           </div>

@@ -375,7 +375,7 @@ export default function CasesSection() {
   const [expanded, setExpanded] = useState<number | null>(null);
 
   return (
-    <section className="py-16 px-4 bg-[#0a0505]">
+    <section className="py-16 px-4 bg-[#1A1A1A]">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/30 rounded-full px-4 py-1.5 mb-4">
@@ -465,7 +465,7 @@ export default function CasesSection() {
             Хочешь такой же результат?{" "}
             <a
               href="#diagnostic"
-              className="text-amber-400 hover:text-amber-300 underline underline-offset-2 transition-colors"
+              className="text-lime hover:text-lime-light underline underline-offset-2 transition-colors"
               onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
             >
               Пройди диагностику — это бесплатно

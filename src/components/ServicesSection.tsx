@@ -373,9 +373,9 @@ export default function ServicesSection() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="font-oswald text-4xl md:text-5xl font-bold uppercase text-white mb-3 tracking-wide">
-              МОИ <span style={{ color: "#D99B5F" }}>УСЛУГИ</span>
+              МОИ <span style={{ color: "#CE6476" }}>УСЛУГИ</span>
             </h2>
-            <div className="w-16 h-1 mx-auto rounded-full" style={{ background: "#B8733D" }} />
+            <div className="w-16 h-1 mx-auto rounded-full" style={{ background: "#C23D53" }} />
             <p className="text-gray-400 mt-4 text-base max-w-xl mx-auto">
               Системная работа с ресторанным бизнесом — от аудита до наставничества
             </p>
@@ -388,7 +388,7 @@ export default function ServicesSection() {
                 className="rounded-2xl p-6 flex flex-col gap-4 cursor-pointer group transition-all duration-200 hover:-translate-y-1"
                 style={{
                   background: "rgba(255,255,255,0.05)",
-                  border: "1px solid rgba(184,115,61,0.2)",
+                  border: "1px solid rgba(194, 61, 83, 0.2)",
                 }}
                 onClick={() => setSelected(service)}
               >
@@ -403,16 +403,16 @@ export default function ServicesSection() {
                   className="mt-auto self-start px-5 py-2 rounded-lg text-sm font-semibold transition-all duration-200"
                   style={{
                     background: "transparent",
-                    border: "1.5px solid #B8733D",
-                    color: "#D99B5F",
+                    border: "1.5px solid #C23D53",
+                    color: "#CE6476",
                   }}
                   onMouseEnter={e => {
-                    (e.currentTarget as HTMLButtonElement).style.background = "#B8733D";
+                    (e.currentTarget as HTMLButtonElement).style.background = "#C23D53";
                     (e.currentTarget as HTMLButtonElement).style.color = "#fff";
                   }}
                   onMouseLeave={e => {
                     (e.currentTarget as HTMLButtonElement).style.background = "transparent";
-                    (e.currentTarget as HTMLButtonElement).style.color = "#D99B5F";
+                    (e.currentTarget as HTMLButtonElement).style.color = "#CE6476";
                   }}
                 >
                   Подробнее
@@ -431,10 +431,10 @@ export default function ServicesSection() {
         >
           <div
             className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl"
-            style={{ background: "#1c0a0a", border: "1px solid rgba(184,115,61,0.3)" }}
+            style={{ background: "#202020", border: "1px solid rgba(194, 61, 83, 0.3)" }}
             onClick={e => e.stopPropagation()}
           >
-            <div className="px-7 py-5 rounded-t-2xl" style={{ background: "#B8733D" }}>
+            <div className="px-7 py-5 rounded-t-2xl" style={{ background: "#C23D53" }}>
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-white text-xs font-semibold bg-white/20 px-3 py-1 rounded-full">Услуга</span>
               </div>
@@ -453,7 +453,7 @@ export default function ServicesSection() {
                 <ul className="flex flex-col gap-2">
                   {selected.blocks.map((b, i) => (
                     <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
-                      <span style={{ color: "#D99B5F" }} className="mt-0.5 flex-shrink-0">•</span>
+                      <span style={{ color: "#CE6476" }} className="mt-0.5 flex-shrink-0">•</span>
                       {b}
                     </li>
                   ))}
@@ -461,7 +461,7 @@ export default function ServicesSection() {
               </div>
 
               {selected.callout && (
-                <p className="font-semibold text-white text-sm italic border-l-4 pl-4" style={{ borderColor: "#B8733D" }}>
+                <p className="font-semibold text-white text-sm italic border-l-4 pl-4" style={{ borderColor: "#C23D53" }}>
                   {selected.callout}
                 </p>
               )}
@@ -484,7 +484,7 @@ export default function ServicesSection() {
                     <div key={i} className="flex gap-3 items-start text-sm text-gray-300">
                       <span
                         className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white"
-                        style={{ background: "#B8733D" }}
+                        style={{ background: "#C23D53" }}
                       >
                         {i + 1}
                       </span>
@@ -499,7 +499,7 @@ export default function ServicesSection() {
                 <ul className="flex flex-col gap-2">
                   {selected.results.map((r, i) => (
                     <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
-                      <span style={{ color: "#D99B5F" }} className="mt-0.5 flex-shrink-0">✓</span>
+                      <span style={{ color: "#CE6476" }} className="mt-0.5 flex-shrink-0">✓</span>
                       {r}
                     </li>
                   ))}
@@ -508,7 +508,7 @@ export default function ServicesSection() {
 
               <p className="text-gray-500 text-xs italic">*{selected.note}</p>
 
-              <div className="rounded-xl p-5 flex flex-col gap-4" style={{ background: "rgba(184,115,61,0.08)", border: "1px solid rgba(184,115,61,0.25)" }}>
+              <div className="rounded-xl p-5 flex flex-col gap-4" style={{ background: "rgba(194, 61, 83, 0.08)", border: "1px solid rgba(194, 61, 83, 0.25)" }}>
                 {sent ? (
                   <div className="text-center py-4">
                     <div className="text-3xl mb-2">✅</div>
@@ -516,7 +516,7 @@ export default function ServicesSection() {
                     <p className="text-gray-400 text-sm mt-1">Руслан свяжется с вами в ближайшее время.</p>
                     <button
                       className="mt-4 px-6 py-2 rounded-xl text-sm font-semibold text-white"
-                      style={{ background: "#B8733D" }}
+                      style={{ background: "#C23D53" }}
                       onClick={handleClose}
                     >
                       Закрыть
@@ -544,7 +544,7 @@ export default function ServicesSection() {
                     <div className="flex gap-3 flex-wrap">
                       <button
                         className="px-6 py-3 rounded-xl text-sm font-bold text-white transition-all disabled:opacity-50"
-                        style={{ background: "#C7080C" }}
+                        style={{ background: "#C23D53" }}
                         onClick={handleSubmit}
                         disabled={sending || !name.trim() || !phone.trim()}
                       >

@@ -114,9 +114,9 @@ export default function ConsultationSection() {
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 bg-[rgba(214, 251, 0,0.1)] border border-[rgba(214, 251, 0,0.3)] rounded-full px-4 py-2 mb-6">
-            <Icon name="Calendar" size={16} className="text-[#D6FB00]" />
-            <span className="text-[#D6FB00] text-sm font-medium uppercase tracking-wider">Личная консультация</span>
+          <div className="inline-flex items-center gap-2 bg-[rgba(194, 61, 83, 0.1)] border border-[rgba(194, 61, 83, 0.3)] rounded-full px-4 py-2 mb-6">
+            <Icon name="Calendar" size={16} className="text-[#C23D53]" />
+            <span className="text-[#C23D53] text-sm font-medium uppercase tracking-wider">Личная консультация</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-oswald font-bold text-white mb-4 uppercase">
             Запись к <span className="neon-text">Руслану</span>
@@ -134,8 +134,8 @@ export default function ConsultationSection() {
               Руслан свяжется с вами для подтверждения встречи.
             </p>
             {selectedDate && selectedTime && (
-              <div className="inline-flex items-center gap-2 mt-4 bg-[rgba(214, 251, 0,0.1)] border border-[rgba(214, 251, 0,0.3)] rounded-xl px-5 py-3">
-                <Icon name="Calendar" size={18} className="text-[#D6FB00]" />
+              <div className="inline-flex items-center gap-2 mt-4 bg-[rgba(194, 61, 83, 0.1)] border border-[rgba(194, 61, 83, 0.3)] rounded-xl px-5 py-3">
+                <Icon name="Calendar" size={18} className="text-[#C23D53]" />
                 <span className="text-white font-medium">
                   {selectedDate.day} {MONTH_NAMES[selectedDate.month]} · {selectedTime}
                 </span>
@@ -150,7 +150,7 @@ export default function ConsultationSection() {
               <div className="flex items-center justify-between mb-5">
                 <button
                   onClick={prevMonth}
-                  className="w-8 h-8 flex items-center justify-center rounded-lg border border-[rgba(255,255,255,0.1)] text-gray-400 hover:text-white hover:border-[rgba(214, 251, 0,0.4)] transition-all"
+                  className="w-8 h-8 flex items-center justify-center rounded-lg border border-[rgba(255,255,255,0.1)] text-gray-400 hover:text-white hover:border-[rgba(194, 61, 83, 0.4)] transition-all"
                 >
                   <Icon name="ChevronLeft" size={16} />
                 </button>
@@ -159,7 +159,7 @@ export default function ConsultationSection() {
                 </span>
                 <button
                   onClick={nextMonth}
-                  className="w-8 h-8 flex items-center justify-center rounded-lg border border-[rgba(255,255,255,0.1)] text-gray-400 hover:text-white hover:border-[rgba(214, 251, 0,0.4)] transition-all"
+                  className="w-8 h-8 flex items-center justify-center rounded-lg border border-[rgba(255,255,255,0.1)] text-gray-400 hover:text-white hover:border-[rgba(194, 61, 83, 0.4)] transition-all"
                 >
                   <Icon name="ChevronRight" size={16} />
                 </button>
@@ -190,16 +190,16 @@ export default function ConsultationSection() {
                       disabled={busy || past}
                       className={`
                         relative aspect-square rounded-lg text-sm font-medium transition-all duration-200 flex items-center justify-center
-                        ${isSelected ? "bg-[#D6FB00] text-[#003A5F]" : ""}
-                        ${busy ? "bg-[rgba(214, 251, 0,0.15)] text-[#D6FB00] cursor-not-allowed" : ""}
+                        ${isSelected ? "bg-[#C23D53] text-[#1A1A1A]" : ""}
+                        ${busy ? "bg-[rgba(194, 61, 83, 0.15)] text-[#C23D53] cursor-not-allowed" : ""}
                         ${past && !busy ? "text-gray-700 cursor-not-allowed" : ""}
-                        ${!busy && !past && !isSelected ? "text-gray-300 hover:bg-[rgba(214, 251, 0,0.15)] hover:text-white cursor-pointer" : ""}
-                        ${isToday && !isSelected ? "ring-1 ring-[#D6FB00]" : ""}
+                        ${!busy && !past && !isSelected ? "text-gray-300 hover:bg-[rgba(194, 61, 83, 0.15)] hover:text-white cursor-pointer" : ""}
+                        ${isToday && !isSelected ? "ring-1 ring-[#C23D53]" : ""}
                       `}
                     >
                       {day}
                       {busy && (
-                        <span className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#D6FB00]" />
+                        <span className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#C23D53]" />
                       )}
                     </button>
                   );
@@ -209,15 +209,15 @@ export default function ConsultationSection() {
               {/* Legend */}
               <div className="flex items-center gap-4 mt-4 pt-4 border-t border-[rgba(255,255,255,0.06)]">
                 <div className="flex items-center gap-1.5">
-                  <div className="w-3 h-3 rounded bg-[rgba(214, 251, 0,0.2)]" />
+                  <div className="w-3 h-3 rounded bg-[rgba(194, 61, 83, 0.2)]" />
                   <span className="text-gray-500 text-xs">Занято</span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <div className="w-3 h-3 rounded bg-[#D6FB00]" />
+                  <div className="w-3 h-3 rounded bg-[#C23D53]" />
                   <span className="text-gray-500 text-xs">Выбрано</span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <div className="w-3 h-3 rounded border border-[#D6FB00]" />
+                  <div className="w-3 h-3 rounded border border-[#C23D53]" />
                   <span className="text-gray-500 text-xs">Сегодня</span>
                 </div>
               </div>
@@ -243,10 +243,10 @@ export default function ConsultationSection() {
                           onClick={() => setSelectedTime(t)}
                           className={`py-2 rounded-lg text-sm font-medium transition-all duration-200 border ${
                             busy
-                              ? "bg-[rgba(214, 251, 0,0.1)] border-[rgba(214, 251, 0,0.2)] text-[#D6FB00] cursor-not-allowed line-through"
+                              ? "bg-[rgba(194, 61, 83, 0.1)] border-[rgba(194, 61, 83, 0.2)] text-[#C23D53] cursor-not-allowed line-through"
                               : selectedTime === t
-                              ? "bg-[#D6FB00] border-[#D6FB00] text-[#003A5F]"
-                              : "bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.08)] text-gray-400 hover:border-[rgba(214, 251, 0,0.4)] hover:text-white"
+                              ? "bg-[#C23D53] border-[#C23D53] text-[#1A1A1A]"
+                              : "bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.08)] text-gray-400 hover:border-[rgba(194, 61, 83, 0.4)] hover:text-white"
                           }`}
                         >
                           {t}
@@ -272,21 +272,21 @@ export default function ConsultationSection() {
                     value={form.name}
                     onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
                     placeholder="Ваше имя"
-                    className="w-full bg-[rgba(255,255,255,0.06)] border border-[rgba(255,255,255,0.12)] rounded-xl px-4 py-3 text-white placeholder-gray-600 outline-none focus:border-[#D6FB00] transition-colors"
+                    className="w-full bg-[rgba(255,255,255,0.06)] border border-[rgba(255,255,255,0.12)] rounded-xl px-4 py-3 text-white placeholder-gray-600 outline-none focus:border-[#C23D53] transition-colors"
                   />
                   <input
                     type="text"
                     value={form.phone}
                     onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
                     placeholder="Телефон или Telegram"
-                    className="w-full bg-[rgba(255,255,255,0.06)] border border-[rgba(255,255,255,0.12)] rounded-xl px-4 py-3 text-white placeholder-gray-600 outline-none focus:border-[#D6FB00] transition-colors"
+                    className="w-full bg-[rgba(255,255,255,0.06)] border border-[rgba(255,255,255,0.12)] rounded-xl px-4 py-3 text-white placeholder-gray-600 outline-none focus:border-[#C23D53] transition-colors"
                   />
                   <textarea
                     value={form.comment}
                     onChange={(e) => setForm((f) => ({ ...f, comment: e.target.value }))}
                     placeholder="Кратко о вашей ситуации (необязательно)"
                     rows={2}
-                    className="w-full bg-[rgba(255,255,255,0.06)] border border-[rgba(255,255,255,0.12)] rounded-xl px-4 py-3 text-white placeholder-gray-600 outline-none focus:border-[#D6FB00] transition-colors resize-none"
+                    className="w-full bg-[rgba(255,255,255,0.06)] border border-[rgba(255,255,255,0.12)] rounded-xl px-4 py-3 text-white placeholder-gray-600 outline-none focus:border-[#C23D53] transition-colors resize-none"
                   />
                 </div>
 

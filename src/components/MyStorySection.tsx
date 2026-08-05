@@ -7,7 +7,7 @@ const MyStorySection = () => {
         <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-4 uppercase tracking-wide">
           Путь, который стоил 16 лет
         </h2>
-        <p className="text-amber-400 text-center text-sm tracking-widest uppercase mb-16">
+        <p className="text-lime text-center text-sm tracking-widest uppercase mb-16">
           Моя история
         </p>
 
@@ -20,13 +20,13 @@ const MyStorySection = () => {
               className="rounded-2xl w-full object-cover max-h-[600px]"
             />
             <div className="absolute bottom-4 left-4 bg-black/70 backdrop-blur-sm px-4 py-2 rounded-xl">
-              <p className="text-amber-400 text-xs tracking-widest uppercase font-medium">Шеф-бармен · Управляющий · Антикризисный эксперт</p>
+              <p className="text-lime text-xs tracking-widest uppercase font-medium">Шеф-бармен · Управляющий · Антикризисный эксперт</p>
             </div>
           </div>
 
           <div className="space-y-6">
             <p className="text-white text-lg md:text-xl leading-relaxed font-light">
-              Я не читал учебников по ресторанному бизнесу. <span className="text-amber-400 font-medium">Я жил в нём.</span>
+              Я не читал учебников по ресторанному бизнесу. <span className="text-lime font-medium">Я жил в нём.</span>
             </p>
             <p className="text-white/80 text-base leading-relaxed">
               Всё началось за барной стойкой — молодой, амбициозный, с желанием понять как устроена эта индустрия изнутри. Я не просто смешивал коктейли — я наблюдал, анализировал, задавал неудобные вопросы: почему одни заведения забиты гостями, а другие пустуют при том же меню и том же районе?
@@ -38,7 +38,7 @@ const MyStorySection = () => {
         </div>
 
         {/* Второй блок — кризис и итог */}
-        <div className="border-l-2 border-amber-400 pl-8 mb-16">
+        <div className="border-l-2 border-lime pl-8 mb-16">
           <p className="text-white/80 text-base leading-relaxed mb-6">
             Я прошёл через убыточные проекты, через кризисы, через ситуации когда казалось проще закрыться. Но именно там — в точке максимального давления — рождались решения, которые работают.
           </p>
@@ -53,7 +53,7 @@ const MyStorySection = () => {
             «Антикризисный управленец — это не тот, кто говорит что делать.<br className="hidden md:block" />
             Это тот, кто уже был там, где вы сейчас.»
           </p>
-          <p className="text-amber-400 text-sm tracking-widest uppercase mt-6">— Руслан Фатуллаев</p>
+          <p className="text-lime text-sm tracking-widest uppercase mt-6">— Руслан Фатуллаев</p>
         </div>
 
       </div>

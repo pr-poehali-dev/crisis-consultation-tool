@@ -51,12 +51,12 @@ export default function PainsSection() {
   };
 
   return (
-    <section className="py-16 px-4 bg-[#150808]">
+    <section className="py-16 px-4 bg-[#1A1A1A]">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 bg-orange-500/10 border border-orange-500/30 rounded-full px-4 py-1.5 mb-4">
-            <Icon name="AlertCircle" size={14} className="text-orange-400" />
-            <span className="text-orange-400 text-sm font-medium">Узнаёте себя?</span>
+          <div className="inline-flex items-center gap-2 bg-lime/10 border border-lime/30 rounded-full px-4 py-1.5 mb-4">
+            <Icon name="AlertCircle" size={14} className="text-lime" />
+            <span className="text-lime text-sm font-medium">Узнаёте себя?</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
             Отметьте, что актуально для вашего заведения
@@ -75,19 +75,19 @@ export default function PainsSection() {
                 onClick={() => toggle(i)}
                 className={`w-full flex items-center gap-4 px-5 py-4 rounded-2xl border text-left transition-all duration-200 ${
                   active
-                    ? "border-[#B8733D]/50 bg-[#B8733D]/10"
+                    ? "border-[#C23D53]/50 bg-[#C23D53]/10"
                     : "border-white/10 bg-white/3 hover:border-white/20"
                 }`}
               >
                 <div
                   className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center flex-shrink-0 transition-all ${
-                    active ? "border-[#B8733D] bg-[#B8733D]" : "border-white/20"
+                    active ? "border-[#C23D53] bg-[#C23D53]" : "border-white/20"
                   }`}
                 >
                   {active && <Icon name="Check" size={14} className="text-white" />}
                 </div>
                 <div className={`flex items-center gap-3 ${active ? "text-white" : "text-gray-300"}`}>
-                  <Icon name={pain.icon} size={18} className={active ? "text-[#D99B5F]" : "text-gray-500"} />
+                  <Icon name={pain.icon} size={18} className={active ? "text-[#CE6476]" : "text-gray-500"} />
                   <span className="text-sm leading-snug">{pain.text}</span>
                 </div>
               </button>
@@ -96,7 +96,7 @@ export default function PainsSection() {
         </div>
 
         {checked.length >= 3 && (
-          <div className="bg-[#B8733D]/10 border border-[#B8733D]/30 rounded-2xl p-6 text-center animate-fade-in">
+          <div className="bg-[#C23D53]/10 border border-[#C23D53]/30 rounded-2xl p-6 text-center animate-fade-in">
             <p className="text-white font-semibold text-lg mb-1">
               Вы отметили {checked.length} из {PAINS.length} пунктов
             </p>
@@ -105,7 +105,7 @@ export default function PainsSection() {
             </p>
             <button
               onClick={scrollToForm}
-              className="bg-[#C7080C] hover:bg-[#8C0102] text-white font-semibold px-8 py-3 rounded-xl transition-colors"
+              className="bg-[#C23D53] hover:bg-[#AE374B] text-white font-semibold px-8 py-3 rounded-xl transition-colors"
             >
               Записаться на бесплатную диагностику
             </button>

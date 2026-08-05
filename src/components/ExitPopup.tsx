@@ -51,7 +51,7 @@ export default function ExitPopup({ onClose }: ExitPopupProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-      <div className="glass-card rounded-2xl p-8 max-w-md w-full relative animate-fade-in border border-[rgba(214, 251, 0,0.3)]">
+      <div className="glass-card rounded-2xl p-8 max-w-md w-full relative animate-fade-in border border-[rgba(194, 61, 83, 0.3)]">
         <button
           onClick={close}
           className="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors"
@@ -61,8 +61,8 @@ export default function ExitPopup({ onClose }: ExitPopupProps) {
 
         {sent ? (
           <div className="text-center py-4">
-            <div className="w-16 h-16 rounded-full bg-[rgba(214, 251, 0,0.15)] flex items-center justify-center mx-auto mb-4">
-              <Icon name="CheckCircle" size={36} className="text-[#D6FB00]" />
+            <div className="w-16 h-16 rounded-full bg-[rgba(194, 61, 83, 0.15)] flex items-center justify-center mx-auto mb-4">
+              <Icon name="CheckCircle" size={36} className="text-[#C23D53]" />
             </div>
             <h3 className="text-xl font-oswald font-bold text-white mb-2">Отлично! Заявка принята</h3>
             <p className="text-gray-400 text-sm">Руслан свяжется с вами в ближайшее время</p>
@@ -89,7 +89,7 @@ export default function ExitPopup({ onClose }: ExitPopupProps) {
                 placeholder="Ваше имя"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-[rgba(214, 251, 0,0.5)] transition-colors"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-[rgba(194, 61, 83, 0.5)] transition-colors"
               />
               <input
                 type="text"
@@ -97,7 +97,7 @@ export default function ExitPopup({ onClose }: ExitPopupProps) {
                 value={contact}
                 onChange={(e) => setContact(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && submit()}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-[rgba(214, 251, 0,0.5)] transition-colors"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-[rgba(194, 61, 83, 0.5)] transition-colors"
               />
             </div>
 
