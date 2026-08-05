@@ -93,7 +93,7 @@ export default function ReportsPage() {
                     className="h-full rounded-full flex items-center px-2 transition-all"
                     style={{
                       width: `${(m.orders / Math.max(...MONTHLY.map(x => x.orders))) * 100}%`,
-                      background: "hsl(var(--gold))",
+                      background: "var(--lime-soft)",
                     }}
                   />
                 </div>

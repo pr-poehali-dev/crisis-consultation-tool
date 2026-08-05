@@ -23,11 +23,11 @@ export default function FloatingCTA({ onClick }: FloatingCTAProps) {
       }`}
       style={{ display: visible ? "block" : "none" }}
     >
-      <div className="bg-[#150808]/95 backdrop-blur-md border-t border-[#B8733D]/30 px-4 py-3">
+      <div className="bg-[#081721]/95 backdrop-blur-md border-t border-[#D6FB00]/30 px-4 py-3">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-[#B8733D]/15 border border-[#B8733D]/30 flex items-center justify-center flex-shrink-0">
-              <Icon name="TrendingDown" size={16} className="text-[#B8733D]" />
+            <div className="w-8 h-8 rounded-lg bg-[#D6FB00]/15 border border-[#D6FB00]/30 flex items-center justify-center flex-shrink-0">
+              <Icon name="TrendingDown" size={16} className="text-[#D6FB00]" />
             </div>
             <p className="text-gray-300 text-sm">
               <span className="text-white font-semibold">Посчитай свои потери →</span>

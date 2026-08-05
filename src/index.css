@@ -4,41 +4,46 @@
 
 @layer base {
   :root {
-    --background: 0 45% 6%;
-    --foreground: 28 43% 93%;
+    --background: 203 60% 8%;
+    --foreground: 76 40% 95%;
 
-    --card: 0 47% 7%;
-    --card-foreground: 28 43% 93%;
+    --card: 203 55% 11%;
+    --card-foreground: 76 40% 95%;
 
-    --popover: 0 47% 7%;
-    --popover-foreground: 28 43% 93%;
+    --popover: 203 55% 11%;
+    --popover-foreground: 76 40% 95%;
 
-    --primary: 359 92% 41%;
-    --primary-foreground: 28 43% 93%;
+    --primary: 69 100% 49%;
+    --primary-foreground: 203 100% 12%;
 
-    --secondary: 0 45% 11%;
-    --secondary-foreground: 28 43% 93%;
+    --secondary: 203 40% 16%;
+    --secondary-foreground: 76 40% 95%;
 
-    --muted: 0 45% 11%;
-    --muted-foreground: 30 15% 60%;
+    --muted: 203 30% 14%;
+    --muted-foreground: 76 15% 65%;
 
-    --accent: 26 50% 48%;
-    --accent-foreground: 28 43% 93%;
+    --accent: 69 90% 55%;
+    --accent-foreground: 203 100% 10%;
 
     --destructive: 358 77% 51%;
     --destructive-foreground: 28 43% 93%;
 
-    --border: 0 40% 14%;
-    --input: 0 40% 12%;
-    --ring: 26 50% 48%;
+    --border: 203 40% 18%;
+    --input: 203 40% 15%;
+    --ring: 69 90% 50%;
 
     --radius: 0.75rem;
 
-    --neon: #c7080c;
-    --neon-glow: rgba(199, 8, 12, 0.2);
-    --gold: #d99b5f;
-    --red-hot: #8c0102;
-    --copper: #b8733d;
+    --neon: #d6fb00;
+    --neon-glow: rgba(214, 251, 0, 0.25);
+    --gold: #ecffb6;
+    --red-hot: #003a5f;
+    --copper: #0a5a86;
+    --lime: #d6fb00;
+    --lime-glow: rgba(214, 251, 0, 0.25);
+    --lime-soft: #ecffb6;
+    --teal-dark: #003a5f;
+    --teal: #0a5a86;
   }
 }
 
@@ -71,25 +76,26 @@
   }
 
   .neon-btn {
-    background: linear-gradient(135deg, #c7080c, #8c0102);
-    box-shadow: 0 2px 12px rgba(199, 8, 12, 0.35);
+    background: linear-gradient(135deg, #d6fb00, #ecffb6);
+    color: #003a5f !important;
+    box-shadow: 0 2px 12px rgba(214, 251, 0, 0.35);
     transition: all 0.3s ease;
   }
 
   .neon-btn:hover {
-    background: linear-gradient(135deg, #e22227, #a30407);
-    box-shadow: 0 4px 20px rgba(199, 8, 12, 0.5);
+    background: linear-gradient(135deg, #ecffb6, #d6fb00);
+    box-shadow: 0 4px 20px rgba(214, 251, 0, 0.5);
     transform: translateY(-1px);
   }
 
   .glass-card {
     background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(184, 115, 61, 0.18);
+    border: 1px solid rgba(214, 251, 0, 0.18);
   }
 
   .progress-glow {
-    box-shadow: 0 0 8px rgba(184, 115, 61, 0.35);
+    box-shadow: 0 0 8px rgba(214, 251, 0, 0.35);
   }
 
   .animate-fade-in {
@@ -161,14 +167,14 @@
 }
 
 .option-card:hover {
-  border-color: rgba(184, 115, 61, 0.5);
-  background: rgba(184, 115, 61, 0.07);
+  border-color: rgba(214, 251, 0, 0.5);
+  background: rgba(214, 251, 0, 0.07);
   transform: translateX(4px);
 }
 
 .option-card.selected {
-  border-color: #b8733d;
-  background: rgba(184, 115, 61, 0.12);
+  border-color: #d6fb00;
+  background: rgba(214, 251, 0, 0.12);
   box-shadow: none;
 }
 
@@ -177,9 +183,9 @@
   width: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: #150808;
+  background: #04141f;
 }
 ::-webkit-scrollbar-thumb {
-  background: #8c0102;
+  background: #d6fb00;
   border-radius: 2px;
 }
