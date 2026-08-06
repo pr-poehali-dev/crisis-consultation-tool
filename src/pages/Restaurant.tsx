@@ -7,7 +7,7 @@ import PainsSection from "@/components/PainsSection";
 import CalculatorSection from "@/components/CalculatorSection";
 import ServicesSection from "@/components/ServicesSection";
 import HowWeWorkSection from "@/components/HowWeWorkSection";
-import CasesSection from "@/components/CasesSection";
+import BenefitsSection from "@/components/BenefitsSection";
 import ReviewsSection from "@/components/ReviewsSection";
 import MyStorySection from "@/components/MyStorySection";
 import TipsSection from "@/components/TipsSection";
@@ -301,9 +301,7 @@ export default function Restaurant() {
       <GuaranteeSection onDiagnosticClick={scrollToDiag} />
       <ServicesSection />
 
-      <div id="cases">
-        <CasesSection />
-      </div>
+      <BenefitsSection />
 
       <ReviewsSection />
       <AboutSection />
