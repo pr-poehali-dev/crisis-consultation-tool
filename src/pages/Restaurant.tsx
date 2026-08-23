@@ -79,19 +79,24 @@ export default function Restaurant() {
 
   return (
     <div className="min-h-screen bg-[#1A1A1A] text-white">
-      {/* Дзен-баннер */}
+      {/* Instagram-баннер */}
       <a
-        href="https://dzen.ru/profile/editor/id/695a5b8043c19f4e6f622e8b/publications"
+        href="https://www.instagram.com/fa_ru_va?igsi=YTY3Mmp5NXBkbzhi"
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-medium text-white transition-opacity hover:opacity-90"
-        style={{ background: "#AE374B" }}
+        className="flex flex-col items-center justify-center gap-1 py-3 px-4 text-white transition-opacity hover:opacity-95"
+        style={{ background: "linear-gradient(90deg, #f58529, #dd2a7b, #8134af, #515bd4)" }}
       >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="white" className="flex-shrink-0">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
-        </svg>
-        <span>Читайте мои статьи в <strong>Яндекс Дзен</strong> — советы для владельцев ресторанов и кофеен</span>
-        <span className="opacity-70">→</span>
+        <div className="flex items-center justify-center gap-2 flex-wrap">
+          <Icon name="Instagram" size={20} className="flex-shrink-0" />
+          <span className="font-bold text-sm md:text-base uppercase tracking-wide">
+            Смотри реальные разборы ресторанов в моём Instagram*
+          </span>
+          <span className="font-black text-sm md:text-base underline underline-offset-2">Перейти →</span>
+        </div>
+        <span className="text-[11px] text-white/80 text-center">
+          *Instagram — продукт компании Meta, которая признана экстремистской организацией, её деятельность запрещена в РФ
+        </span>
       </a>
 
       {/* Навигация */}
@@ -106,15 +111,14 @@ export default function Restaurant() {
           </div>
           <div className="flex items-center gap-2 flex-shrink-0">
             <a
-              href="https://dzen.ru/profile/editor/id/695a5b8043c19f4e6f622e8b/publications"
+              href="https://www.instagram.com/fa_ru_va?igsi=YTY3Mmp5NXBkbzhi"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-gray-400 hover:text-white text-xs px-3 py-1.5 rounded-lg hover:bg-white/5 transition-all whitespace-nowrap border border-white/10"
+              className="flex items-center gap-1.5 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition-all whitespace-nowrap"
+              style={{ background: "linear-gradient(90deg, #f58529, #dd2a7b, #8134af, #515bd4)" }}
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" className="text-[#C23D53]">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
-              </svg>
-              Дзен
+              <Icon name="Instagram" size={14} />
+              Instagram
             </a>
             <a
               href="#consultation"
