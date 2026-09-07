@@ -7,7 +7,7 @@ const STEPS = [
     title: "Диагностика",
     description: "Вы проходите бесплатный аудит-квиз. Я получаю полную картину вашего бизнеса: финансы, персонал, меню, процессы. Смотрю где и сколько теряете.",
     duration: "Бесплатно · 15 минут",
-    color: "#CE6476",
+    color: "#DB8084",
   },
   {
     number: "02",
@@ -15,7 +15,7 @@ const STEPS = [
     title: "Разбор",
     description: "Созваниваемся на 60–90 минут. Разбираем конкретные проблемы, я показываю точки потерь и даю чёткий план: что делать, в каком порядке, какой результат ожидать.",
     duration: "10 000 ₽ · 60–90 минут",
-    color: "#C23D53",
+    color: "#D0585E",
   },
   {
     number: "03",
@@ -23,13 +23,13 @@ const STEPS = [
     title: "Внедрение",
     description: "Вы внедряете изменения по плану. При необходимости — системное сопровождение: я на связи, помогаю с конкретными задачами, контролирую результат.",
     duration: "Индивидуально",
-    color: "#CE6476",
+    color: "#DB8084",
   },
 ];
 
 export default function HowWeWorkSection() {
   return (
-    <section className="py-16 px-4" style={{ background: "linear-gradient(180deg, #1A1A1A 0%, #202020 100%)" }}>
+    <section className="py-16 px-4" style={{ background: "linear-gradient(180deg, #121926 0%, #182334 100%)" }}>
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">Как мы работаем</h2>
@@ -67,16 +67,16 @@ export default function HowWeWorkSection() {
           ))}
         </div>
 
-        <div className="rounded-2xl border border-[#C23D53]/30 p-6 md:p-8 text-center"
-          style={{ background: "linear-gradient(135deg, #202020, #242424)" }}>
+        <div className="rounded-2xl border border-[#D0585E]/30 p-6 md:p-8 text-center"
+          style={{ background: "linear-gradient(135deg, #182334, #1F2C42)" }}>
           <p className="text-gray-400 text-sm mb-1">Стоимость консультации (разбора)</p>
-          <div className="text-5xl font-black text-white mb-1">10 000 <span className="text-[#CE6476]">₽</span></div>
+          <div className="text-5xl font-black text-white mb-1">10 000 <span className="text-[#DB8084]">₽</span></div>
           <p className="text-gray-400 text-sm mb-6">Один платёж · Без подписок · Результат с первой сессии</p>
           <a
             href="#diagnostic"
             onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
             className="inline-flex items-center gap-2 text-white font-bold text-lg px-8 py-4 rounded-xl transition-all hover:scale-105 active:scale-95"
-            style={{ background: "linear-gradient(135deg, #C23D53, #AE374B)", boxShadow: "0 8px 32px rgba(194,61,83,0.4)" }}
+            style={{ background: "linear-gradient(135deg, #D0585E, #BF363D)", boxShadow: "0 8px 32px rgba(208,88,94,0.4)" }}
           >
             Начать с бесплатной диагностики
             <Icon name="ArrowRight" size={20} />

@@ -58,10 +58,10 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				lime: '#C23D53',
-				'lime-light': '#CE6476',
-				teal: '#1A1A1A',
-				'teal-light': '#292929',
+				lime: '#D0585E',
+				'lime-light': '#DB8084',
+				teal: '#121926',
+				'teal-light': '#1F2C42',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

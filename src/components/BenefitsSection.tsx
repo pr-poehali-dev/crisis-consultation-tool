@@ -5,47 +5,47 @@ const BENEFITS = [
     icon: "Search",
     title: "Найдём, где утекают деньги",
     description: "Разберём закупки, себестоимость и расходы — покажу конкретные точки, где заведение теряет прибыль каждый месяц.",
-    color: "#C23D53",
+    color: "#D0585E",
   },
   {
     icon: "Users",
     title: "Наведём порядок в команде",
     description: "Разберёмся с текучкой, мотивацией и распределением ролей — от администратора до кухни.",
-    color: "#CE6476",
+    color: "#DB8084",
   },
   {
     icon: "TrendingUp",
     title: "Поднимем средний чек",
     description: "Пересоберём меню и внедрим рабочие техники допродаж, которые не раздражают гостей.",
-    color: "#C23D53",
+    color: "#D0585E",
   },
   {
     icon: "ClipboardCheck",
     title: "Выстроим систему учёта",
     description: "Дам понятные инструменты контроля: что считать, как часто и на что реагировать в первую очередь.",
-    color: "#CE6476",
+    color: "#DB8084",
   },
   {
     icon: "Repeat",
     title: "Вернём постоянных гостей",
     description: "Разберём, почему гости не возвращаются, и настроим простую систему удержания без сложных CRM.",
-    color: "#C23D53",
+    color: "#D0585E",
   },
   {
     icon: "ShieldCheck",
     title: "Дадим чёткий план действий",
     description: "После разбора — не абстрактные советы, а конкретные шаги с приоритетами и сроками.",
-    color: "#CE6476",
+    color: "#DB8084",
   },
 ];
 
 export default function BenefitsSection() {
   return (
-    <section className="py-16 px-4" style={{ background: "linear-gradient(180deg, #202020 0%, #1A1A1A 100%)" }}>
+    <section className="py-16 px-4" style={{ background: "linear-gradient(180deg, #182334 0%, #121926 100%)" }}>
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-12">
           <span className="inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-4"
-            style={{ background: "rgba(194,61,83,0.15)", color: "#CE6476" }}>
+            style={{ background: "rgba(208,88,94,0.15)", color: "#DB8084" }}>
             Что вы получите
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
@@ -58,7 +58,7 @@ export default function BenefitsSection() {
           {BENEFITS.map((item, i) => (
             <div
               key={i}
-              className="rounded-2xl border border-white/10 bg-white/3 p-6 transition-all hover:border-[#C23D53]/40 hover:-translate-y-1"
+              className="rounded-2xl border border-white/10 bg-white/3 p-6 transition-all hover:border-[#D0585E]/40 hover:-translate-y-1"
             >
               <div
                 className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
