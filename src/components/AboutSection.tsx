@@ -2,17 +2,17 @@ import Icon from "@/components/ui/icon";
 
 export default function AboutSection() {
   return (
-    <section className="py-20 px-4" style={{ background: "linear-gradient(180deg, #121926 0%, #182334 100%)" }}>
+    <section className="py-20 px-4" style={{ background: "linear-gradient(180deg, #1A120B 0%, #241a10 100%)" }}>
       <div className="max-w-6xl mx-auto">
 
         <div className="text-center mb-14">
-          <div className="inline-flex items-center gap-2 bg-[#D0585E]/10 border border-[#D0585E]/30 text-[#DB8084] text-xs font-semibold px-3 py-1.5 rounded-full mb-4 uppercase tracking-widest">
+          <div className="inline-flex items-center gap-2 bg-[#FF7A1A]/10 border border-[#FF7A1A]/30 text-[#FFA64D] text-xs font-semibold px-3 py-1.5 rounded-full mb-4 uppercase tracking-widest">
             Об эксперте
           </div>
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
             Руслан Фатуллаев
           </h2>
-          <p className="text-[#DB8084] text-lg font-semibold">Антикризисный управляющий · Эксперт в сфере HoReCa</p>
+          <p className="text-[#FFA64D] text-lg font-semibold">Антикризисный управляющий · Эксперт в сфере HoReCa</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start mb-14">
@@ -26,7 +26,7 @@ export default function AboutSection() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
             <div className="absolute bottom-5 left-5">
-              <div className="inline-flex items-center gap-2 bg-[#D0585E]/90 text-white text-xs font-bold px-3 py-1.5 rounded-lg uppercase tracking-wide">
+              <div className="inline-flex items-center gap-2 bg-[#FF7A1A]/90 text-white text-xs font-bold px-3 py-1.5 rounded-lg uppercase tracking-wide">
                 <Icon name="Award" size={14} />
                 16+ лет в индустрии
               </div>
@@ -38,7 +38,7 @@ export default function AboutSection() {
 
             {/* Основной текст */}
             <div className="rounded-2xl border border-white/8 p-6 space-y-3 text-gray-300 leading-relaxed"
-              style={{ background: "linear-gradient(135deg, #182334, #121926)" }}>
+              style={{ background: "linear-gradient(135deg, #241a10, #1A120B)" }}>
               <p>Более 16-ти лет работаю в индустрии ресторанного гостеприимства и барной индустрии. Открыл и вывел на лидирующие позиции <span className="text-white font-semibold">50+ заведений</span>.</p>
               <p>Эксперт по развитию бизнеса: свыше <span className="text-white font-semibold">600 часов</span> профильной консультационной поддержки. Бизнес-тренер: подготовил и сертифицировал команду из <span className="text-white font-semibold">150+ специалистов</span> и управленцев.</p>
               <p>Провёл <span className="text-white font-semibold">100+ аудитов</span> в сегментах общепита: рестораны, кофейни, бары. Провёл <span className="text-white font-semibold">70+ вебинаров</span> и 100 офлайн-мероприятий с выступлениями в Саратове, Оренбурге, Мытищах, Москве, Астрахани, Владимире, Тюменской области и др.</p>
@@ -46,19 +46,19 @@ export default function AboutSection() {
             </div>
 
             {/* Философия */}
-            <div className="rounded-2xl border border-[#D0585E]/25 p-6"
-              style={{ background: "linear-gradient(135deg, #121926, #121926)" }}>
-              <Icon name="Quote" size={28} className="text-[#D0585E] mb-3 opacity-80" />
+            <div className="rounded-2xl border border-[#FF7A1A]/25 p-6"
+              style={{ background: "linear-gradient(135deg, #1A120B, #1A120B)" }}>
+              <Icon name="Quote" size={28} className="text-[#FF7A1A] mb-3 opacity-80" />
               <p className="text-white/90 leading-relaxed italic text-base">
                 «Каждое заведение должно создавать уникальный опыт для гостей и при этом быть прибыльным. Я не даю шаблонных решений — каждый проект индивидуален.»
               </p>
               <div className="mt-4 flex items-center gap-3">
-                <div className="w-8 h-0.5 bg-[#D0585E]" />
-                <span className="text-[#DB8084] font-semibold text-sm">Моя философия</span>
+                <div className="w-8 h-0.5 bg-[#FF7A1A]" />
+                <span className="text-[#FFA64D] font-semibold text-sm">Моя философия</span>
               </div>
             </div>
 
-            <p className="text-[#DB8084] font-semibold text-center">
+            <p className="text-[#FFA64D] font-semibold text-center">
               С радостью помогу открыть, развить и вывести в ТОП ваше заведение!
             </p>
           </div>
@@ -74,10 +74,10 @@ export default function AboutSection() {
           ].map((stat) => (
             <div
               key={stat.label}
-              className="rounded-2xl border border-[#D0585E]/20 p-5 text-center hover:border-[#D0585E]/40 transition-colors"
-              style={{ background: "linear-gradient(135deg, #121926, #121926)" }}
+              className="rounded-2xl border border-[#FF7A1A]/20 p-5 text-center hover:border-[#FF7A1A]/40 transition-colors"
+              style={{ background: "linear-gradient(135deg, #1A120B, #1A120B)" }}
             >
-              <Icon name={stat.icon} size={20} className="text-[#D0585E] mx-auto mb-2 opacity-70" />
+              <Icon name={stat.icon} size={20} className="text-[#FF7A1A] mx-auto mb-2 opacity-70" />
               <div className="text-3xl font-black text-white mb-1">{stat.num}</div>
               <div className="text-gray-400 text-xs leading-tight">{stat.label}</div>
             </div>

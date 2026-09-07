@@ -213,15 +213,15 @@ export default function DiagnosticQuiz({ diagRef }: DiagnosticQuizProps) {
     <section
       ref={diagRef as React.RefObject<HTMLElement>}
       id="diagnostics"
-      className="py-16 px-4 bg-[#121926]"
+      className="py-16 px-4 bg-[#1A120B]"
     >
       <div className="max-w-2xl mx-auto">
 
         {/* INTRO */}
         {step === "intro" && (
           <div className="glass-card rounded-2xl p-8 text-center">
-            <div className="w-16 h-16 rounded-2xl bg-[rgba(208, 88, 94, 0.15)] flex items-center justify-center mx-auto mb-5">
-              <Icon name="ClipboardList" size={32} className="text-[#D0585E]" />
+            <div className="w-16 h-16 rounded-2xl bg-[rgba(255, 122, 26, 0.15)] flex items-center justify-center mx-auto mb-5">
+              <Icon name="ClipboardList" size={32} className="text-[#FF7A1A]" />
             </div>
             <h2 className="text-3xl font-oswald font-bold text-white mb-3 uppercase">
               Бесплатная диагностика
@@ -231,15 +231,15 @@ export default function DiagnosticQuiz({ diagRef }: DiagnosticQuizProps) {
             </p>
             <div className="flex justify-center gap-6 my-6 text-sm flex-wrap">
               <div className="flex items-center gap-2 text-gray-400">
-                <Icon name="Clock" size={16} className="text-[#D0585E]" />
+                <Icon name="Clock" size={16} className="text-[#FF7A1A]" />
                 5–7 минут
               </div>
               <div className="flex items-center gap-2 text-gray-400">
-                <Icon name="Gift" size={16} className="text-[#D0585E]" />
+                <Icon name="Gift" size={16} className="text-[#FF7A1A]" />
                 Бесплатно
               </div>
               <div className="flex items-center gap-2 text-gray-400">
-                <Icon name="BarChart2" size={16} className="text-[#D0585E]" />
+                <Icon name="BarChart2" size={16} className="text-[#FF7A1A]" />
                 Личный разбор
               </div>
             </div>
@@ -271,7 +271,7 @@ export default function DiagnosticQuiz({ diagRef }: DiagnosticQuizProps) {
                     value={info[f.id] || ""}
                     onChange={(e) => handleInfoChange(f.id, e.target.value)}
                     placeholder={f.placeholder}
-                    className={`w-full bg-white/5 border rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-[#D0585E] transition-colors ${
+                    className={`w-full bg-white/5 border rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-[#FF7A1A] transition-colors ${
                       infoErrors[f.id] ? "border-red-500" : "border-white/10"
                     }`}
                   />
@@ -293,11 +293,11 @@ export default function DiagnosticQuiz({ diagRef }: DiagnosticQuizProps) {
         {step === "quiz" && (
           <div className="glass-card rounded-2xl overflow-hidden">
             <div className="h-1 bg-white/5">
-              <div className="h-full bg-[#D0585E] transition-all duration-500" style={{ width: `${progress}%` }} />
+              <div className="h-full bg-[#FF7A1A] transition-all duration-500" style={{ width: `${progress}%` }} />
             </div>
             <div className="p-8">
               <div className="flex items-center justify-between mb-6">
-                <span className="text-[#D0585E] text-sm font-semibold">
+                <span className="text-[#FF7A1A] text-sm font-semibold">
                   Вопрос {currentQ + 1} из {QUESTIONS.length}
                 </span>
                 {sending && <Icon name="Loader2" size={18} className="text-gray-400 animate-spin" />}
@@ -315,8 +315,8 @@ export default function DiagnosticQuiz({ diagRef }: DiagnosticQuizProps) {
                     disabled={sending}
                     className={`w-full text-left px-5 py-4 rounded-xl border transition-all duration-200 disabled:opacity-50 ${
                       answers[q.id] === opt
-                        ? "border-[#D0585E] bg-[rgba(208, 88, 94, 0.12)] text-white"
-                        : "border-white/10 bg-white/3 text-gray-300 hover:border-[#D0585E]/50 hover:bg-[rgba(208, 88, 94, 0.06)]"
+                        ? "border-[#FF7A1A] bg-[rgba(255, 122, 26, 0.12)] text-white"
+                        : "border-white/10 bg-white/3 text-gray-300 hover:border-[#FF7A1A]/50 hover:bg-[rgba(255, 122, 26, 0.06)]"
                     }`}
                   >
                     {opt}
@@ -377,8 +377,8 @@ export default function DiagnosticQuiz({ diagRef }: DiagnosticQuizProps) {
             </div>
 
             {/* Мотивация */}
-            <div className="bg-gradient-to-br from-[rgba(208, 88, 94, 0.12)] to-[rgba(208, 88, 94, 0.06)] border border-[rgba(208, 88, 94, 0.25)] rounded-2xl p-5 mb-5 text-left">
-              <p className="text-[#D0585E] font-bold text-sm mb-2">💬 Слово от Руслана:</p>
+            <div className="bg-gradient-to-br from-[rgba(255, 122, 26, 0.12)] to-[rgba(255, 122, 26, 0.06)] border border-[rgba(255, 122, 26, 0.25)] rounded-2xl p-5 mb-5 text-left">
+              <p className="text-[#FF7A1A] font-bold text-sm mb-2">💬 Слово от Руслана:</p>
               <p className="text-white text-sm leading-relaxed">
                 Вы уже сделали то, что большинство откладывает месяцами — честно взглянули на свой бизнес. Это и есть первый шаг к реальным изменениям.
               </p>
@@ -389,7 +389,7 @@ export default function DiagnosticQuiz({ diagRef }: DiagnosticQuizProps) {
 
             {/* Статус */}
             <div className="flex items-center justify-center gap-2 text-sm text-gray-400 mb-5">
-              <Icon name="CheckCircle" size={16} className="text-[#D0585E]" />
+              <Icon name="CheckCircle" size={16} className="text-[#FF7A1A]" />
               Ответы отправлены эксперту — ожидайте связи
             </div>
 

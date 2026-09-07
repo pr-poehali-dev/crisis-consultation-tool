@@ -37,7 +37,7 @@ export default function MessengerButton() {
       <button
         onClick={() => setOpen((v) => !v)}
         className="w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 relative"
-        style={{ background: open ? "#D0585E" : "#229ED9" }}
+        style={{ background: open ? "#FF7A1A" : "#229ED9" }}
         aria-label="Написать в мессенджер"
       >
         {open ? (
@@ -51,7 +51,7 @@ export default function MessengerButton() {
           </svg>
         )}
         {!open && (
-          <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#D0585E] rounded-full flex items-center justify-center">
+          <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#FF7A1A] rounded-full flex items-center justify-center">
             <span className="w-2 h-2 bg-white rounded-full animate-ping" />
           </span>
         )}

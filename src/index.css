@@ -4,46 +4,46 @@
 
 @layer base {
   :root {
-    --background: 219 36% 11%;
+    --background: 28 40% 8%;
     --foreground: 0 0% 95%;
 
-    --card: 218 36% 15%;
+    --card: 28 35% 12%;
     --card-foreground: 0 0% 95%;
 
-    --popover: 218 36% 15%;
+    --popover: 28 35% 12%;
     --popover-foreground: 0 0% 95%;
 
-    --primary: 357 56% 58%;
+    --primary: 25 100% 55%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 218 36% 19%;
+    --secondary: 28 30% 16%;
     --secondary-foreground: 0 0% 95%;
 
-    --muted: 218 36% 17%;
-    --muted-foreground: 208 18% 68%;
+    --muted: 28 25% 14%;
+    --muted-foreground: 30 15% 65%;
 
-    --accent: 357 56% 58%;
+    --accent: 25 100% 55%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 358 77% 51%;
     --destructive-foreground: 28 43% 93%;
 
-    --border: 218 30% 24%;
-    --input: 218 30% 20%;
-    --ring: 357 56% 58%;
+    --border: 28 25% 20%;
+    --input: 28 25% 16%;
+    --ring: 25 100% 55%;
 
     --radius: 0.75rem;
 
-    --neon: #d0585e;
-    --neon-glow: rgba(208, 88, 94, 0.25);
-    --gold: #db8084;
-    --red-hot: #121926;
-    --copper: #1f2c42;
-    --lime: #d0585e;
-    --lime-glow: rgba(208, 88, 94, 0.25);
-    --lime-soft: #db8084;
-    --teal-dark: #121926;
-    --teal: #1f2c42;
+    --neon: #ff7a1a;
+    --neon-glow: rgba(255, 122, 26, 0.25);
+    --gold: #ffa64d;
+    --red-hot: #1a120b;
+    --copper: #2b2015;
+    --lime: #ff7a1a;
+    --lime-glow: rgba(255, 122, 26, 0.25);
+    --lime-soft: #ffa64d;
+    --teal-dark: #1a120b;
+    --teal: #2b2015;
   }
 }
 
@@ -76,26 +76,26 @@
   }
 
   .neon-btn {
-    background: linear-gradient(135deg, #d0585e, #bf363d);
+    background: linear-gradient(135deg, #ff7a1a, #d9520a);
     color: #f5f5f5 !important;
-    box-shadow: 0 2px 12px rgba(208, 88, 94, 0.35);
+    box-shadow: 0 2px 12px rgba(255, 122, 26, 0.35);
     transition: all 0.3s ease;
   }
 
   .neon-btn:hover {
-    background: linear-gradient(135deg, #db8084, #d0585e);
-    box-shadow: 0 4px 20px rgba(208, 88, 94, 0.5);
+    background: linear-gradient(135deg, #ffa64d, #ff7a1a);
+    box-shadow: 0 4px 20px rgba(255, 122, 26, 0.5);
     transform: translateY(-1px);
   }
 
   .glass-card {
     background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(208, 88, 94, 0.18);
+    border: 1px solid rgba(255, 122, 26, 0.18);
   }
 
   .progress-glow {
-    box-shadow: 0 0 8px rgba(208, 88, 94, 0.35);
+    box-shadow: 0 0 8px rgba(255, 122, 26, 0.35);
   }
 
   .animate-fade-in {
@@ -167,14 +167,14 @@
 }
 
 .option-card:hover {
-  border-color: rgba(208, 88, 94, 0.5);
-  background: rgba(208, 88, 94, 0.07);
+  border-color: rgba(255, 122, 26, 0.5);
+  background: rgba(255, 122, 26, 0.07);
   transform: translateX(4px);
 }
 
 .option-card.selected {
-  border-color: #d0585e;
-  background: rgba(208, 88, 94, 0.12);
+  border-color: #ff7a1a;
+  background: rgba(255, 122, 26, 0.12);
   box-shadow: none;
 }
 
@@ -183,9 +183,9 @@
   width: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: #121926;
+  background: #1a120b;
 }
 ::-webkit-scrollbar-thumb {
-  background: #d0585e;
+  background: #ff7a1a;
   border-radius: 2px;
 }
