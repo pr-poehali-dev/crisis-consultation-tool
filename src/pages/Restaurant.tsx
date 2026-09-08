@@ -148,7 +148,7 @@ export default function Restaurant() {
       {/* Hero */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
         <video
-          className="absolute inset-0 w-full h-full object-cover opacity-25 blur-sm scale-105"
+          className="absolute inset-0 w-full h-full object-cover"
           src="/videos/hero-bg.mp4"
           autoPlay
           loop
@@ -156,7 +156,7 @@ export default function Restaurant() {
           playsInline
           poster="https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/files/57918931-6944-45c2-b4f1-0a811ef999ba.jpg"
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-[#1A120B]/95 via-[#241a10]/92 to-[#1A120B]/97" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#1A120B]/70 via-[#241a10]/55 to-[#1A120B]/75" />
         <div className="absolute top-0 right-0 w-1/2 h-full opacity-20 pointer-events-none"
           style={{ background: "radial-gradient(ellipse at 80% 20%, #D9520A 0%, transparent 70%)" }} />
 
