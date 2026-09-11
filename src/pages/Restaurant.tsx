@@ -105,7 +105,7 @@ export default function Restaurant() {
       <nav className="sticky top-0 z-50 bg-[#1A120B]/95 backdrop-blur-md border-b border-white/5">
         <div className="max-w-6xl mx-auto px-4 flex items-center justify-between h-12 gap-2 overflow-x-auto scrollbar-none">
           <div className="flex items-center gap-1 flex-shrink-0">
-            <a href="#startup" className="text-gray-400 hover:text-[#FF7A1A] text-xs px-3 py-1.5 rounded-lg hover:bg-[#FF7A1A]/10 transition-all whitespace-nowrap">Открытие под ключ</a>
+            <a href="#startup" className="text-white font-bold text-xs px-3 py-1.5 rounded-full whitespace-nowrap" style={{ background: "linear-gradient(90deg, #FF7A1A, #D9520A)", boxShadow: "0 0 0 1px rgba(255,122,26,0.5)" }}>Открытие под ключ</a>
             <a href="#cases" className="text-gray-400 hover:text-[#FF7A1A] text-xs px-3 py-1.5 rounded-lg hover:bg-[#FF7A1A]/10 transition-all whitespace-nowrap">Кейсы</a>
             <a href="#services" className="text-gray-400 hover:text-[#FF7A1A] text-xs px-3 py-1.5 rounded-lg hover:bg-[#FF7A1A]/10 transition-all whitespace-nowrap">Услуги</a>
             <a href="#audit" className="text-gray-400 hover:text-[#FF7A1A] text-xs px-3 py-1.5 rounded-lg hover:bg-[#FF7A1A]/10 transition-all whitespace-nowrap">Аудит</a>
