@@ -24,7 +24,7 @@ const CASES: CaseItem[] = [
   { name: "Saikō", type: "Азиатская кухня", icon: "UtensilsCrossed", photo: "https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/6788d11f-5290-48d4-beda-6fb80273eec1.png" },
   { name: "Чифанька", type: "Азиатская кухня", icon: "UtensilsCrossed", photo: "https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/deacefc3-5808-4309-b43b-0d71c421247a.png" },
   { name: "Вход с улицы", type: "Ресторан", icon: "UtensilsCrossed", photo: "https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/f2bc5231-4a9e-406a-be9c-c9c81ac73fde.png" },
-  { name: "Giallo", type: "Ресторан", icon: "UtensilsCrossed" },
+  { name: "Giallo", type: "Ресторан", icon: "UtensilsCrossed", photo: "https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/8d5d6a08-6e86-48fe-94b5-e917f69955c3.png" },
 ];
 
 export default function CasesSection() {
