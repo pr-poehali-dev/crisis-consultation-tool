@@ -104,13 +104,13 @@ export default function Restaurant() {
       {/* Навигация */}
       <nav className="sticky top-0 z-50 bg-[#1A120B]/95 backdrop-blur-md border-b border-white/5">
         <div className="max-w-6xl mx-auto px-4 flex items-center justify-between h-12 gap-2 overflow-x-auto scrollbar-none">
-          <div className="flex items-center gap-1 flex-shrink-0">
-            <a href="#startup" className="text-white font-bold text-xs px-3 py-1.5 rounded-full whitespace-nowrap" style={{ background: "linear-gradient(90deg, #FF7A1A, #D9520A)", boxShadow: "0 0 0 1px rgba(255,122,26,0.5)" }}>Открытие под ключ</a>
-            <a href="#cases" className="text-gray-400 hover:text-[#FF7A1A] text-xs px-3 py-1.5 rounded-lg hover:bg-[#FF7A1A]/10 transition-all whitespace-nowrap">Кейсы</a>
-            <a href="#services" className="text-gray-400 hover:text-[#FF7A1A] text-xs px-3 py-1.5 rounded-lg hover:bg-[#FF7A1A]/10 transition-all whitespace-nowrap">Услуги</a>
-            <a href="#audit" className="text-gray-400 hover:text-[#FF7A1A] text-xs px-3 py-1.5 rounded-lg hover:bg-[#FF7A1A]/10 transition-all whitespace-nowrap">Аудит</a>
-            <a href="#consultation" className="text-[#FFA64D] hover:text-white text-xs font-semibold px-3 py-1.5 rounded-lg bg-[rgba(255, 122, 26, 0.12)] hover:bg-[rgba(255, 122, 26, 0.2)] border border-[rgba(255, 122, 26, 0.3)] transition-all whitespace-nowrap">Консультация</a>
-            <a href="#contacts" className="text-gray-400 hover:text-[#FF7A1A] text-xs px-3 py-1.5 rounded-lg hover:bg-[#FF7A1A]/10 transition-all whitespace-nowrap">Контакты</a>
+          <div className="flex items-center gap-1 flex-shrink-0 bg-black/40 rounded-full p-1">
+            <a href="#startup" className="text-[#1A120B] font-bold text-xs px-3 py-1.5 rounded-full bg-white whitespace-nowrap">Открытие под ключ</a>
+            <a href="#cases" className="text-[#1A120B] font-bold text-xs px-3 py-1.5 rounded-full bg-white whitespace-nowrap">Кейсы</a>
+            <a href="#services" className="text-[#1A120B] font-bold text-xs px-3 py-1.5 rounded-full bg-white whitespace-nowrap">Услуги</a>
+            <a href="#audit" className="text-[#1A120B] font-bold text-xs px-3 py-1.5 rounded-full bg-white whitespace-nowrap">Аудит</a>
+            <a href="#consultation" className="text-[#1A120B] font-bold text-xs px-3 py-1.5 rounded-full bg-white whitespace-nowrap">Консультация</a>
+            <a href="#contacts" className="text-[#1A120B] font-bold text-xs px-3 py-1.5 rounded-full bg-white whitespace-nowrap">Контакты</a>
           </div>
           <div className="flex items-center gap-2 flex-shrink-0">
             <a
