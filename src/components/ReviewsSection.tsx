@@ -146,7 +146,7 @@ export default function ReviewsSection() {
     .toUpperCase();
 
   return (
-    <div id="cases" className="py-16 px-6 w-full" style={{ background: "linear-gradient(180deg, transparent 0%, rgba(255, 122, 26, 0.04) 50%, transparent 100%)" }}>
+    <div className="py-16 px-6 w-full" style={{ background: "linear-gradient(180deg, transparent 0%, rgba(255, 122, 26, 0.04) 50%, transparent 100%)" }}>
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-10">
           <h2 className="font-oswald text-4xl font-bold uppercase mb-3 text-white">
