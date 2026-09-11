@@ -19,11 +19,11 @@ const CASES: CaseItem[] = [
   { name: "ГастроПаб 31", location: "Шаболовка", type: "Гастропаб", icon: "Beer", photo: "https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/8d254c92-885d-4a96-a082-d9606a3fcf09.png" },
   { name: "PANE & OLIO", type: "Итальянская кухня", icon: "UtensilsCrossed", photo: "https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/548dd55f-749a-4f28-a287-c66dcba64998.png" },
   { name: "Хачапури", type: "Ресторан", icon: "UtensilsCrossed", photo: "https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/dfbcd22b-61ab-40e9-801b-2556bfa08db7.png" },
-  { name: "Сезам", type: "Ресто-бар", icon: "Wine" },
-  { name: "Баракат", type: "Кафе", icon: "Coffee" },
-  { name: "Saikō", type: "Азиатская кухня", icon: "UtensilsCrossed" },
-  { name: "Чифанька", type: "Азиатская кухня", icon: "UtensilsCrossed" },
-  { name: "Вход с улицы", type: "Ресторан", icon: "UtensilsCrossed" },
+  { name: "Сезам", type: "Ресто-бар", icon: "Wine", photo: "https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/f15279ee-3f05-4c16-81d6-a4977e6ac63d.png" },
+  { name: "Баракат", type: "Кафе", icon: "Coffee", photo: "https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/21ebac16-26fc-45f2-b824-01cf86a19213.png" },
+  { name: "Saikō", type: "Азиатская кухня", icon: "UtensilsCrossed", photo: "https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/6788d11f-5290-48d4-beda-6fb80273eec1.png" },
+  { name: "Чифанька", type: "Азиатская кухня", icon: "UtensilsCrossed", photo: "https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/deacefc3-5808-4309-b43b-0d71c421247a.png" },
+  { name: "Вход с улицы", type: "Ресторан", icon: "UtensilsCrossed", photo: "https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/f2bc5231-4a9e-406a-be9c-c9c81ac73fde.png" },
   { name: "Giallo", type: "Ресторан", icon: "UtensilsCrossed" },
 ];
 
