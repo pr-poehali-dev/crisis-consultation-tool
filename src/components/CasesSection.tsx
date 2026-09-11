@@ -37,9 +37,6 @@ export default function CasesSection() {
             <Icon name="Award" size={16} className="text-[#FF7A1A]" />
             <span className="text-[#FF7A1A] text-sm font-medium uppercase tracking-wider">Реальные проекты</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-oswald font-bold text-white mb-4 uppercase">
-            Заведения, <span className="neon-text">которые я вывел в плюс</span>
-          </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
             Рестораны, бары и кофейни, где я лично проводил аудит, выстраивал процессы, открывал заведение под ключ или сопровождал команду до результата.
           </p>
