@@ -111,6 +111,7 @@ export default function Restaurant() {
             <a href="#audit" className="text-[#1A120B] font-bold text-xs px-3 py-1.5 rounded-full bg-white whitespace-nowrap">Аудит</a>
             <a href="#consultation" className="text-[#1A120B] font-bold text-xs px-3 py-1.5 rounded-full bg-white whitespace-nowrap">Консультация</a>
             <a href="#contacts" className="text-[#1A120B] font-bold text-xs px-3 py-1.5 rounded-full bg-white whitespace-nowrap">Контакты</a>
+            <a href="/blog" className="text-[#1A120B] font-bold text-xs px-3 py-1.5 rounded-full bg-white whitespace-nowrap">Блог</a>
           </div>
           <div className="flex items-center gap-2 flex-shrink-0">
             <a
