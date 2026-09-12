@@ -9,6 +9,7 @@ interface CaseItem {
 }
 
 const CASES: CaseItem[] = [
+  { name: "Look Up Cafe&Shop", type: "Кафе", icon: "Coffee", photo: "https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/434633d7-0233-484e-8353-65d19476b013.png" },
   { name: "Grizzly", location: "Мясницкая", type: "Гастробар", icon: "Beer", photo: "https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/f6d20972-9e87-4556-a231-dd04df2c079c.png" },
   { name: "«Рецептор»", location: "Патриаршие пруды", type: "Кафе", icon: "Coffee", photo: "https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/5a7142ee-c6ee-41ca-8413-b5562b1b777b.png" },
   { name: "Luciano", type: "Ресторан", icon: "UtensilsCrossed", photo: "https://cdn.poehali.dev/projects/d03b4405-25a0-4b97-9b8f-79e914b22255/bucket/d34d71d9-fe96-4614-a538-fc5abde90c55.png" },
