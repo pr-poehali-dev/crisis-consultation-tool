@@ -142,6 +142,23 @@ export default function Restaurant() {
         </div>
       </nav>
 
+      {/* Баннер чек-лист ХАССП */}
+      <a
+        href="/checklist-sanpin-2026.pdf"
+        download="Чек-лист-ХАССП-СанПиН-2026.pdf"
+        className="block w-full bg-red-600 hover:bg-red-700 transition-colors py-3 px-4"
+      >
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-3 text-center">
+          <span className="text-white text-sm md:text-base font-bold uppercase tracking-wide">
+            Проверка Роспотребнадзора? Скачай чек-лист СанПиН 2026 бесплатно
+          </span>
+          <span className="inline-flex items-center gap-2 bg-white text-red-600 font-black text-sm px-5 py-1.5 rounded-lg whitespace-nowrap animate-pulse">
+            <Icon name="Download" size={16} />
+            Скачать чек-лист
+          </span>
+        </div>
+      </a>
+
       {/* CTA Banner */}
       <div className="w-full bg-[#D9520A] py-3 px-4">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-3 text-center">
@@ -222,6 +239,18 @@ export default function Restaurant() {
                 </span>
                 <span className="text-green-400 text-sm font-medium">Руслан онлайн</span>
               </div>
+
+              <a
+                href="/checklist-sanpin-2026.pdf"
+                download="Чек-лист-ХАССП-СанПиН-2026.pdf"
+                className="flex items-center gap-3 bg-red-600 hover:bg-red-700 text-white font-bold text-base md:text-lg px-6 py-4 rounded-xl mb-4 w-full sm:w-fit shadow-[0_0_24px_rgba(220,38,38,0.55)] transition-colors"
+              >
+                <Icon name="FileDown" size={24} />
+                <span className="flex flex-col leading-tight text-left">
+                  Скачать чек-лист СанПиН 2026
+                  <span className="text-xs font-medium text-white/80">Для проверки Роспотребнадзора · бесплатно</span>
+                </span>
+              </a>
 
               <div className="flex flex-col sm:flex-row gap-4 mb-10">
                 <button onClick={scrollToDiag} className="neon-btn text-white font-bold text-lg px-8 py-4 rounded-xl flex items-center gap-3">
