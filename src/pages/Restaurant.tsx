@@ -112,6 +112,14 @@ export default function Restaurant() {
             <a href="#consultation" className="text-[#1A120B] font-bold text-xs px-3 py-1.5 rounded-full bg-white whitespace-nowrap">Консультация</a>
             <a href="#contacts" className="text-[#1A120B] font-bold text-xs px-3 py-1.5 rounded-full bg-white whitespace-nowrap">Контакты</a>
             <a href="/blog" className="text-[#1A120B] font-bold text-xs px-3 py-1.5 rounded-full bg-white whitespace-nowrap">Блог</a>
+            <a
+              href="/checklist-sanpin-2026.pdf"
+              download="Чек-лист-ХАССП-СанПиН-2026.pdf"
+              className="text-white font-bold text-xs px-3 py-1.5 rounded-full bg-red-600 hover:bg-red-700 whitespace-nowrap flex items-center gap-1 shadow-[0_0_14px_rgba(220,38,38,0.6)] transition-colors"
+            >
+              <Icon name="Download" size={12} />
+              ХАССП
+            </a>
           </div>
           <div className="flex items-center gap-2 flex-shrink-0">
             <a
