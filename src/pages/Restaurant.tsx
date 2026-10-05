@@ -119,6 +119,13 @@ export default function Restaurant() {
               Преимущества
             </a>
             <a
+              href="#about"
+              className="text-white font-bold text-xs px-3 py-1.5 rounded-full bg-red-600 hover:bg-red-700 whitespace-nowrap flex items-center gap-1 shadow-[0_0_14px_rgba(220,38,38,0.6)] animate-pulse transition-colors"
+            >
+              <Icon name="User" size={12} />
+              Обо мне
+            </a>
+            <a
               href="/checklist-sanpin-2026.pdf"
               download="Чек-лист-ХАССП-СанПиН-2026.pdf"
               className="text-white font-bold text-xs px-3 py-1.5 rounded-full bg-red-600 hover:bg-red-700 whitespace-nowrap flex items-center gap-1 shadow-[0_0_14px_rgba(220,38,38,0.6)] transition-colors"

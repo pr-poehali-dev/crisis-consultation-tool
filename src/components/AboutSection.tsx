@@ -2,7 +2,7 @@ import Icon from "@/components/ui/icon";
 
 export default function AboutSection() {
   return (
-    <section className="py-20 px-4" style={{ background: "linear-gradient(180deg, #1A120B 0%, #241a10 100%)" }}>
+    <section id="about" className="py-20 px-4 scroll-mt-14" style={{ background: "linear-gradient(180deg, #1A120B 0%, #241a10 100%)" }}>
       <div className="max-w-6xl mx-auto">
 
         <div className="text-center mb-14">
