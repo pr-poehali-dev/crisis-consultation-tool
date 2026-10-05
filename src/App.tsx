@@ -11,6 +11,7 @@ import NotFound from "./pages/NotFound";
 import QRPage from "./pages/QRPage";
 import BlogList from "./pages/BlogList";
 import BlogPost from "./pages/BlogPost";
+import ChecklistPreviews from "./pages/ChecklistPreviews";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/qr" element={<QRPage />} />
           <Route path="/blog" element={<BlogList />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/checklist-previews" element={<ChecklistPreviews />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
