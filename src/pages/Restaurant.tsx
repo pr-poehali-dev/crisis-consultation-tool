@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import Icon from "@/components/ui/icon";
 import FloatingCTA from "@/components/FloatingCTA";
-import GuaranteeSection from "@/components/GuaranteeSection";
 import AboutSection from "@/components/AboutSection";
 import PainsSection from "@/components/PainsSection";
 import CalculatorSection from "@/components/CalculatorSection";
@@ -112,6 +111,13 @@ export default function Restaurant() {
             <a href="#consultation" className="text-[#1A120B] font-bold text-xs px-3 py-1.5 rounded-full bg-white whitespace-nowrap">Консультация</a>
             <a href="#contacts" className="text-[#1A120B] font-bold text-xs px-3 py-1.5 rounded-full bg-white whitespace-nowrap">Контакты</a>
             <a href="/blog" className="text-[#1A120B] font-bold text-xs px-3 py-1.5 rounded-full bg-white whitespace-nowrap">Блог</a>
+            <a
+              href="#advantages"
+              className="text-white font-bold text-xs px-3 py-1.5 rounded-full bg-red-600 hover:bg-red-700 whitespace-nowrap flex items-center gap-1 shadow-[0_0_14px_rgba(220,38,38,0.6)] animate-pulse transition-colors"
+            >
+              <Icon name="Flame" size={12} />
+              Преимущества
+            </a>
             <a
               href="/checklist-sanpin-2026.pdf"
               download="Чек-лист-ХАССП-СанПиН-2026.pdf"
@@ -348,7 +354,6 @@ export default function Restaurant() {
       <CasesSection />
 
       <HowWeWorkSection />
-      <GuaranteeSection onDiagnosticClick={scrollToDiag} />
       <ServicesSection />
 
       <BenefitsSection />
