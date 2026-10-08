@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Icon from "@/components/ui/icon";
 
 type IconName = Parameters<typeof Icon>[0]["name"];
@@ -94,6 +94,21 @@ export default function Oct2026() {
   const [index, setIndex] = useState(0);
   const slide = slides[index];
   const last = slides.length - 1;
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  };
+
+  const onTouchEnd = (e: React.TouchEvent) => {
+    const start = touchStart.current;
+    touchStart.current = null;
+    if (!start) return;
+    const dx = e.changedTouches[0].clientX - start.x;
+    const dy = e.changedTouches[0].clientY - start.y;
+    if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+    setIndex((i) => (dx < 0 ? Math.min(i + 1, last) : Math.max(i - 1, 0)));
+  };
 
   const go = (i: number) => setIndex(Math.min(Math.max(i, 0), last));
 
@@ -121,7 +136,11 @@ export default function Oct2026() {
         </span>
       </header>
 
-      <main className="flex-1 flex items-center justify-center p-3 md:p-8">
+      <main
+        className="flex-1 flex items-center justify-center p-3 md:p-8"
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+      >
         <article
           key={index}
           className="relative w-full max-w-5xl rounded-3xl overflow-hidden bg-[#F4F2EF] text-[#0E0B09] grid md:grid-cols-[1.25fr_1fr] min-h-[620px] animate-in fade-in duration-500"
