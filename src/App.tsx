@@ -12,6 +12,7 @@ import QRPage from "./pages/QRPage";
 import BlogList from "./pages/BlogList";
 import BlogPost from "./pages/BlogPost";
 import CarouselDownload from "./pages/CarouselDownload";
+import CoversDownload from "./pages/CoversDownload";
 import Oct2026 from "./pages/Oct2026";
 import ChecklistPreviews from "./pages/ChecklistPreviews";
 
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/checklist-previews" element={<ChecklistPreviews />} />
           <Route path="/carousel-oct" element={<CarouselDownload />} />
+          <Route path="/covers" element={<CoversDownload />} />
           <Route path="/oct-2026" element={<Oct2026 />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
