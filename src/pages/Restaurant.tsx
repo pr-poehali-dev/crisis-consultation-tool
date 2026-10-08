@@ -112,6 +112,13 @@ export default function Restaurant() {
             <a href="#contacts" className="text-[#1A120B] font-bold text-xs px-3 py-1.5 rounded-full bg-white whitespace-nowrap">Контакты</a>
             <a href="/blog" className="text-[#1A120B] font-bold text-xs px-3 py-1.5 rounded-full bg-white whitespace-nowrap">Блог</a>
             <a
+              href="/oct-2026"
+              className="text-white font-bold text-xs px-3 py-1.5 rounded-full bg-red-600 hover:bg-red-700 whitespace-nowrap flex items-center gap-1 shadow-[0_0_14px_rgba(220,38,38,0.6)] animate-pulse transition-colors"
+            >
+              <Icon name="CalendarClock" size={12} />
+              С 1 октября 2026
+            </a>
+            <a
               href="#advantages"
               className="text-white font-bold text-xs px-3 py-1.5 rounded-full bg-red-600 hover:bg-red-700 whitespace-nowrap flex items-center gap-1 shadow-[0_0_14px_rgba(220,38,38,0.6)] animate-pulse transition-colors"
             >

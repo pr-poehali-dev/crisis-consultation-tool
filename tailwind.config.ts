@@ -23,6 +23,8 @@ export default {
 				oswald: ['Oswald', 'sans-serif'],
 				golos: ["'Golos Text'", 'sans-serif'],
 				cormorant: ["'Cormorant'", 'serif'],
+				unbounded: ['Unbounded', 'sans-serif'],
+				manrope: ['Manrope', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
