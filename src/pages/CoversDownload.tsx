@@ -18,7 +18,7 @@ export default function CoversDownload() {
         <p className="text-white/60 mb-8">7 обложек 1080×1920. Нажми «Скачать» под каждой.</p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {covers.map((c) => {
-            const src = `/covers/cover-${c.n}.jpg?v=2`;
+            const src = `/covers/cover-${c.n}.jpg?v=3`;
             return (
               <div key={c.n} className="space-y-2">
                 <img src={src} alt={c.title} className="w-full rounded-xl" />
