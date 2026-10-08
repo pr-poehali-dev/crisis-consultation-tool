@@ -184,6 +184,18 @@ export default function Oct2026() {
         </article>
       </main>
 
+      {index === last && (
+        <div className="flex justify-center px-4 pb-5 animate-in fade-in duration-500">
+          <a
+            href="/#consultation"
+            className="inline-flex items-center gap-2 rounded-full bg-red-600 hover:bg-red-700 px-6 py-3 font-unbounded text-xs md:text-sm font-bold uppercase tracking-wide shadow-[0_0_20px_rgba(220,38,38,0.5)] transition-colors"
+          >
+            <Icon name="CalendarCheck" size={18} />
+            Записаться на консультацию
+          </a>
+        </div>
+      )}
+
       <footer className="flex items-center justify-center gap-4 pb-6">
         <button
           onClick={() => go(index - 1)}
