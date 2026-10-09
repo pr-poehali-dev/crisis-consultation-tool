@@ -32,7 +32,7 @@ const App = () => (
           <Route path="/blog" element={<BlogList />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/checklist-previews" element={<ChecklistPreviews />} />
-          <Route path="/carousel-oct" element={<CarouselDownload />} />
+          <Route path="/carousel-pl" element={<CarouselDownload />} />
           <Route path="/reels-covers" element={<CoversDownload />} />
           <Route path="/oct-2026" element={<Oct2026 />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
