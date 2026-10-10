@@ -13,6 +13,7 @@ import BlogList from "./pages/BlogList";
 import BlogPost from "./pages/BlogPost";
 import CarouselDownload from "./pages/CarouselDownload";
 import CoversDownload from "./pages/CoversDownload";
+import ConsultCarouselDownload from "./pages/ConsultCarouselDownload";
 import Oct2026 from "./pages/Oct2026";
 import ChecklistPreviews from "./pages/ChecklistPreviews";
 
@@ -34,6 +35,7 @@ const App = () => (
           <Route path="/checklist-previews" element={<ChecklistPreviews />} />
           <Route path="/carousel-pl" element={<CarouselDownload />} />
           <Route path="/reels-covers" element={<CoversDownload />} />
+          <Route path="/carousel-consult" element={<ConsultCarouselDownload />} />
           <Route path="/oct-2026" element={<Oct2026 />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
